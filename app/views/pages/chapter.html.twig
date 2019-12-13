@@ -1,0 +1,148 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <section id="showcase" style="min-height: 750px;" class="d-flex justify-content-center align-items-center">
+        <div id="overlay"></div>
+        <div id="header" class="container text-white text-center">
+            <h3 class="display-5 mb-0">Publications</h3>
+            <h1 class="display-3">Jean Forteroche</h1>
+        </div>
+    </section>
+
+
+    <section class="my-5">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-8">
+
+                    <h1>{{ chapter.title |raw }}</h1>
+
+                    <p class="lead">
+                        écrit par <a href="index.php?action=bio">Jean Forteroche</a>
+                    </p>
+
+                    <hr>
+
+                    <p> publié le {{ chapter.content_date | date('d/m/Y') }}</p>
+
+                    <hr>
+
+                    <img class="img-fluid" src="https://picsum.photos/id/{{ id }}/900/300" alt="chapter photo">
+
+                    <hr>
+
+                    <p class="lead text-justify">{{ chapter.content |raw }}</p>
+
+                    <hr>
+
+                    <div class="well">
+
+                        <h4>Laissez-nous un commentaire:</h4>
+                        <form action="index.php?action=showChapter&id={{ chapter.id }}" method="POST">
+
+                            <div class="form-group row">
+                                <label for="comment_author" class="col-sm-2">Auteur</label>
+                                <div class="col-sm-10">
+                                    <input type="text"
+                                           class="form-control {{ (comment_author_err is not empty) ? 'is-invalid' : '' }}"
+                                           name="comment_author" value="{{ comment_author }}">
+                                </div>
+                                <span class="invalid-feedback d-block text-center">{{ comment_author_err }}</span>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="comment_email" class="col-sm-2">Mail</label>
+                                <div class="col-sm-10">
+                                    <input type="text"
+                                           class="form-control {{ (comment_email_err is not empty) ? 'is-invalid' : '' }}"
+                                           name="comment_email" value="{{ comment_email }}">
+                                </div>
+                                <span class="invalid-feedback d-block text-center">{{ comment_email_err }}</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="comment_content">Votre commentaire</label>
+                                <textarea
+                                        class="form-control {{ (comment_content_err is not empty) ? 'is-invalid' : '' }}"
+                                        rows="3" name="comment_content">{{ comment_content }}</textarea>
+                                <span class="invalid-feedback d-block text-center">{{ comment_content_err }}</span>
+                            </div>
+                            <button name="create_comment" type="submit" class="btn btn-primary">Envoyer</button>
+                        </form>
+                    </div>
+
+                    <hr>
+
+                    {% for comment in commentsById if comment.comment_status == 'approuved' or comment.comment_status == 'newComment' %}
+                        <div class="media py-2">
+                            <a class="pull-left" href="#">
+                                <img class="media-object" src="https://picsum.photos/id/{{ comment.comment_id }}/64/64"
+                                     alt="">
+                            </a>
+                            <div class="media-body py-1 px-1">
+                                <h4 class="media-heading">{{ comment.comment_author }}
+                                    <small>le {{ comment.comment_date|date("d/m/Y", false) }}
+                                        à {{ comment.comment_date|date("H:i:s", false) }}</small>
+                                </h4>
+                                {{ comment.comment_content }}
+                            </div>
+                            <ul class="flex-column jf">
+                                {% if comment.comment_status == 'newComment' %}
+                                    <li class="my-1">
+                                        <a href="index.php?action=unapprouve&comment_id={{ comment.comment_id }}&id={{ comment.chapterId }}"
+                                           class="btn btn-sm btn-warning"
+                                           onclick="return confirm('Confirmer la signalisation ?');">
+                                            Signaler
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if adminLogged %}
+                                    <li>
+                                        <a href="index.php?action=deleteComment&comment_id={{ comment.comment_id }}&id={{ comment.chapterId }}"
+                                           class="btn btn-sm btn-danger"
+                                           onclick="return confirm('Confirmer la suppresion ?');">
+                                            Supprimer <i class="fas fa-trash"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+
+                    {% endfor %}
+                </div>
+
+
+                <div class="col-md-4 py-2">
+
+                    <div class="card px-3">
+                        <h4>Chapitres</h4>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-unstyled">
+                                    {% for chapter in chapters %}
+                                        <li>
+                                            <a href="index.php?action=showChapter&id={{ chapter.id }}">{{ chapter.title|raw }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <hr>
+    </section>
+
+{% endblock %}

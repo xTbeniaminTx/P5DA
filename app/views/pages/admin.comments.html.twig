@@ -1,0 +1,70 @@
+{% extends "admin.base.html.twig" %}
+{% block pagesActive %}
+    <a href="index.php?action=adminChapters" class="list-group-item list-group-item-action"><i class="fas fa-book"></i>
+        Chapitres</a>
+    <a href="index.php?action=adminComments" class="list-group-item list-group-item-action active"><i
+                class="fas fa-comments"></i> Commentaires</a>
+
+{% endblock %}
+ {% block principal %}
+     {{ comment_message }}
+     <div class="row">
+         <div class="col-md-6">
+             <h2>Commentaires</h2>
+         </div>
+     </div>
+
+     <nav aria-label="breadcrumb">
+         <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a href="#">Home</a></li>
+             <li class="breadcrumb-item active" aria-current="page">Comments</li>
+         </ol>
+     </nav>
+
+     <table class="table table-responsive-md table-hover">
+         <thead class="thead-light">
+         <tr>
+
+             <th scope="col">Author</th>
+             <th scope="col">Comentaire</th>
+             <th scope="col">Email</th>
+             <th scope="col">Status</th>
+             <th scope="col">En Reponse A</th>
+             <th scope="col">Date</th>
+             <th scope="col" class="text-warning"></th>
+
+         </tr>
+         </thead>
+
+         {% for comment in comments if comment.comment_status == 'unapprouved' or comment.comment_status == 'newComment' %}
+             <tbody>
+             <tr>
+
+                 <td>
+                     <a href="index.php?action=showChapter&id={{ comment.comment_chapter_id }}">{{ comment.comment_author }}</a>
+                 </td>
+                 <td>{{ comment.comment_content |raw }}</td>
+                 <td>{{ comment.comment_email | raw }}</td>
+                 <td>{{ comment.comment_status }}</td>
+                 <td>
+                     <a href="index.php?action=showChapter&id={{ comment.comment_chapter_id }}">{{ comment.title | raw }}</a>
+                 </td>
+                 <td>{{ comment.comment_date }}</td>
+                 <td>
+                     <div class="btn-group btn-group-sm float-right" role="group" aria-label="...">
+                         <a href="index.php?action=approuve&id={{ comment.comment_id }}" class="btn btn-success">
+                             <i class="far fa-thumbs-up"></i>Oui</a>
+                         <a href="index.php?action=deleteComment&comment_id={{ comment.comment_id }}"
+                            class="btn btn-danger"
+                            onclick="return confirm('Confirmer la suppression ?');">
+                             <i class="far fa-thumbs-down"></i>Non</a>
+                     </div>
+                 </td>
+
+             </tr>
+             </tbody>
+         {% endfor %}
+
+     </table>
+
+ {% endblock %}

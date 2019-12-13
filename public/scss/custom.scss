@@ -1,0 +1,285 @@
+// personal customization
+body {
+  font-family: "Raleway", sans-serif;
+}
+
+.huge {
+  font-size: 50px;
+  line-height: normal;
+}
+
+//flash message
+.mt-10 {
+  margin-top: 5rem
+}
+
+#msg-flash {
+  //margin-bottom: -5rem !important;
+  z-index: 99;
+}
+
+.personalStar {
+  color: goldenrod;
+}
+
+ul.flex-column.jf {
+  list-style: none;
+}
+
+.socialCustom {
+  .wrapper {
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  ul li {
+    width: 50px;
+    height: 50px;
+    background: #e59500;
+    margin: 10px 0;
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  ul li .fa {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+  }
+
+  ul li.facebook {
+    background: #3b5999;
+  }
+
+  ul li.twitter {
+    background: #55acee;
+  }
+
+  ul li.instagram {
+    background: #e4405f;
+  }
+
+  ul li.google {
+    background: #dd4b39;
+  }
+
+  ul li.whatsapp {
+    background: #25d366;
+  }
+
+  .slider {
+    position: absolute;
+    top: 0;
+    left: 51px;
+    width: 0px;
+    height: 50px;
+    line-height: 50px;
+    background: #eebb5c;
+    text-align: center;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+  }
+
+  .slider p {
+    text-transform: uppercase;
+    font-size: 16px;
+    opacity: 0;
+    font-weight: 900;
+    transition: all 0.2s ease;
+  }
+
+  ul li.facebook div.slider {
+    background: #624aac;
+  }
+
+  ul li.twitter div.slider {
+    background: #7fd5f6;
+  }
+
+  ul li.instagram div.slider {
+    background: #dd94c6;
+  }
+
+  ul li.google div.slider {
+    background: #eea59c;
+  }
+
+  ul li.whatsapp div.slider {
+    background: #82d47e;
+  }
+
+  ul li:hover .slider {
+    width: 180px;
+  }
+
+  ul li:hover .slider p {
+    opacity: 1;
+  }
+
+  @include media-breakpoint-down(sm) {
+    .wrapper {
+      display: none;
+    }
+  }
+}
+
+
+.navbar {
+  font-weight: 100;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 3;
+
+  .navbar-brand h3 {
+    font-weight: 100;
+  }
+
+  .nav-item {
+    font-size: 1.4rem;
+  }
+
+  .nav-link:hover {
+    transition: border 0.2s;
+    border-bottom: 1px solid white;
+  }
+
+}
+
+
+#showcase {
+  background: url("../images/main.jpeg") bottom / cover no-repeat;
+  min-height: 900px;
+  position: relative;
+
+  #header {
+    z-index: 2;
+  }
+
+  #overlay {
+    background: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  h1 {
+    font-family: "Questrial", sans-serif;
+    line-height: 1;
+  }
+
+  #chapters {
+    font-size: 1.5rem;
+    border-radius: 2rem;
+  }
+}
+
+#quotes {
+  i {
+    opacity: 0.3;
+  }
+}
+
+#footer {
+  font-weight: 100;
+
+  a {
+    text-decoration: none;
+    //color: rgba(255, 255, 255, 0.75);
+  }
+}
+
+#adminFooter p {
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: white;
+}
+
+
+//login page
+#login {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.form-signin {
+
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+
+
+  .checkbox {
+    font-weight: 400;
+  }
+
+  .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .form-control:focus {
+    z-index: 2;
+  }
+
+  input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+
+//end login page
+
+
+@include media-breakpoint-down(sm) {
+  .navbar {
+    background: #1f1f1f;
+
+    .nav-link:hover {
+      border-bottom: none;
+    }
+  }
+
+  #showcase {
+    min-height: 500px;
+
+    h1 {
+      font-size: 4rem;
+    }
+  }
+}

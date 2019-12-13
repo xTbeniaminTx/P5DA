@@ -1,0 +1,9 @@
+{
+    "require": {
+        "twig/twig": "^2.0",
+        "tinymce/tinymce": ">= 4",
+        "symfony/var-dumper": "^4.3",
+        "hellonico/twig-dump-extension": "^1.0",
+        "swiftmailer/swiftmailer": "^6.0"
+    }
+}

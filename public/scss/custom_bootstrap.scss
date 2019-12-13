@@ -1,0 +1,15 @@
+//customize colors
+$theme-colors: (
+        "primary": #36b3a8,
+        "jeanforteroche": #FECAA2,
+        "secondary": #1f1f1f,
+        "success": #8BC34A,
+        "danger": #E91E63,
+        "warning": #FF5722,
+        "info": #009688,
+        "dark": rgba(5, 15, 5, 0.96),
+);
+
+
+//import boostrap
+@import "../bootstrap/scss/bootstrap";

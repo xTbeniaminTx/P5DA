@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {{ message_contact }}
+    <section id="showcase" class="d-flex justify-content-center align-items-center" style="min-height: 750px;">
+        <div id="overlay"></div>
+        <div id="header" class="container text-white text-center">
+            <h1 class="display-3">Ecrivez-moi deux mots...</h1>
+            <p class="lead d-none d-md-block py-5">Votre retour est très important pour moi.</p>
+        </div>
+    </section>
+    <section class="p-5">
+        <div class="container text-white text-center py-5">
+            <form action="index.php?action=sendMail" name="sendMail" method="post">
+                <div class="input-group justify-content-center">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <input type="text" name="txtName" class="form-control" placeholder="Nom *" required
+                                   value=""/>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="txtEmail" class="form-control" placeholder="Email *" required
+                                   value=""/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="txtPhone" class="form-control" placeholder="Mobile "
+                                   value=""/>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <textarea name="txtMsg" class="form-control" placeholder="Message *" required
+                                      style="width: 100%; height: 150px;"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-center align-items-center">
+                        <div class="form-group">
+                            <input type="submit" name="btnSubmit" class="btn btn-primary" value="Envoyer"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="bg-dark">
+        <div class="container text-white text-center py-5">
+            <p class="lead">REJOIIGNEZ NOTRE NEWSLETTER POUR AVOIR LES DERNIERES INFOS</p>
+            <div class="row justify-content-center">
+                <div class="col-10 col-sm-8 col-md-6 col-lg-4">
+                    <form action="" class="form-inline">
+                        <div class="input-group">
+                            <input type="text" name="" class="form-control" placeholder="Votre email">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary">Rejoindre</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

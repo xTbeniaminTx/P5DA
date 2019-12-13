@@ -1,0 +1,66 @@
+﻿{% extends "admin.base.html.twig" %}
+
+{% block pagesActive %}
+
+    <a href="index.php?action=adminChapters" class="list-group-item list-group-item-action active"><i
+                class="fas fa-book"></i> Chapitres</a>
+    <a href="index.php?action=adminComments" class="list-group-item list-group-item-action"><i
+                class="fas fa-comments"></i> Commentaires</a>
+
+{% endblock %}
+
+{% block principal %}
+    {{ chapter_message }}
+    <div class="row">
+        <div class="col-md-6">
+
+            <h2>Chapitres</h2>
+
+        </div>
+        <div class="col-md-6">
+            <div class="btn-group btn-group-sm float-right" role="group" aria-label="...">
+                <a href="index.php?action=addChapter" class="btn btn-success mr-2">
+                    <i class="fa fa-plus fa-fw"></i>Nouveau</a>
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Chapters</li>
+        </ol>
+    </nav>
+
+    <table class="table table-responsive-md table-hover">
+        <thead>
+        <tr>
+
+            <th scope="col" colspan="2">Chapitre</th>
+            <th scope="col" class="text-warning"></th>
+
+        </tr>
+        </thead>
+
+        {% for chapter in chapters %}
+            <tbody>
+            <tr>
+                <td colspan="2"><a href="index.php?action=showChapter&id={{ chapter.id }}">{{ chapter.title |raw }}</a>
+                </td>
+                <td>
+                    <div class="btn-group btn-group-sm float-right" role="group" aria-label="...">
+                        <a href="index.php?action=editChapter&id={{ chapter.id }}" class="btn btn-warning">
+                            <i class="fa fa-edit"></i>Modifier</a>
+                        <a href="index.php?action=deleteChapter&id={{ chapter.id }}" class="btn btn-danger"
+                           onclick="return confirm('Confirmer la suppression ?');">
+                            <i class="fa fa-trash"></i>Effacer</a>
+                    </div>
+                </td>
+
+            </tr>
+            </tbody>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}
