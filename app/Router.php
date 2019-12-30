@@ -16,17 +16,25 @@ class Router
     private $request;
     private $error;
     //------------------------------------------------------------------------------------------------------------------
-    private $routes = [
-        "" => ["controllers" => 'BaseController', "method" => 'home'],
-        "home" => ["controllers" => 'BaseController', "method" => 'home'],
-        "contact" => ["controllers" => 'BaseController', "method" => 'contact'],
-        "chapters" => ["controllers" => 'BaseController', "method" => 'chapters'],
-        "showChapter" => ["controllers" => 'BaseController', "method" => 'showChapter'],
-        "editComment" => ["controllers" => 'BaseController', "method" => 'editComment'],
-        "bio" => ["controllers" => 'BaseController', "method" => 'bio'],
-        "unapprouve" => ["controllers" => 'BaseController', "method" => 'unapprouve'],
-        "adminLogin" => ["controllers" => 'BaseController', "method" => 'adminLogin'],
-        "sendMail" => ["controllers" => 'BaseController', "method" => 'sendMail'],
+    const ROUTES = [
+        [
+            '' => [BaseController::class, 'home'],
+            "home" => [BaseController::class],
+            "contact" => ["controllers" => 'BaseController', "method" => 'contact'],
+            "chapters" => ["controllers" => 'BaseController', "method" => 'chapters'],
+            "showChapter" => ["controllers" => 'BaseController', "method" => 'showChapter'],
+            "editComment" => ["controllers" => 'BaseController', "method" => 'editComment'],
+            "bio" => ["controllers" => 'BaseController', "method" => 'bio'],
+            "unapprouve" => ["controllers" => 'BaseController', "method" => 'unapprouve'],
+            "adminLogin" => ["controllers" => 'BaseController', "method" => 'adminLogin'],
+            "sendMail" => ["controllers" => 'BaseController', "method" => 'sendMail'],
+        ],
+        [
+
+        ],
+        [
+
+        ]
     ];
     //------------------------------------------------------------------------------------------------------------------
     private $routesAdmin = [
@@ -87,6 +95,28 @@ class Router
         } else {
             return false;
         }
+    }
+
+    public function getAllowedRoutes(): array
+    {
+        $roleByLevel = [
+            'visitor' => 0,
+            'member' => 1,
+            'admin' => 2,
+        ];
+
+        $role = $roleByLevel[$_SESSION['role'] ?? 'visitor']; // 0, 1, 2
+
+        $allowedRoutes = [];
+        foreach (self::ROUTES as $key => $routes) {
+            if ($role < $key) {
+                continue;
+            }
+
+            $allowedRoutes[] = $routes;
+        }
+
+        return $allowedRoutes;
     }
     //------------------------------------------------------------------------------------------------------------------
 }

@@ -4,7 +4,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'blog');
+define('DB_NAME', 'blogp5da');
 
 //define('DB_HOST', 'shareddb-g.hosting.stackcp.net');
 //define('DB_USER', 'benjito1983');
