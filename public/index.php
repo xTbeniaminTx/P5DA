@@ -9,10 +9,10 @@ else
     $request = "";
 }
 
-require_once('../app/RouterNew.php');
+require_once('../app/Router.php');
 //require_once ('../app/libraries/Database.php');
 
-$routeur = new RouterNew($request);
+$routeur = new Router($request);
 $routeur->renderController();
 
 

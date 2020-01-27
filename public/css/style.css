@@ -2463,9 +2463,9 @@ ul.flex-column.jf { list-style: none; }
 .navbar .nav-item { font-size: 1.4rem; }
 .navbar .nav-link:hover { transition: border 0.2s; border-bottom: 1px solid white; }
 
-#showcase { background: url("../images/main1.jpg") bottom/cover no-repeat; min-height: 1000px; position: relative; }
+#showcase { background: url("../images/main1.jpg") bottom/cover no-repeat; height: 100vh; position: relative; }
 #showcase #header { z-index: 2; }
-#showcase #overlay { background: rgba(0, 0, 0, 0.2); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+#showcase #overlay { background: rgba(0, 0, 0, 0.2); position: absolute; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1; }
 #showcase h1 { font-family: "Questrial", sans-serif; line-height: 1; }
 #showcase #chapters { font-size: 1.5rem; border-radius: 2rem; }
 
