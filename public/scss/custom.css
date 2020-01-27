@@ -1,28 +1,39 @@
 /*
 Error: Undefined mixin 'media-breakpoint-down'.
-        on line 137 of C:\xampp\htdocs\P4\public\scss\custom.scss, in `media-breakpoint-down'
-        from line 137 of C:\xampp\htdocs\P4\public\scss\custom.scss
+        on line 129 of C:\xampp\htdocs\P5DA\public\scss\custom.scss, in `media-breakpoint-down'
+        from line 129 of C:\xampp\htdocs\P5DA\public\scss\custom.scss
 
-132: }
-133: 
-134: //end login page
-135: 
-136: 
-137: @include media-breakpoint-down(sm) {
-138:   .navbar {
-139:     background: #1f1f1f;
-140: 
-141:     .nav-link:hover {
-142:       border-bottom: none;
+124: 
+125:   ul li:hover .slider p {
+126:     opacity: 1;
+127:   }
+128: 
+129:   @include media-breakpoint-down(sm) {
+130:     .wrapper {
+131:       display: none;
+132:     }
+133:   }
+134: }
 
 Backtrace:
-C:\xampp\htdocs\P4\public\scss\custom.scss:137:in `media-breakpoint-down'
-C:\xampp\htdocs\P4\public\scss\custom.scss:137
+C:\xampp\htdocs\P5DA\public\scss\custom.scss:129:in `media-breakpoint-down'
+C:\xampp\htdocs\P5DA\public\scss\custom.scss:129
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:352:in `block in visit_mixin'
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:98:in `block in with_mixin'
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:135:in `with_frame'
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:98:in `with_mixin'
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:350:in `visit_mixin'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `visit'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `block in with_base'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:135:in `with_frame'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `with_base'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `visit'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:444:in `block (2 levels) in visit_rule'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:444:in `map'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:444:in `block in visit_rule'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
+C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:442:in `visit_rule'
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `visit'
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `block in with_base'
@@ -54,4 +65,4 @@ C:/Program Files (x86)/Koala/bin/sass:22:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined mixin 'media-breakpoint-down'.\A         on line 137 of C:\xampp\htdocs\P4\public\scss\custom.scss, in `media-breakpoint-down'\A         from line 137 of C:\xampp\htdocs\P4\public\scss\custom.scss\A \A 132: }\A 133: \A 134: //end login page\A 135: \A 136: \A 137: @include media-breakpoint-down(sm) {\A 138:   .navbar {\A 139:     background: #1f1f1f;\A 140: \A 141:     .nav-link:hover {\A 142:       border-bottom: none;"; }
+  content: "Error: Undefined mixin 'media-breakpoint-down'.\A         on line 129 of C:\xampp\htdocs\P5DA\public\scss\custom.scss, in `media-breakpoint-down'\A         from line 129 of C:\xampp\htdocs\P5DA\public\scss\custom.scss\A \A 124: \A 125:   ul li:hover .slider p {\A 126:     opacity: 1;\A 127:   }\A 128: \A 129:   @include media-breakpoint-down(sm) {\A 130:     .wrapper {\A 131:       display: none;\A 132:     }\A 133:   }\A 134: }"; }

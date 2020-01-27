@@ -9,15 +9,33 @@
 {% block body %}
     <section id="showcase" class="d-flex justify-content-center align-items-center">
         <div id="overlay"></div>
-        <div id="header" class="container text-white text-center">
-            <h3 class="display-5 mb-5 d-none d-md-block">DÉCOUVREZ SON NOUVEAU ROMAN</h3>
-            <h1 class="display-3 py-5">"Billet simple pour l'Alaska"</h1>
+        <div id="header" class="container text-white">
+            <h3 class="display-3 mb-5 d-none d-md-block">Bonjour, je suis Beniamin TOLAN</h3>
+            <h1 class="display-5 py-5">Developpeur d'application</h1>
 
+        </div>
+    </section>
+    <section id="about">
+        <div class="container">
+            <div class="section-title text-center center">
+                <h2>About Me</h2>
+                <hr>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center"><img src="images/about.jpg" class="img-responsive"></div>
+                <div class="col-md-12">
+                    <div class="text-center about-text">
+
+                        <p>"The command line is the ultimate seat of power on your computer."</p>
+                        <p class="text-center"><a class="btn btn-primary" href="cv/BeniaminTOLAN1Mb.pdf" target='_blank'><i class="fa fa-download"></i> Télécharger CV</a></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <section class="py-5">
         <div class="container text-center mt-5">
-            <h2>LES DERNIERS CHAPITRES</h2>
+            <h2 class="text-uppercase">Retrouvez les derniers articles parus sur mon blog.</h2>
             <div class="row">
                 {% for chapter in chapters|slice(0,3) %}
                     <div class="col-md-4 p-3">
@@ -29,72 +47,37 @@
 
             </div>
         </div>
-    </section>
 
-    <section class="py-5" id="quotes">
-        <div class="container text-center mt-4">
-            <h3>TEMOIGNAGES DE NOS LECTEURS</h3>
-            <div class="row">
-                <div class="col-md-4 my-2">
-                    <i class="fas fa-quote-left fa-2x text-primary mb-3"></i>
-                    <blockquote class="blockquote">
-                        <p>
-                            C'est beau la montagne et même quand les éléments sont contraires
-                            Une belle histoire d'humanité dans des décors naturels magnifiques. Le dessin porte le
-                            scénario.
-                        </p>
-                        <footer class="blockquote-footer">Guillaume D.
-                            <p>POSTÉ LE 02 SEPT. 2018</p>
-                            <div class="personalStar">
-                                <i class="fas fa-star 3x"></i>
-                                <i class="fas fa-star 3x"></i>
-                                <i class="fas fa-star 3x"></i>
-                                <i class="fas fa-star 3x"></i>
-                                <i class="fas fa-star 3x"></i>
-                            </div>
-                        </footer>
-                    </blockquote>
+    </section>
+    <hr>
+    <section>
+        <div class="container text-center my-5">
+            <h3 class="text-uppercase">Projets</h3>
+            <h5 class="text-primary">#beniamintolan</h5>
+            <div class="row mt-4">
+                <div class="col-6 col-lg-3 mb-4">
+                    <img class="img-fluid" src="/images/gallery/social1.png" alt="social1">
                 </div>
-                <div class="col-md-4 my-2">
-                    <i class="fas fa-quote-left fa-2x text-primary mb-3"></i>
-                    <blockquote class="blockquote">
-                        <p>
-                            superbe!!
-                            Superbe roman graphique. On aime son scénario, et son dessin qui nous entraîne dans un
-                            univers à part...
-                            tout en lenteur et en force, on croit entendre les bruits de la montagne...
-                        </p>
-                        <footer class="blockquote-footer">Pierre M.
-                            <p>POSTÉ LE 08 JANV. 2017</p>
-                            <div class="personalStar">
-                                <i class="fas fa-star 3x"></i>
-                                <i class="fas fa-star 3x"></i>
-                                <i class="fas fa-star 3x"></i>
-                                <i class="fas fa-star 3x"></i>
-                                <i class="fas fa-star 3x"></i>
-                            </div>
-                        </footer>
-                    </blockquote>
+                <div class="col-6 col-lg-3 mb-4">
+                    <img class="img-fluid" src="/images/gallery/social2.png" alt="social2">
                 </div>
-                <div class="col-md-4 my-2">
-                    <i class="fas fa-quote-left fa-2x text-primary mb-3"></i>
-                    <blockquote class="blockquote">
-                        <p>
-                            Magnifique conte, édition superbe
-                            Très satisfait de cette édition regroupant les trois tomes de la bd mythique. Très belle
-                            présentation, un cadeau très apprécié.
-                        </p>
-                        <footer class="blockquote-footer">Alexandre
-                            <p>POSTÉ LE 16 JUIN 2014</p>
-                            <div class="personalStar">
-                                <i class="fas fa-star 3x"></i>
-                                <i class="fas fa-star 3x"></i>
-                                <i class="fas fa-star 3x"></i>
-                                <i class="fas fa-star 3x"></i>
-                                <i class="fas fa-star 3x"></i>
-                            </div>
-                        </footer>
-                    </blockquote>
+                <div class="col-6 col-lg-3 mb-4">
+                    <img class="img-fluid" src="/images/gallery/social3.png" alt="social3">
+                </div>
+                <div class="col-6 col-lg-3 mb-4">
+                    <img class="img-fluid" src="/images/gallery/social4.png" alt="social4">
+                </div>
+                <div class="col-6 col-lg-3 mb-4">
+                    <img class="img-fluid" src="/images/gallery/social5.png" alt="social5">
+                </div>
+                <div class="col-6 col-lg-3 mb-4">
+                    <img class="img-fluid" src="/images/gallery/social6.png" alt="social6">
+                </div>
+                <div class="col-6 col-lg-3 mb-4">
+                    <img class="img-fluid" src="/images/gallery/social7.png" alt="social7">
+                </div>
+                <div class="col-6 col-lg-3 mb-4">
+                    <img class="img-fluid" src="/images/gallery/social8.png" alt="social8">
                 </div>
             </div>
         </div>

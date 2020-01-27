@@ -33,12 +33,12 @@
             }
         </style>
     </head>
-    <body id="login" class="text-center bg-jeanforteroche">
+    <body id="login" class="text-center bg-light">
     <form class="form-signin" action="index.php?action=adminLogin" method="POST">
         <a href="index.php?action=home">
             <img class="mb-4" src="images/favicon.ico" alt="" width="72" height="72">
         </a>
-        <h1 class="h3 mb-3 font-weight-normal">Administration</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" name="email"
                class="form-control {{ (email_err is not empty) ? 'is-invalid' : '' }}" placeholder="Votre email"
@@ -54,7 +54,10 @@
                 <input type="checkbox" value="remember-me"> Se souvenir de moi
             </label>
         </div>
-        <button class="btn btn-lg btn-warning btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-outline-dark btn-block" type="submit">Sign in</button>
+        <span class="my-5">or</span>
+        <a class="btn btn-lg btn-outline-info btn-block" href="index.php?action=register" >Inscription</a>
+{#        href="{{ path('security/register') }}"#}
         <a href="https:\\www.tolan.me">
             <p class="mt-5 mb-3 text-muted">&copy; 2019 BenjiCodeur</p>
         </a>

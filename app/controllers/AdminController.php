@@ -1,7 +1,7 @@
 <?php
 
 
-class AdminController extends Controller
+class AdminController extends AbstractController
 {
     //------------------------------------------------------------------------------------------------------------------
     public function __construct()

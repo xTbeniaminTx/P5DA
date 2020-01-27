@@ -2428,14 +2428,42 @@ a.text-jeanforteroche:hover, a.text-jeanforteroche:focus { color: #fdad70 !impor
   .table .thead-dark th { color: inherit; border-color: #dee2e6; } }
 body { font-family: "Raleway", sans-serif; }
 
-.mt-10 { margin-top: 5rem !important; }
+.huge { font-size: 50px; line-height: normal; }
+
+.mt-10 { margin-top: 5rem; }
+
+#msg-flash { z-index: 99; }
+
+.personalStar { color: goldenrod; }
+
+ul.flex-column.jf { list-style: none; }
+
+.socialCustom .wrapper { position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%); }
+.socialCustom ul { list-style: none; }
+.socialCustom ul li { width: 50px; height: 50px; background: #e59500; margin: 10px 0; border-radius: 3px; position: relative; cursor: pointer; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
+.socialCustom ul li .fa { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 20px; }
+.socialCustom ul li.facebook { background: #3b5999; }
+.socialCustom ul li.twitter { background: #55acee; }
+.socialCustom ul li.instagram { background: #e4405f; }
+.socialCustom ul li.google { background: #dd4b39; }
+.socialCustom ul li.whatsapp { background: #25d366; }
+.socialCustom .slider { position: absolute; top: 0; left: 51px; width: 0px; height: 50px; line-height: 50px; background: #eebb5c; text-align: center; border-radius: 3px; transition: all 0.2s ease; }
+.socialCustom .slider p { text-transform: uppercase; font-size: 16px; opacity: 0; font-weight: 900; transition: all 0.2s ease; }
+.socialCustom ul li.facebook div.slider { background: #624aac; }
+.socialCustom ul li.twitter div.slider { background: #7fd5f6; }
+.socialCustom ul li.instagram div.slider { background: #dd94c6; }
+.socialCustom ul li.google div.slider { background: #eea59c; }
+.socialCustom ul li.whatsapp div.slider { background: #82d47e; }
+.socialCustom ul li:hover .slider { width: 180px; }
+.socialCustom ul li:hover .slider p { opacity: 1; }
+@media (max-width: 767.98px) { .socialCustom .wrapper { display: none; } }
 
 .navbar { font-weight: 100; position: absolute; top: 0; right: 0; left: 0; z-index: 3; }
 .navbar .navbar-brand h3 { font-weight: 100; }
 .navbar .nav-item { font-size: 1.4rem; }
 .navbar .nav-link:hover { transition: border 0.2s; border-bottom: 1px solid white; }
 
-#showcase { background: url("../images/main.jpeg") bottom/cover no-repeat; min-height: 750px; position: relative; }
+#showcase { background: url("../images/main1.jpg") bottom/cover no-repeat; min-height: 900px; position: relative; }
 #showcase #header { z-index: 2; }
 #showcase #overlay { background: rgba(0, 0, 0, 0.2); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
 #showcase h1 { font-family: "Questrial", sans-serif; line-height: 1; }

@@ -2463,7 +2463,7 @@ ul.flex-column.jf { list-style: none; }
 .navbar .nav-item { font-size: 1.4rem; }
 .navbar .nav-link:hover { transition: border 0.2s; border-bottom: 1px solid white; }
 
-#showcase { background: url("../images/main.jpeg") bottom/cover no-repeat; min-height: 900px; position: relative; }
+#showcase { background: url("../images/main1.jpg") bottom/cover no-repeat; min-height: 1000px; position: relative; }
 #showcase #header { z-index: 2; }
 #showcase #overlay { background: rgba(0, 0, 0, 0.2); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
 #showcase h1 { font-family: "Questrial", sans-serif; line-height: 1; }
@@ -2490,3 +2490,13 @@ ul.flex-column.jf { list-style: none; }
   .navbar .nav-link:hover { border-bottom: none; }
   #showcase { min-height: 500px; }
   #showcase h1 { font-size: 4rem; } }
+/* About Section */
+hr { height: 4px; width: 70px; text-align: center; position: relative; background: #7bc3d1; margin: 0 auto; margin-bottom: 30px; border: 0; }
+
+#about { padding: 100px 0; background: #f6f6f6; }
+
+#about .about-text { margin-left: 10px; }
+
+#about img { border-radius: 50%; width: 200px; height: 200px; display: inline-block; }
+
+#about p { margin-top: 50px; margin-bottom: 30px; text-align: center; }

@@ -27,7 +27,7 @@
 {% block navigation %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
         <a href="index.php?action=home" class="navbar-brand">
-            <h3 class="mb-y">JF - Accueil</h3>
+            <h3 class="mb-y">BT - Accueil</h3>
         </a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -35,7 +35,7 @@
         <div class="collapse navbar-collapse" id="mainNavbar">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="index.php?action=adminChapters" class="nav-link">Chapitres</a>
+                    <a href="index.php?action=adminChapters" class="nav-link">Articles</a>
                 </li>
                 <li class="nav-item">
                     <a href="index.php?action=adminComments" class="nav-link">Comentaires</a>
@@ -58,13 +58,13 @@
                     <div class="list-group">
                         {% block pagesActive %}
                             <a href="index.php?action=adminChapters" class="list-group-item list-group-item-action"><i
-                                        class="fas fa-book"></i> Chapitres</a>
+                                        class="fas fa-book"></i> Articles</a>
                             <a href="index.php?action=adminComments" class="list-group-item list-group-item-action"><i
                                         class="fas fa-comments"></i> Commentaires</a>
                         {% endblock %}
 
                         <a href="index.php?action=logout" class="list-group-item list-group-item-action"><i
-                                    class="fas fa-sign-out-alt"></i> Logout</a>
+                                    class="fas fa-sign-out-alt"></i> Deconnexion</a>
                     </div>
                 </div>
 

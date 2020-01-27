@@ -1,8 +1,7 @@
 <?php
 
 
-
-class BaseController extends AbstractController
+class SecurityController extends AbstractController
 {
     //------------------------------------------------------------------------------------------------------------------
     public function __construct()
@@ -18,7 +17,6 @@ class BaseController extends AbstractController
     {
         $_SESSION['admin_id'] = $login->id;
         $_SESSION['admin_email'] = $login->email;
-        $_SESSION['role'] = "member";
         header('Location: index.php?action=adminChapters');
     }
 
