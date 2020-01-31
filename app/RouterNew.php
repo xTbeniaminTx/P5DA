@@ -16,16 +16,19 @@ class RouterNew
     //------------------------------------------------------------------------------------------------------------------
     private $request;
     private $error;
+
     //------------------------------------------------------------------------------------------------------------------
     public function __construct($request)
     {
         $this->request = $request;
+        $this->getUrl();
     }
+
     //------------------------------------------------------------------------------------------------------------------
 
     const ROUTES = [
         [
-            '' => [BaseController::class, 'home'],
+
             "home" => [BaseController::class],
             "contact" => [BaseController::class],
             "chapters" => [BaseController::class],
@@ -37,7 +40,7 @@ class RouterNew
             "sendMail" => [BaseController::class],
         ],
         [
-            "adminView" => [AdminController::class],
+
             "adminComments" => [AdminController::class],
             "approuve" => [AdminController::class],
             "adminChapters" => [AdminController::class],
@@ -49,25 +52,26 @@ class RouterNew
 
         ],
         [
-            //"adminView" => [AdminController::class], superadmin
+            "adminView" => [AdminController::class],
         ]
 
     ];
 
 
-
     //------------------------------------------------------------------------------------------------------------------
     public function renderController()
     {
-        $request = $this->request;
 
         $routes = $this->getAllowedRoutes();
-        $_SESSION['role'] = "member";
-        //var_dump($routes);die;
+        $_SESSION['role'] = "admin";
 
         foreach ($routes as $levelRoutes) {
+
             foreach ($levelRoutes as $method => $controllers) {
-                $methodName = $controllers[1] ?? $method;
+                $methodDef = $this->getUrl();
+
+                $methodName = $controllers[1] ?? $methodDef;
+
                 $controller = new $controllers[0]();
 
                 return $controller->$methodName();
@@ -105,6 +109,11 @@ class RouterNew
         }
 
         return $allowedRoutes;
+    }
+
+    public function getUrl()
+    {
+        return $_GET['action'];
     }
     //------------------------------------------------------------------------------------------------------------------
 }
