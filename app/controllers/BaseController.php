@@ -1,6 +1,6 @@
 <?php
 
-
+namespace app\controllers;
 
 class BaseController extends AbstractController
 {

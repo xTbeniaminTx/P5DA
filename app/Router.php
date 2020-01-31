@@ -2,13 +2,13 @@
 
 namespace app;
 
+use app\controllers\BaseController;
+use Exception;
+
 session_start();
 
-
-
 //Load helpers, librairies and controllers etc
-require_once '../vendor/autoload.php';
-require_once 'config/config.php';
+
 require_once 'helpers/session_helper.php';
 require_once('libraries/Database.php');
 
@@ -21,7 +21,7 @@ class Router
     private $error;
     //------------------------------------------------------------------------------------------------------------------
     private $routes = [
-        "" => ["controllers" => 'BaseController', "method" => 'home'],
+        "" => ["controllers" => BaseController::class, "method" => 'home'],
         "home" => ["controllers" => 'BaseController', "method" => 'home'],
         "contact" => ["controllers" => 'BaseController', "method" => 'contact'],
         "chapters" => ["controllers" => 'BaseController', "method" => 'chapters'],
