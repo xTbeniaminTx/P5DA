@@ -29,12 +29,14 @@ class Router
         "adminLogin" => ["controllers" => 'BaseController', "method" => 'adminLogin'],
         "sendMail" => ["controllers" => 'BaseController', "method" => 'sendMail'],
         "register" => ["controllers" => 'BaseController', "method" => 'register'],
+        "lostPass" => ["controllers" => 'BaseController', "method" => 'lostPass'],
     ];
     //------------------------------------------------------------------------------------------------------------------
     private $routesAdmin = [
 
         "adminView" => ["controllers" => 'AdminController', "method" => 'adminView'],
         "adminComments" => ["controllers" => 'AdminController', "method" => 'adminComments'],
+        "profile" => ["controllers" => 'AdminController', "method" => 'profile'],
         "approuve" => ["controllers" => 'AdminController', "method" => 'approuve'],
         "adminChapters" => ["controllers" => 'AdminController', "method" => 'adminChapters'],
         "addChapter" => ["controllers" => 'AdminController', "method" => 'addChapter'],
