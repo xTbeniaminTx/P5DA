@@ -1,5 +1,10 @@
 <?php
+
+namespace app;
+
 session_start();
+
+
 
 //Load helpers, librairies and controllers etc
 require_once '../vendor/autoload.php';
@@ -7,9 +12,7 @@ require_once 'config/config.php';
 require_once 'helpers/session_helper.php';
 require_once('libraries/Database.php');
 
-require_once('controllers/AbstractController.php');
-require_once('controllers/AdminController.php');
-require_once('controllers/BaseController.php');
+
 
 class Router
 {
