@@ -17,9 +17,6 @@ else
 }
 
 
-//require_once('../app/Router.php');
-//require_once ('../app/libraries/Database.php');
-
 $routeur = new Router($request);
 $routeur->renderController();
 
