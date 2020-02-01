@@ -1,5 +1,7 @@
 <?php
 
+require_once('../app/RouterNew.php');
+
 if($_GET)
 {
     $request = $_GET['action'];
@@ -7,10 +9,9 @@ if($_GET)
 else
 {
     $request = "";
+    $_GET['action'] = '';
 }
 
-require_once('../app/RouterNew.php');
-//require_once ('../app/libraries/Database.php');
 
 $routeur = new RouterNew($request);
 $routeur->renderController();
