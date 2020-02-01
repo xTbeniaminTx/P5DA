@@ -16,58 +16,61 @@ class RouterNew
     //------------------------------------------------------------------------------------------------------------------
     private $request;
     private $error;
+    private $action;
+
     //------------------------------------------------------------------------------------------------------------------
     public function __construct($request)
     {
         $this->request = $request;
+        $this->action = $this->getAction();
     }
+
     //------------------------------------------------------------------------------------------------------------------
 
     const ROUTES = [
         [
             '' => [BaseController::class, 'home'],
-            "home" => [BaseController::class],
-            "contact" => [BaseController::class],
-            "chapters" => [BaseController::class],
-            "showChapter" => [BaseController::class],
-            "editComment" => [BaseController::class],
-            "bio" => [BaseController::class],
-            "unapprouve" => [BaseController::class],
-            "adminLogin" => [BaseController::class],
-            "sendMail" => [BaseController::class],
+            'contact' => [BaseController::class],
+            'chapters' => [BaseController::class],
+            'showChapter' => [BaseController::class],
+            'editComment' => [BaseController::class],
+            'bio' => [BaseController::class],
+            'unapprouve' => [BaseController::class],
+            'adminLogin' => [BaseController::class],
+            'sendMail' => [BaseController::class],
         ],
         [
-            "adminView" => [AdminController::class],
-            "adminComments" => [AdminController::class],
-            "approuve" => [AdminController::class],
-            "adminChapters" => [AdminController::class],
-            "addChapter" => [AdminController::class],
-            "editChapter" => [AdminController::class],
-            "deleteChapter" => [AdminController::class],
-            "deleteComment" => [AdminController::class],
-            "logout" => [AdminController::class],
+
+            'adminComments' => [AdminController::class],
+            'approuve' => [AdminController::class],
+            'adminChapters' => [AdminController::class],
+            'addChapter' => [AdminController::class],
+            'editChapter' => [AdminController::class],
+            'deleteChapter' => [AdminController::class],
+            'deleteComment' => [AdminController::class],
+            'logout' => [AdminController::class],
 
         ],
         [
-            //"adminView" => [AdminController::class], superadmin
+            'adminView' => [AdminController::class],
         ]
 
     ];
 
 
-
     //------------------------------------------------------------------------------------------------------------------
     public function renderController()
     {
-        $request = $this->request;
+        $_SESSION['role'] = 'admin';
 
-        $routes = $this->getAllowedRoutes();
-        $_SESSION['role'] = "member";
-        //var_dump($routes);die;
-
-        foreach ($routes as $levelRoutes) {
+        foreach ($this->getAllowedRoutes() as $levelRoutes) {
             foreach ($levelRoutes as $method => $controllers) {
                 $methodName = $controllers[1] ?? $method;
+
+                if ($this->action !== $methodName) {
+                    continue;
+                }
+
                 $controller = new $controllers[0]();
 
                 return $controller->$methodName();
@@ -105,6 +108,11 @@ class RouterNew
         }
 
         return $allowedRoutes;
+    }
+
+    public function getAction()
+    {
+        return $_GET['action'];
     }
     //------------------------------------------------------------------------------------------------------------------
 }
