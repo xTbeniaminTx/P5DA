@@ -14,6 +14,7 @@ if($_GET)
 else
 {
     $request = "";
+    $_GET['action'] = '';
 }
 
 
