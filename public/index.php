@@ -1,6 +1,6 @@
 <?php
 
-require_once('../app/RouterNew.php');
+require_once('../app/Router.php');
 
 if($_GET)
 {
@@ -13,7 +13,7 @@ else
 }
 
 
-$routeur = new RouterNew($request);
+$routeur = new Router($request);
 $routeur->renderController();
 
 
