@@ -7,10 +7,6 @@ use app\controllers\BaseController;
 
 session_start();
 
-//Load helpers, librairies and controllers etc
-require_once 'helpers/session_helper.php';
-require_once('libraries/Database.php');
-
 
 class Router
 {
@@ -114,7 +110,12 @@ class Router
 
     public function getAction()
     {
-        return $_GET['action'];
+        if (isset($_GET['action'])) {
+            $act = $_GET['action'];
+        } else {
+            $act = 'home';
+        }
+        return $act;
     }
     //------------------------------------------------------------------------------------------------------------------
 }
