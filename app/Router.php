@@ -4,6 +4,7 @@ namespace app;
 
 use app\controllers\AdminController;
 use app\controllers\BaseController;
+use app\controllers\UserController;
 
 session_start();
 
@@ -36,6 +37,9 @@ class Router
             'unapprouve' => [BaseController::class],
             'adminLogin' => [BaseController::class],
             'sendMail' => [BaseController::class],
+
+            'showRegisterForm' => [UserController::class],
+            'showLoginForm' => [UserController::class]
         ],
         [
 
