@@ -2,32 +2,37 @@
 
 namespace app\controllers;
 
-class BaseController extends AbstractController
+use app\libraries\Redirect;
+use app\libraries\Session;
+use app\models\Chapter;
+use app\models\Comment;
+use app\models\Login;
+use Swift_Mailer;
+use Swift_Message;
+use Swift_SmtpTransport;
+
+class BaseController
 {
-    //------------------------------------------------------------------------------------------------------------------
+    private $loginModel;
+    private $chapterModel;
+    private $commentModel;
     public function __construct()
     {
-        $this->loginModel = $this->model('Login');
-        $this->chapterModel = $this->model('Chapter');
-        $this->commentModel = $this->model('Comment');
+        $this->loginModel = new Login();
+        $this->chapterModel = new Chapter();
+        $this->commentModel = new Comment();
     }
 
     //------------------------------------------------------------------------------------------------------------------
 
-    public function createSession($login)
-    {
-        $_SESSION['admin_id'] = $login->id;
-        $_SESSION['admin_email'] = $login->email;
-        $_SESSION['role'] = "member";
-        header('Location: index.php?action=adminChapters');
-    }
+
 
     //------------------------------------------------------------------------------------------------------------------
 
     public function adminLogin()
     {
         if ($this->isLoggedIn()) {
-            header('Location: index.php?action=adminChapters');
+            Redirect::to('adminChapters');
         } else {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 //process form
@@ -134,7 +139,7 @@ class BaseController extends AbstractController
 
     public function contact()
     {
-        $contact_message = flash('contact_message');
+        $contact_message = Session::flash('contact_message');
         $message_contact = <<<EOD
                     $contact_message
 EOD;
@@ -174,7 +179,7 @@ EOD;
             // Send the message
             $result = $mailer->send($message);
             header('Location: index.php?action=contact');
-            flash('contact_message', 'Message envoyee avec succès');
+            Session::flash('contact_message', 'Message envoyee avec succès');
 
         } else {
             die('error');

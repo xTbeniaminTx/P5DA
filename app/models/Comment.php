@@ -1,5 +1,9 @@
 <?php
 
+namespace app\models;
+
+use app\libraries\Database;
+
 class Comment
 {
     private $db;

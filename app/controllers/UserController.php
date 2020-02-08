@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\libraries\CSRFToken;
+use app\libraries\Redirect;
 use app\libraries\Request;
 use app\libraries\Session;
 use app\libraries\ValidateRequest;
@@ -41,7 +42,7 @@ class UserController
     public function adminLogin()
     {
         if ($this->isLoggedIn()) {
-            header('Location: index.php?action=adminChapters');
+            Redirect::to('adminChapters');
         } else {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 //process form
@@ -192,6 +193,7 @@ class UserController
 
     public function registerUser2()
     {
+
         $user_message = Session::flash('user_message');
 
         $message_user = <<<EOD
@@ -235,6 +237,7 @@ EOD;
                     'token' => CSRFToken::_token(),
                     'email' => trim($_POST['txtEmail']),
                     'user_message' => $message_user,
+                    'success' => $success
                 ];
 
 

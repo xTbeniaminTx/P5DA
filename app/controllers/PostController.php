@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-class PostController extends AbstractController
+class PostController
 {
     //------------------------------------------------------------------------------------------------------------------
     public function __construct()

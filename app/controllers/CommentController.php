@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-class CommentController extends AbstractController
+class CommentController
 {
     //------------------------------------------------------------------------------------------------------------------
     public function __construct()
