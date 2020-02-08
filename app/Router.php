@@ -39,6 +39,10 @@ class Router
             'sendMail' => [BaseController::class],
 
             'showRegisterForm' => [UserController::class],
+            'registerUser' => [UserController::class],
+            'registerUser2' => [UserController::class],
+            'show' => [UserController::class],
+            'get' => [UserController::class],
             'showLoginForm' => [UserController::class]
         ],
         [

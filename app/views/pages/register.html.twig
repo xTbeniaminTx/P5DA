@@ -6,16 +6,21 @@
         <div id="overlay" style="height: 40vh;"></div>
         <div id="header" class="container text-white text-center">
             <h1 class="display-3">Création de compte</h1>
-            <p class="lead d-none d-md-block py-5">Veuillez remplir chacune des sections et cliquer sur « Envoyer » lorsque vous avez terminé.</p>
+            <p class="lead d-none d-md-block py-5">Veuillez remplir chacune des sections et cliquer sur « Envoyer »
+                lorsque vous avez terminé.</p>
         </div>
     </section>
     <section class="p-5">
+        {{ get_token() }}
+        {{ user_message }}
         <div class="container text-white text-center py-5">
-            <form action="index.php?action=sendMail" name="sendMail" method="post">
+            <form action="index.php?action=registerUser2" method="POST">
                 <div class="input-group justify-content-center">
                     <div class="col-md-5">
+
+                        <input type="hidden" name="token" value="{{ token }}">
                         <div class="form-group">
-                            <input type="text" name="txtName" class="form-control" placeholder="Nom *" required
+                            <input type="text" name="txtLastName" class="form-control" placeholder="Nom *" required
                                    value=""/>
                         </div>
                         <div class="form-group">
@@ -27,36 +32,23 @@
                                    value=""/>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="txtPhone" class="form-control" placeholder="Mobile "
-                                   value=""/>
+                            <input type="password" name="password" class="form-control" placeholder="Mot de passe *"
+                                   required>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <input name="txtMsg" class="form-control" placeholder="Mdp *" required></input>
-                        </div>
-                        <div class="form-group">
-                            <input name="txtMsg" class="form-control" placeholder="Mdp a nouveau *" required></input>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control form-control">
-                                <option>Large select</option>
-                                <option>Large select</option>
-                                <option>Large select</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input name="txtMsg" class="form-control" placeholder="Votre reponse *" required></input>
-                        </div>
-                    </div>
+
                     <div class="col-md-5 d-flex justify-content-center align-items-center">
                         <div class="form-group">
-                            <input type="submit" name="btnSubmit" class="btn btn-primary" value="Envoyer"/>
+                            <input type="submit" name="register" class="btn btn-primary" value="Envoyer"/>
                         </div>
                     </div>
                 </div>
             </form>
+
         </div>
+        <p class="text-center text-black-50">Déja un compte? <a  href="index.php?action=adminLogin">Sign in</a> </p>
+
+
     </section>
 
 
