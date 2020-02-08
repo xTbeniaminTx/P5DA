@@ -1,37 +1,31 @@
-<div class="row expanded">
-    <div class="column medium-12">
-        @if((isset($errors) && count($errors)) || \App\Classes\Session::has('error'))
-        {% if errors is defined  %}
+<section>
+    {% if errors is defined and errors|length > 0 %}
+        <div class="h3 alert alert-warning text-center alert-dismissible fade show">
 
+            {% for error in errors %}
+                {% for err in error %}
+                    {{ err }} <br>
+                {% endfor %}
+            {% endfor %}
 
-        <div class="callout alert" data-closable>
-            @if(\App\Classes\Session::has('error'))
-            {{ \App\Classes\Session::flash('error') }}
-            @else
-            @foreach($errors as $error_array)
-            @foreach($error_array as $error_item)
-            {{ $error_item }} <br />
-            @endforeach
-            @endforeach
-            @endif
-
-            <button class="close-button" arial-label="Dismiss Message" type="button" data-close>
-                <span arial-hidden="true">&times;</span>
+            <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
             </button>
-        </div>
-        @endif
 
-        @if(isset($success) || \App\Classes\Session::has('success'))
-        <div class="callout success" data-closable>
-            @if(isset($success))
-            {{ $success }}
-            @elseif(\App\Classes\Session::has('success'))
-            {{ \App\Classes\Session::flash('success') }}
-            @endif
-            <button class="close-button" arial-label="Dismiss Message" type="button" data-close>
-                <span arial-hidden="true">&times;</span>
-            </button>
         </div>
-        @endif
-    </div>
-</div>
+    {% endif %}
+{#{{ dump(success) }}#}
+{#    {% if success is not null  %}#}
+{#        <div class="h3 alert alert-success text-center alert-dismissible fade show">#}
+
+
+{#                    {{ success }}#}
+
+
+{#            <button class="close" type="button" data-dismiss="alert" aria-label="Close">#}
+{#                <span aria-hidden="true">&times;</span>#}
+{#            </button>#}
+
+{#        </div>#}
+{#    {% endif %}#}
+</section>
