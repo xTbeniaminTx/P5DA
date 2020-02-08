@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\libraries\Session;
 use app\models\Chapter;
 use app\models\Comment;
 use app\models\Login;
@@ -26,7 +27,7 @@ class AdminController
     {
 
         $chapters = $this->chapterModel->getChapters();
-        $chapter_message = flash('chapter_message');
+        $chapter_message =  Session::flash('chapter_message');
         $message_chapter = <<<EOD
                     $chapter_message
 EOD;
@@ -75,7 +76,7 @@ EOD;
                 //validated
                 if ($this->chapterModel->addChapter($data)) {
                     header('Location: index.php?action=adminChapters');
-                    flash('chapter_message', 'Nouveau chapitre ajouté avec succès');
+                    Session::flash('chapter_message', 'Nouveau chapitre ajouté avec succès');
                 } else {
                     die('Impossible de traiter cette demande à l\'heure actuelle.');
                 }

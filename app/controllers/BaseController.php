@@ -25,7 +25,12 @@ class BaseController
 
     //------------------------------------------------------------------------------------------------------------------
 
-
+    public function createSession($login)
+    {
+        $_SESSION['admin_id'] = $login->id;
+        $_SESSION['admin_email'] = $login->email;
+        header('Location: index.php?action=adminChapters');
+    }
 
     //------------------------------------------------------------------------------------------------------------------
 
