@@ -8,6 +8,12 @@ body {
   line-height: normal;
 }
 
+.signal-alert {
+  color: red;
+  text-decoration: red;
+  font-size: 0.9em;
+}
+
 //flash message
 .mt-10 {
   margin-top: 5rem
@@ -285,19 +291,20 @@ ul.flex-column.jf {
 }
 
 /* About Section */
-hr {
-  height: 4px;
-  width: 70px;
-  text-align: center;
-  position: relative;
-  background: #7bc3d1;
-  margin: 0 auto;
-  margin-bottom: 30px;
-  border: 0;
-}
+
 #about {
   padding: 100px 0;
   background: #f6f6f6;
+  hr {
+    height: 4px;
+    width: 70px;
+    text-align: center;
+    position: relative;
+    background: #7bc3d1;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    border: 0;
+  }
 }
 #about .about-text {
   margin-left: 10px;

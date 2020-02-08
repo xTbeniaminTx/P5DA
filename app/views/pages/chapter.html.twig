@@ -94,9 +94,9 @@
                                 {% if comment.comment_status == 'newComment' %}
                                     <li class="my-1">
                                         <a href="index.php?action=unapprouve&comment_id={{ comment.comment_id }}&id={{ comment.chapterId }}"
-                                           class="btn btn-sm btn-warning"
+                                           class="signal-alert"
                                            onclick="return confirm('Confirmer la signalisation ?');">
-                                            Signaler
+                                            Signaler abus
                                         </a>
                                     </li>
                                 {% endif %}

@@ -1,0 +1,69 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {{ message_contact }}
+    <section id="showcase" class="d-flex justify-content-center align-items-center" style="height: 35vh;">
+        <div id="overlay" style="height: 35vh;"></div>
+        <div id="header" class="container text-white text-center">
+            <h1 class="display-3">Profile Dashboard</h1>
+            <p class="lead d-none d-md-block py-5">Ici vous pouvez change vos informations</p>
+        </div>
+    </section>
+    <section class="p-5">
+        <div class="container py-5">
+            <form action="index.php?action=sendMail" name="sendMail" method="post">
+                <div class="input-group justify-content-center">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Changement Nom</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                   placeholder="Example input">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Changement Email</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2"
+                                   placeholder="Another input">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Changement Mobile</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2"
+                                   placeholder="Another input">
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Changement Nom</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                   placeholder="Example input">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Changement Email</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2"
+                                   placeholder="Another input">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Changement Mobile</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2"
+                                   placeholder="Another input">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <form action="UploadContent.php" method="POST" enctype="multipart/form-data">
+                                File:
+                                <input type="file" name="image"> <input type="submit" value="Upload">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex pt-2 justify-content-center align-items-center">
+                        <div class="form-group">
+                            <input type="submit" name="btnSubmit" class="btn btn-primary" value="Sauvgarder les modifications"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+{% endblock %}

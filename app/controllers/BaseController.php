@@ -290,6 +290,17 @@ EOD;
         }
     }
 
+    public function lostPass()
+    {
+
+        global $twig;
+        $vue = $twig->load('lost.html.twig');
+        echo $vue->render([
+            'title' => "Mdp oubliee",
+        ]);
+
+    }
+
     //------------------------------------------------------------------------------------------------------------------
 
     public function unapprouve()

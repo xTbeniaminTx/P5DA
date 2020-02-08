@@ -2430,6 +2430,8 @@ body { font-family: "Raleway", sans-serif; }
 
 .huge { font-size: 50px; line-height: normal; }
 
+.signal-alert { color: red; text-decoration: red; font-size: 0.9em; }
+
 .mt-10 { margin-top: 5rem; }
 
 #msg-flash { z-index: 99; }
@@ -2491,9 +2493,8 @@ ul.flex-column.jf { list-style: none; }
   #showcase { min-height: 500px; }
   #showcase h1 { font-size: 4rem; } }
 /* About Section */
-hr { height: 4px; width: 70px; text-align: center; position: relative; background: #7bc3d1; margin: 0 auto; margin-bottom: 30px; border: 0; }
-
 #about { padding: 100px 0; background: #f6f6f6; }
+#about hr { height: 4px; width: 70px; text-align: center; position: relative; background: #7bc3d1; margin: 0 auto; margin-bottom: 30px; border: 0; }
 
 #about .about-text { margin-left: 10px; }
 
