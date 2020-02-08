@@ -3,7 +3,6 @@
 // Flash message helper
 // EXAMPLE - flash('register_success', 'You are now registered');
 // DISPLAY IN VIEW - echo flash('register_success');
-//----------------------------------------------------------------------------------------------------------------------
 function flash($name = '', $message = '', $class = 'h3 alert alert-success text-center alert-dismissible fade show')
 {
     if (!empty($name)) {
@@ -28,5 +27,5 @@ function flash($name = '', $message = '', $class = 'h3 alert alert-success text-
         }
     }
 }
-//----------------------------------------------------------------------------------------------------------------------
+
 

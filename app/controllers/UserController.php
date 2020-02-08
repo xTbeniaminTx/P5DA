@@ -2,17 +2,32 @@
 
 namespace app\controllers;
 
-class UserController extends AbstractController
+use app\libraries\CSRFToken;
+use app\libraries\Request;
+use app\libraries\Session;
+use app\libraries\ValidateRequest;
+use app\models\Login;
+use app\models\User;
+
+
+class UserController
 {
-    //------------------------------------------------------------------------------------------------------------------
+    /**
+     * @var Login
+     */
+    private $loginModel;
+
+    /**
+     * @var User
+     */
+    private $userModel;
+
     public function __construct()
     {
-        $this->loginModel = $this->model('Login');
-        $this->chapterModel = $this->model('Chapter');
-        $this->commentModel = $this->model('Comment');
-    }
+        $this->loginModel = new Login();
+        $this->userModel = new User();
 
-    //------------------------------------------------------------------------------------------------------------------
+    }
 
     public function createSession($login)
     {
@@ -133,10 +148,163 @@ class UserController extends AbstractController
     public function registerUser()
     {
 
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //Sanitize the post
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'last_name' => trim($_POST['txtLastName']),
+                'first_name' => trim($_POST['txtFirstName']),
+                'password' => trim($_POST['password']),
+                'email' => trim($_POST['txtEmail']),
+
+
+            ];
+
+
+            //make sure errors are empty
+            if (!empty($data['last_name']) && !empty($data['first_name'])) {
+                //validated
+                if ($this->userModel->addUser($data)) {
+                    header('Location: index.php?action=registerUser2');
+                    flash('user_message', 'Nouveau user ajouté avec succès');
+                } else {
+                    die('Impossible de traiter cette demande à l\'heure actuelle.');
+                }
+
+            } else {
+                //load view with errors
+                global $twig;
+                $vue = $twig->load('register.html.twig');
+                echo $vue->render($data);
+            }
+        } else {
+            $data = [
+
+            ];
+            global $twig;
+            $vue = $twig->load('register.html.twig');
+            echo $vue->render($data);
+        }
+
+    }
+
+    public function registerUser2()
+    {
+        $user_message = Session::flash('user_message');
+
+        $message_user = <<<EOD
+                    $user_message
+EOD;
+
+        if (Request::has('post')) {
+            $request = Request::get('post');
+
+
+            if (CSRFToken::verifyCSRFToken($request->token)) {
+                $rules = [
+                    'txtLastName' => ['required' => true, 'minLength' => 6],
+                    'txtFirstName' => ['required' => true, 'minLength' => 6],
+                    'txtEmail' => ['required' => true, 'minLength' => 6],
+                ];
+
+                $validate = new ValidateRequest();
+                $validate->abide($_POST, $rules);
+
+
+                if ($validate->hasError()) {
+
+
+                    $errors = $validate->getErrorMessages();
+
+
+                    $data = [
+                        'errors' => $errors
+                    ];
+                    global $twig;
+                    $vue = $twig->load('register.html.twig');
+                    echo $vue->render($data);
+                }
+
+
+                $data = [
+                    'last_name' => trim($_POST['txtLastName']),
+                    'first_name' => trim($_POST['txtFirstName']),
+                    'password' => trim($_POST['password']),
+                    'token' => CSRFToken::_token(),
+                    'email' => trim($_POST['txtEmail']),
+                    'user_message' => $message_user,
+                ];
+
+
+                //make sure errors are empty
+                if (!empty($data['last_name']) && !empty($data['first_name'])) {
+                    //validated
+                    if ($this->userModel->addUser($data)) {
+                        header('Location: index.php?action=registerUser2');
+                        Session::flash('user_message', 'Nouveau user ajouté avecdd d succès');
+                    } else {
+                        die('Impossible de traiter cette demande à l\'heure actuelle.');
+                    }
+
+                } else {
+                    //load view with errors
+                    global $twig;
+                    $vue = $twig->load('register.html.twig');
+                    echo $vue->render($data);
+                }
+            }
+        } else {
+
+
+            $data = [
+
+            ];
+            global $twig;
+            $vue = $twig->load('register.html.twig');
+            echo $vue->render($data);
+        }
+
     }
 
     public function login()
     {
+
+    }
+
+    public function show()
+    {
+        Session::add('admin', 'You are welcome admin user');
+
+        if (Session::has('admin')) {
+            $msg = Session::get('admin');
+        } else {
+            $msg = 'No session defined';
+        }
+
+        $token = CSRFToken::_token();
+
+
+        $data = [
+            'msg' => $msg,
+            'token' => $token,
+            'password_err' => ''
+        ];
+
+        global $twig;
+        $vue = $twig->load('register.html.twig');
+        echo $vue->render($data);
+
+    }
+
+    public function get()
+    {
+
+        $post = \Request::get('post');
+
+
+        return var_dump($post);
 
     }
 

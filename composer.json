@@ -12,7 +12,8 @@
         "tinymce/tinymce": "^4",
         "symfony/var-dumper": "^4.3",
         "hellonico/twig-dump-extension": "^1.0",
-        "swiftmailer/swiftmailer": "^6.0"
+        "swiftmailer/swiftmailer": "^6.0",
+        "ext-pdo": "*"
     },
     "config": {
         "optimize-autoloader": true

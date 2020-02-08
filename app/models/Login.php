@@ -1,5 +1,9 @@
 <?php
 
+namespace app\models;
+
+use app\libraries\Database;
+
 class Login
 {
     private $db;
@@ -7,7 +11,7 @@ class Login
     //------------------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->db = new Database;
+        $this->db = new Database();
     }
 
     //------------------------------------------------------------------------------------------------------------------
