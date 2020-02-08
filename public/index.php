@@ -1,9 +1,6 @@
 <?php
 
-
 use app\Router;
-
-//require_once '../app/helpers/session_helper.php';
 
 require_once '../vendor/autoload.php';
 require_once '../app/config/config.php';
@@ -19,8 +16,8 @@ else
 }
 
 
-$routeur = new Router($request);
-$routeur->renderController();
+$router = new Router($request);
+$router->renderController();
 
 
 

@@ -2,10 +2,8 @@
     "autoload": {
         "psr-4": {
             "app\\": "app"
-        },
-        "files": [
-            "app/helpers/session_helper.php"
-        ]
+        }
+
     },
     "require": {
         "twig/twig": "^2.0",
