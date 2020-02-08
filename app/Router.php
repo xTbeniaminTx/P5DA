@@ -1,85 +1,86 @@
 <?php
+
+namespace app;
+
+use app\controllers\AdminController;
+use app\controllers\BaseController;
+use app\controllers\UserController;
+
 session_start();
 
-//Load helpers, librairies and controllers etc
-require_once '../vendor/autoload.php';
-require_once 'config/config.php';
-require_once 'helpers/session_helper.php';
-require_once('libraries/Database.php');
-
-require_once('controllers/AbstractController.php');
-require_once('controllers/AdminController.php');
-require_once('controllers/BaseController.php');
 
 class Router
 {
+
     //------------------------------------------------------------------------------------------------------------------
     private $request;
     private $error;
-    //------------------------------------------------------------------------------------------------------------------
-    private $routes = [
-        "" => ["controllers" => 'BaseController', "method" => 'home'],
-        "home" => ["controllers" => 'BaseController', "method" => 'home'],
-        "contact" => ["controllers" => 'BaseController', "method" => 'contact'],
-        "chapters" => ["controllers" => 'BaseController', "method" => 'chapters'],
-        "showChapter" => ["controllers" => 'BaseController', "method" => 'showChapter'],
-        "editComment" => ["controllers" => 'BaseController', "method" => 'editComment'],
-        "bio" => ["controllers" => 'BaseController', "method" => 'bio'],
-        "unapprouve" => ["controllers" => 'BaseController', "method" => 'unapprouve'],
-        "adminLogin" => ["controllers" => 'BaseController', "method" => 'adminLogin'],
-        "sendMail" => ["controllers" => 'BaseController', "method" => 'sendMail'],
-        "register" => ["controllers" => 'BaseController', "method" => 'register'],
-        "lostPass" => ["controllers" => 'BaseController', "method" => 'lostPass'],
-    ];
-    //------------------------------------------------------------------------------------------------------------------
-    private $routesAdmin = [
 
-        "adminView" => ["controllers" => 'AdminController', "method" => 'adminView'],
-        "adminComments" => ["controllers" => 'AdminController', "method" => 'adminComments'],
-        "profile" => ["controllers" => 'AdminController', "method" => 'profile'],
-        "approuve" => ["controllers" => 'AdminController', "method" => 'approuve'],
-        "adminChapters" => ["controllers" => 'AdminController', "method" => 'adminChapters'],
-        "addChapter" => ["controllers" => 'AdminController', "method" => 'addChapter'],
-        "editChapter" => ["controllers" => 'AdminController', "method" => 'editChapter'],
-        "deleteChapter" => ["controllers" => 'AdminController', "method" => 'deleteChapter'],
-        "deleteComment" => ["controllers" => 'AdminController', "method" => 'deleteComment'],
-        "logout" => ["controllers" => 'AdminController', "method" => 'logout'],
-    ];
 
     //------------------------------------------------------------------------------------------------------------------
     public function __construct($request)
     {
         $this->request = $request;
+        $this->action = $this->getAction();
     }
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    const ROUTES = [
+        [
+            '' => [BaseController::class, 'home'],
+            'contact' => [BaseController::class],
+            'chapters' => [BaseController::class],
+            'showChapter' => [BaseController::class],
+            'editComment' => [BaseController::class],
+            'bio' => [BaseController::class],
+            'unapprouve' => [BaseController::class],
+            'adminLogin' => [BaseController::class],
+            'sendMail' => [BaseController::class],
+
+            'showRegisterForm' => [UserController::class],
+            'registerUser' => [UserController::class],
+            'registerUser2' => [UserController::class],
+            'show' => [UserController::class],
+            'get' => [UserController::class],
+            'showLoginForm' => [UserController::class]
+        ],
+        [
+
+            'adminComments' => [AdminController::class],
+            'approuve' => [AdminController::class],
+            'adminChapters' => [AdminController::class],
+            'addChapter' => [AdminController::class],
+            'editChapter' => [AdminController::class],
+            'deleteChapter' => [AdminController::class],
+            'deleteComment' => [AdminController::class],
+            'logout' => [AdminController::class],
+
+        ],
+        [
+            'adminView' => [AdminController::class],
+        ]
+
+    ];
+
 
     //------------------------------------------------------------------------------------------------------------------
     public function renderController()
     {
-        $request = $this->request;
+        $_SESSION['role'] = 'admin';
 
-        try {
-            if (key_exists($request, $this->routes)) {
-                $controller = $this->routes[$request]['controllers'];
-                $method = $this->routes[$request]['method'];
+        foreach ($this->getAllowedRoutes() as $levelRoutes) {
+            foreach ($levelRoutes as $method => $controllers) {
+                $methodName = $controllers[1] ?? $method;
 
-                $currentController = new $controller();
-                $currentController->$method();
-            } elseif (key_exists($request, $this->routesAdmin)) {
-                if ($this->isLoggedIn()) {
-                    $controller = $this->routesAdmin[$request]['controllers'];
-                    $method = $this->routesAdmin[$request]['method'];
-
-                    $currentController = new $controller();
-                    $currentController->$method();
-                } else {
-                    header('Location: index.php?action=adminLogin');
+                if ($this->action !== $methodName) {
+                    continue;
                 }
-            } else {
-                throw new Exception(' 404 aucune page trouvée');
+
+                $controller = new $controllers[0]();
+
+                return $controller->$methodName();
             }
-        } catch (Exception $e) {
-            $this->error = $e->getMessage();
-            echo $this->error;
         }
     }
 
@@ -91,6 +92,38 @@ class Router
         } else {
             return false;
         }
+    }
+
+    public function getAllowedRoutes(): array
+    {
+        $roleByLevel = [
+            'visitor' => 0,
+            'member' => 1,
+            'admin' => 2,
+        ];
+
+        $role = $roleByLevel[$_SESSION['role'] ?? 'visitor']; // 0, 1, 2
+
+        $allowedRoutes = [];
+        foreach (self::ROUTES as $key => $routes) {
+            if ($role < $key) {
+                continue;
+            }
+
+            $allowedRoutes[] = $routes;
+        }
+
+        return $allowedRoutes;
+    }
+
+    public function getAction()
+    {
+        if (isset($_GET['action'])) {
+            $act = $_GET['action'];
+        } else {
+            $act = 'home';
+        }
+        return $act;
     }
     //------------------------------------------------------------------------------------------------------------------
 }

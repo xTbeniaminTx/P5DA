@@ -1,5 +1,7 @@
 <?php
 
+namespace app\libraries;
+
 /*
  * PDO Database
  * Connect to database
@@ -7,6 +9,9 @@
  * Bind values
  * Return Row and Results
  */
+
+use PDO;
+use PDOException;
 
 class Database
 {

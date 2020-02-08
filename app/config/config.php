@@ -1,6 +1,8 @@
 <?php 
 
 //DB Parameters
+use app\Twig\AppExtension;
+
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
@@ -26,6 +28,7 @@ $twig = new \Twig\Environment($loader, [
 ]);
 //https://github.com/nlemoine/twig-dump-extension
 $twig->addExtension(new \HelloNico\Twig\DumpExtension());
+$twig->addExtension(new AppExtension());
 $twig->getExtension(\Twig\Extension\CoreExtension::class)->setTimezone('Europe/Paris');
 
 /*
