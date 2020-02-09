@@ -36,5 +36,37 @@ class User
         }
     }
 
+    public function findByEmail($email)
+    {
+        $this->db->query('SELECT * FROM users WHERE email = :email');
+
+        $this->db->bind(':email', $email);
+//        $user = $this->db->resultSet();
+
+        $row = $this->db->single();
+
+        //check row
+        if ($this->db->rowCount() > 0) {
+            return $row;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function login($email, $password)
+    {
+        $this->db->query('SELECT * FROM users WHERE email = :email');
+        $this->db->bind(':email', $email);
+
+        $row = $this->db->single();
+        $password_db = $row->password;
+        if (password_verify($password, $password_db)) {
+            return $row;
+        } else {
+            return false;
+        }
+    }
+
 
 }

@@ -43,6 +43,7 @@ class Router
             'registerUser2' => [UserController::class],
             'show' => [UserController::class],
             'get' => [UserController::class],
+            'login' => [UserController::class],
             'showLoginForm' => [UserController::class]
         ],
         [

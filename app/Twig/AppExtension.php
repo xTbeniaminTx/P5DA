@@ -29,6 +29,7 @@ class AppExtension extends AbstractExtension
         return Session::has('error');
     }
 
+
     public function old($key, $value)
     {
         return Request::old($key, $value);

@@ -235,7 +235,7 @@ class UserController
                 if ($this->userModel->addUser($data)) {
                     Request::refresh();
                     $data = [
-                        'success' => 'Nouveau user ajouté avecdd d succès',
+                        'success' => 'Nouveau user ajouté avecdd d succès, veuilliez vous connectez',
                     ];
                     global $twig;
                     $vue = $twig->load('register.html.twig');
@@ -255,6 +255,68 @@ class UserController
 
     public function login()
     {
+        if (Request::has('post')) {
+            $request = Request::get('post');
+
+
+            if (CSRFToken::verifyCSRFToken($request->token)) {
+                $rules = [
+                    'email' => ['required' => true],
+                    'password' => ['required' => true]
+                ];
+
+                $validate = new ValidateRequest();
+                $validate->abide($_POST, $rules);
+
+
+                if ($validate->hasError()) {
+
+                    $errors = $validate->getErrorMessages();
+
+                    $data = [
+                        'errors' => $errors,
+                        'email_err' => 'Veuillez entre votre email',
+
+                    ];
+                    global $twig;
+                    $vue = $twig->load('admin.login.html.twig');
+                    echo $vue->render($data);
+                    exit;
+                }
+
+
+                $data = [
+                    'email' => trim($_POST['email']),
+                ];
+
+                $user = $this->userModel->findByEmail($_POST['email']);
+
+                if ($user) {
+                    if (!password_verify($request->password, $user->password)) {
+                        $data = [
+                            'password_err' => 'MDP incorect',
+                        ];
+                        global $twig;
+                        $vue = $twig->load('admin.login.html.twig');
+                        echo $vue->render($data);
+                        exit;
+
+                    } else {
+                        Session::add('SESSION_USER_ID', $user->id);
+                        Session::add('SESSION_USER_EMAIL', $user->email);
+                        Redirect::to('home');
+                    }
+                }
+            }
+            throw new \Exception('Token incorect');
+
+        }
+
+        $data = [];
+        global $twig;
+        $vue = $twig->load('admin.login.html.twig');
+        echo $vue->render($data);
+
 
     }
 

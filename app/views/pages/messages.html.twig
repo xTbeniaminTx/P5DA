@@ -2,12 +2,15 @@
     {% if errors is defined and errors|length > 0 %}
         <div class="h3 alert alert-warning text-center alert-dismissible fade show">
 
-            {% for error in errors %}
-                {% for err in error %}
-                    {{ err }} <br>
+            {% if get_error %}
+                {{ error }}
+            {% else %}
+                {% for error in errors %}
+                    {% for err in error %}
+                        {{ err }} <br>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-
+            {% endif %}
             <button class="close" type="button" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -16,12 +19,12 @@
     {% endif %}
 
     je suis la
-{{ dump(success) }}
-    {% if success is not null  %}
+    {{ dump(success) }}
+    {% if success is not null %}
         <div class="h3 alert alert-success text-center alert-dismissible fade show">
 
 
-                    {{ success }}
+            {{ success }}
 
 
             <button class="close" type="button" data-dismiss="alert" aria-label="Close">
