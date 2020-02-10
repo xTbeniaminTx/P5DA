@@ -202,7 +202,7 @@ class UserController
                 $rules = [
                     'txtLastName' => ['required' => true, 'minLength' => 6],
                     'txtFirstName' => ['required' => true, 'minLength' => 6],
-                    'txtEmail' => ['required' => true, 'minLength' => 6],
+                    'txtEmail' => ['required' => true, 'unique' => true, 'minLength' => 6],
                 ];
 
                 $validate = new ValidateRequest();
