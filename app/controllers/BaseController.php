@@ -2,8 +2,8 @@
 
 namespace app\controllers;
 
-use app\libraries\Redirect;
-use app\libraries\Session;
+use app\services\Redirect;
+use app\services\Session;
 use app\models\Chapter;
 use app\models\Comment;
 use app\models\Login;

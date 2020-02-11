@@ -2,11 +2,11 @@
 
 namespace app\controllers;
 
-use app\libraries\CSRFToken;
-use app\libraries\Redirect;
-use app\libraries\Request;
-use app\libraries\Session;
-use app\libraries\ValidateRequest;
+use app\services\CSRFToken;
+use app\services\Redirect;
+use app\services\Request;
+use app\services\Session;
+use app\services\ValidateRequest;
 use app\models\Login;
 use app\models\User;
 
@@ -228,9 +228,9 @@ class UserController
                     'first_name' => trim($_POST['txtFirstName']),
                     'password' => password_hash($_POST['password'], PASSWORD_BCRYPT),
                     'email' => trim($_POST['txtEmail']),
-                    'role' => 'member',
-
+                    'role' => 'member'
                 ];
+
 
                 if ($this->userModel->addUser($data)) {
                     Request::refresh();
@@ -242,7 +242,12 @@ class UserController
                     echo $vue->render($data);
                 }
             }
+
             throw new \Exception('Token incorect');
+
+        } else {
+
+            Session::view('register.html.twig', $data = []);
 
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\libraries;
+namespace app\services;
 
 class Session
 {
@@ -31,6 +31,14 @@ class Session
     public static function get($name)
     {
         return $_SESSION[$name];
+    }
+
+    public static function view($name, $data)
+    {
+        global $twig;
+        $vue = $twig->load($name);
+        echo $vue->render($data);
+
     }
 
     /**

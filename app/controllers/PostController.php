@@ -2,17 +2,21 @@
 
 namespace app\controllers;
 
+use app\models\Chapter;
+use app\models\Comment;
+use app\models\Login;
+
 class PostController
 {
-    //------------------------------------------------------------------------------------------------------------------
+    private $loginModel;
+    private $chapterModel;
+    private $commentModel;
     public function __construct()
     {
-        $this->loginModel = $this->model('Login');
-        $this->chapterModel = $this->model('Chapter');
-        $this->commentModel = $this->model('Comment');
+        $this->loginModel = new Login();
+        $this->chapterModel = new Chapter();
+        $this->commentModel = new Comment();
     }
-
-    //------------------------------------------------------------------------------------------------------------------
 
     public function createSession($login)
     {
