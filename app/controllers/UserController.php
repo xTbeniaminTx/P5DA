@@ -194,12 +194,6 @@ class UserController
     public function registerUser2()
     {
 
-        $user_message = Session::flash('user_message');
-
-        $message_user = <<<EOD
-                    $user_message
-EOD;
-
         if (Request::has('post')) {
             $request = Request::get('post');
 
@@ -208,7 +202,7 @@ EOD;
                 $rules = [
                     'txtLastName' => ['required' => true, 'minLength' => 6],
                     'txtFirstName' => ['required' => true, 'minLength' => 6],
-                    'txtEmail' => ['required' => true, 'minLength' => 6],
+                    'txtEmail' => ['required' => true, 'unique' => true, 'minLength' => 6],
                 ];
 
                 $validate = new ValidateRequest();
@@ -217,9 +211,7 @@ EOD;
 
                 if ($validate->hasError()) {
 
-
                     $errors = $validate->getErrorMessages();
-
 
                     $data = [
                         'errors' => $errors
@@ -227,52 +219,104 @@ EOD;
                     global $twig;
                     $vue = $twig->load('register.html.twig');
                     echo $vue->render($data);
+                    exit;
                 }
 
 
                 $data = [
                     'last_name' => trim($_POST['txtLastName']),
                     'first_name' => trim($_POST['txtFirstName']),
-                    'password' => trim($_POST['password']),
-                    'token' => CSRFToken::_token(),
+                    'password' => password_hash($_POST['password'], PASSWORD_BCRYPT),
                     'email' => trim($_POST['txtEmail']),
-                    'user_message' => $message_user,
-                    'success' => $success
+                    'role' => 'member',
+
                 ];
 
-
-                //make sure errors are empty
-                if (!empty($data['last_name']) && !empty($data['first_name'])) {
-                    //validated
-                    if ($this->userModel->addUser($data)) {
-                        header('Location: index.php?action=registerUser2');
-                        Session::flash('user_message', 'Nouveau user ajouté avecdd d succès');
-                    } else {
-                        die('Impossible de traiter cette demande à l\'heure actuelle.');
-                    }
-
-                } else {
-                    //load view with errors
+                if ($this->userModel->addUser($data)) {
+                    Request::refresh();
+                    $data = [
+                        'success' => 'Nouveau user ajouté avecdd d succès, veuilliez vous connectez',
+                    ];
                     global $twig;
                     $vue = $twig->load('register.html.twig');
                     echo $vue->render($data);
                 }
             }
-        } else {
+            throw new \Exception('Token incorect');
 
-
-            $data = [
-
-            ];
-            global $twig;
-            $vue = $twig->load('register.html.twig');
-            echo $vue->render($data);
         }
+
+        $data = [];
+        global $twig;
+        $vue = $twig->load('register.html.twig');
+        echo $vue->render($data);
 
     }
 
     public function login()
     {
+        if (Request::has('post')) {
+            $request = Request::get('post');
+
+
+            if (CSRFToken::verifyCSRFToken($request->token)) {
+                $rules = [
+                    'email' => ['required' => true],
+                    'password' => ['required' => true]
+                ];
+
+                $validate = new ValidateRequest();
+                $validate->abide($_POST, $rules);
+
+
+                if ($validate->hasError()) {
+
+                    $errors = $validate->getErrorMessages();
+
+                    $data = [
+                        'errors' => $errors,
+                        'email_err' => 'Veuillez entre votre email',
+
+                    ];
+                    global $twig;
+                    $vue = $twig->load('admin.login.html.twig');
+                    echo $vue->render($data);
+                    exit;
+                }
+
+
+                $data = [
+                    'email' => trim($_POST['email']),
+                ];
+
+                $user = $this->userModel->findByEmail($_POST['email']);
+
+                if ($user) {
+                    if (!password_verify($request->password, $user->password)) {
+                        $data = [
+                            'password_err' => 'MDP incorect',
+                        ];
+                        global $twig;
+                        $vue = $twig->load('admin.login.html.twig');
+                        echo $vue->render($data);
+                        exit;
+
+                    } else {
+                        Session::add('SESSION_USER_ID', $user->id);
+                        Session::add('SESSION_USER_EMAIL', $user->email);
+                        Redirect::to('home');
+                    }
+                }
+            }
+            throw new \Exception('Token incorect');
+
+        }
+
+        $data = [];
+        global $twig;
+        $vue = $twig->load('admin.login.html.twig');
+        echo $vue->render($data);
+
 
     }
 

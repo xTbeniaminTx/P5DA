@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\libraries\Request;
+use app\libraries\Session;
 use app\models\Chapter;
 use app\models\Comment;
 use app\models\Login;
@@ -11,6 +13,7 @@ class AdminController
     private $loginModel;
     private $chapterModel;
     private $commentModel;
+
     public function __construct()
     {
         $this->loginModel = new Login();
@@ -19,22 +22,17 @@ class AdminController
     }
 
 
-
     //------------------------------------------------------------------------------------------------------------------
 
     public function adminChapters()
     {
 
         $chapters = $this->chapterModel->getChapters();
-        $chapter_message = flash('chapter_message');
-        $message_chapter = <<<EOD
-                    $chapter_message
-EOD;
+
 
         $data = [
             'title' => "Admin Chapters",
-            'chapters' => $chapters,
-            'chapter_message' => $message_chapter,
+            'chapters' => $chapters
 
         ];
         global $twig;
@@ -74,10 +72,17 @@ EOD;
             if (empty($data['title_err']) && empty($data['content_err'])) {
                 //validated
                 if ($this->chapterModel->addChapter($data)) {
-                    header('Location: index.php?action=adminChapters');
-                    flash('chapter_message', 'Nouveau chapitre ajouté avec succès');
-                } else {
-                    die('Impossible de traiter cette demande à l\'heure actuelle.');
+
+                    Request::refresh();
+                    $chapters = $this->chapterModel->getChapters();
+                    $data = [
+                        'title' => "Admin Chapters",
+                        'chapters' => $chapters,
+                        'success' => 'Nouveau chapitre ajouté avec succès',
+                    ];
+                    global $twig;
+                    $vue = $twig->load('admin.chapters.html.twig');
+                    echo $vue->render($data);
                 }
 
             } else {
@@ -271,7 +276,6 @@ EOD;
     }
 
     //------------------------------------------------------------------------------------------------------------------
-
 
 
     //------------------------------------------------------------------------------------------------------------------

@@ -34,11 +34,15 @@
         </style>
     </head>
     <body id="login" class="text-center bg-light">
-    <form class="form-signin" action="index.php?action=adminLogin" method="POST">
+
+    <form class="form-signin" action="index.php?action=login" method="POST">
         <a href="index.php?action=home">
             <img class="mb-4" src="images/favicon.ico" alt="" width="72" height="72">
         </a>
+
+        <input type="hidden" name="token" value="{{ get_token() }}">
         <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+        {% include 'messages.html.twig' %}
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" name="email"
                class="form-control {{ (email_err is not empty) ? 'is-invalid' : '' }}" placeholder="Votre email"
