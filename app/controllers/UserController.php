@@ -2,11 +2,11 @@
 
 namespace app\controllers;
 
-use app\libraries\CSRFToken;
-use app\libraries\Redirect;
-use app\libraries\Request;
-use app\libraries\Session;
-use app\libraries\ValidateRequest;
+use app\services\CSRFToken;
+use app\services\Redirect;
+use app\services\Request;
+use app\services\Session;
+use app\services\ValidateRequest;
 use app\models\Login;
 use app\models\User;
 
@@ -237,7 +237,6 @@ EOD;
                     'token' => CSRFToken::_token(),
                     'email' => trim($_POST['txtEmail']),
                     'user_message' => $message_user,
-                    'success' => $success
                 ];
 
 
@@ -260,13 +259,8 @@ EOD;
             }
         } else {
 
+            Session::view('register.html.twig', $data = []);
 
-            $data = [
-
-            ];
-            global $twig;
-            $vue = $twig->load('register.html.twig');
-            echo $vue->render($data);
         }
 
     }
