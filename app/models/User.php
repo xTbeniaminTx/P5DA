@@ -10,13 +10,12 @@ class User
 
     private $db;
 
-    //------------------------------------------------------------------------------------------------------------------
+
     public function __construct()
     {
         $this->db = new Database;
     }
 
-    //------------------------------------------------------------------------------------------------------------------
 
     public function addUser($data)
     {
@@ -36,12 +35,12 @@ class User
         }
     }
 
+
     public function findByEmail($email)
     {
         $this->db->query('SELECT * FROM users WHERE email = :email');
 
         $this->db->bind(':email', $email);
-//        $user = $this->db->resultSet();
 
         $row = $this->db->single();
 
@@ -53,6 +52,7 @@ class User
         }
 
     }
+
 
     public function login($email, $password)
     {
@@ -67,6 +67,5 @@ class User
             return false;
         }
     }
-
 
 }

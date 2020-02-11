@@ -11,12 +11,14 @@ class SecurityController
     private $loginModel;
     private $chapterModel;
     private $commentModel;
+
     public function __construct()
     {
         $this->loginModel = new Login();
         $this->chapterModel = new Chapter();
         $this->commentModel = new Comment();
     }
+
 
     public function createSession($login)
     {
