@@ -3,7 +3,7 @@
 
 namespace app\models;
 
-use app\libraries\Database;
+use app\services\Database;
 
 class User
 {

@@ -2,9 +2,9 @@
 
 namespace app\Twig;
 
-use app\libraries\CSRFToken;
-use app\libraries\Request;
-use app\libraries\Session;
+use app\services\CSRFToken;
+use app\services\Request;
+use app\services\Session;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

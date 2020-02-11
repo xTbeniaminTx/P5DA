@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\libraries;
+namespace app\services;
 
 
 class UploadFile

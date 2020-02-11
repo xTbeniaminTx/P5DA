@@ -8,10 +8,6 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'blogp5da');
 
-//define('DB_HOST', 'shareddb-g.hosting.stackcp.net');
-//define('DB_USER', 'benjito1983');
-//define('DB_PASS', 'rewopi123456');
-//define('DB_NAME', 'blog-p4oc-37317b91');
 
 
 //App Root
