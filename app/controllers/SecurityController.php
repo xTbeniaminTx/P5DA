@@ -2,116 +2,89 @@
 
 namespace app\controllers;
 
-use app\models\Chapter;
-use app\models\Comment;
-use app\models\Login;
+
+use app\models\User;
+use app\services\CSRFToken;
+use app\services\Redirect;
+use app\services\Request;
+use app\services\Session;
+use app\services\ValidateRequest;
 
 class SecurityController
 {
-    private $loginModel;
-    private $chapterModel;
-    private $commentModel;
+    private $userModel;
+
 
     public function __construct()
     {
-        $this->loginModel = new Login();
-        $this->chapterModel = new Chapter();
-        $this->commentModel = new Comment();
+
+        $this->userModel = new User();
+
     }
 
 
-    public function createSession($login)
+    public function login()
     {
-        $_SESSION['admin_id'] = $login->id;
-        $_SESSION['admin_email'] = $login->email;
-        header('Location: index.php?action=adminChapters');
-    }
+        if (Request::has('post')) {
+            $request = Request::get('post');
 
 
-    public function adminLogin()
-    {
-        if ($this->isLoggedIn()) {
-            header('Location: index.php?action=adminChapters');
-        } else {
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                //process form
-                //Sanitaze POST data
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-                //init data
-                $data = [
-                    'email' => trim($_POST['email']),
-                    'email_err' => '',
-                    'password' => trim($_POST['password']),
-                    'password_err' => ''
+            if (CSRFToken::verifyCSRFToken($request->token)) {
+                $rules = [
+                    'email' => ['required' => true],
+                    'password' => ['required' => true]
                 ];
 
+                $validate = new ValidateRequest();
+                $validate->abide($_POST, $rules);
 
-                //check if email is entered
-                if (empty($data['email'])) {
-                    $data['email_err'] = 'Veuillez entre votre email';
+
+                if ($validate->hasError()) {
+
+                    $errors = $validate->getErrorMessages();
+
+                    $data = [
+                        'errors' => $errors,
+                        'email_err' => 'Veuillez entre votre email',
+
+                    ];
+                    Session::view('login.html.twig', $data);
+                    exit;
                 }
 
-                //check if password is entered
-                if (empty($data['password'])) {
-                    $data['password_err'] = 'Veuillez entre votre mot de passe';
-                }
+                $user = $this->userModel->findByEmail($_POST['email']);
 
-                //check for email
-                if ($this->loginModel->findByEmail($data['email'])) {
-                    //email found
-                } else {
-                    $data['email_err'] = 'Aucun utilisateur trouvé';
-                }
+                if ($user) {
+                    if (!password_verify($request->password, $user->password)) {
+                        $data = [
+                            'password_err' => 'MDP incorect',
+                        ];
+                        Session::view('login.html.twig', $data);
+                        exit;
 
-                //make sure errors are empty
-                if (empty($data['email_err']) && empty($data['password_err'])) {
-                    //validated
-                    //check and set logged user
-                    $loggedInAdmin = $this->loginModel->login($data['email'], $data['password']);
-
-                    if ($loggedInAdmin) {
-                        //create session
-                        $this->createSession($loggedInAdmin);
                     } else {
-                        $data['password_err'] = 'Mot de passe invalide';
-                        //load view with errors
-                        global $twig;
-                        $vue = $twig->load('admin.login.html.twig');
-                        echo $vue->render($data);
+                        Session::add('SESSION_USER_ID', $user->id);
+                        Session::add('SESSION_USER_EMAIL', $user->email);
+                        Session::add('role', $user->role);
+                        Redirect::to('home');
                     }
-                } else {
-                    //load view with errors
-                    global $twig;
-                    $vue = $twig->load('admin.login.html.twig');
-                    echo $vue->render($data);
                 }
-
-            } else {
-                //init data
-                $data = [
-                    'email' => '',
-                    'email_err' => '',
-                    'password' => '',
-                    'password_err' => ''
-                ];
-
-                //load view
-                global $twig;
-                $vue = $twig->load('admin.login.html.twig');
-                echo $vue->render($data);
             }
+            throw new \Exception('Token incorect');
+
         }
+
+        $data = [];
+        Session::view('login.html.twig', $data);
 
     }
 
-    public function isLoggedIn()
+    public function logout()
     {
-        if (isset($_SESSION['admin_id'])) {
-            return true;
-        } else {
-            return false;
-        }
+        unset($_SESSION['admin_id']);
+        unset($_SESSION['admin_email']);
+        session_destroy();
+        header('Location: index.php?action=home');
     }
 
 }

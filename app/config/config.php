@@ -24,12 +24,14 @@ define('URLROOT', '');
 
 define('SITENAME', 'Blog P5DA');
 
+session_start();
+
 $loader = new FilesystemLoader(APPROOT . '/views/pages');
 $twig = new Environment($loader, [
     'auto_load' => true,
     'debug' => true
 ]);
-
+$twig->addGlobal('session', $_SESSION);
 $twig->addExtension(new DumpExtension()); //https://github.com/nlemoine/twig-dump-extension
 $twig->addExtension(new CSRFTokenExtension());
 $twig->addExtension(new RedirectExtension());

@@ -440,8 +440,8 @@
                 changeEvent: 'passwordShown',
                 props: {type: 'text'},
                 toggle: {
-                    className: 'hideShowPassword-toggle-hide',
-                    content: 'Hide',
+                    className: 'hideShowPassword-toggle-hide btn btn-primary btn-sm',
+                    content: '<i class="fa fa-eye"></i>',
                     attr: {
                         'aria-pressed': 'true',
                         title: 'Hide Password'
@@ -453,8 +453,8 @@
                 changeEvent: 'passwordHidden',
                 props: {type: 'password'},
                 toggle: {
-                    className: 'hideShowPassword-toggle-show',
-                    content: 'Show',
+                    className: 'hideShowPassword-toggle-show btn btn-secondary btn-sm',
+                    content: '<i class="fa fa-eye-slash"></i>',
                     attr: {
                         'aria-pressed': 'false',
                         title: 'Show Password'

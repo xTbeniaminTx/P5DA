@@ -4,7 +4,7 @@ namespace app\models;
 
 use app\services\Database;
 
-class Chapter
+class Post
 {
     private $db;
 
@@ -15,9 +15,9 @@ class Chapter
     }
 
 
-    public function getChapters()
+    public function getPosts()
     {
-        $this->db->query("SELECT * FROM chapters ORDER BY id DESC");
+        $this->db->query("SELECT * FROM posts ORDER BY id DESC");
 
         $results = $this->db->resultSet();
 
@@ -26,9 +26,9 @@ class Chapter
     }
 
 
-    public function getChaptersById($id)
+    public function getPostById($id)
     {
-        $this->db->query('SELECT * FROM chapters WHERE id = :id');
+        $this->db->query('SELECT * FROM posts WHERE id = :id');
         $this->db->bind(':id', $id);
 
         $row = $this->db->single();
@@ -38,9 +38,9 @@ class Chapter
     }
 
 
-    public function addChapter($data)
+    public function addPost($data)
     {
-        $this->db->query('INSERT INTO chapters (id, title, content, content_date)
+        $this->db->query('INSERT INTO posts (id, title, content, content_date)
                               VALUES(:id, :title, :content, :content_date)');
         $this->db->bind(':id', $data['id']);
         $this->db->bind(':title', $data['title']);
@@ -56,9 +56,9 @@ class Chapter
     }
 
 
-    public function updateChapter($data)
+    public function updatePost($data)
     {
-        $this->db->query('UPDATE chapters SET title = :title, content = :content WHERE id=:id');
+        $this->db->query('UPDATE posts SET title = :title, content = :content WHERE id=:id');
         $this->db->bind(':id', $data['id']);
         $this->db->bind(':title', $data['title']);
         $this->db->bind(':content', $data['content']);
@@ -72,9 +72,9 @@ class Chapter
     }
 
 
-    public function deleteChapter($id)
+    public function deletePost($id)
     {
-        $this->db->query('DELETE FROM chapters WHERE id = :id');
+        $this->db->query('DELETE FROM posts WHERE id = :id');
         $this->db->bind(':id', $id);
 
         //execute

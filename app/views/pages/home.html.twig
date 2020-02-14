@@ -37,11 +37,11 @@
         <div class="container text-center mt-5">
             <h2 class="text-uppercase">Retrouvez les derniers articles parus sur mon blog.</h2>
             <div class="row">
-                {% for chapter in chapters|slice(0,3) %}
+                {% for post in posts|slice(0,3) %}
                     <div class="col-md-4 p-3">
                         <img src="images/icons/nature.png" alt="" class="img-fluid">
-                        <h3><a href="index.php?action=showChapter&id={{ chapter.id }}">{{ chapter.title|raw }}</a></h3>
-                        <p class="lead d-none d-sm-inline"> {{ chapter.content|slice(0,500)|raw }}... </p>
+                        <h3><a href="index.php?action=showChapter&id={{ post.id }}">{{ post.title|raw }}</a></h3>
+                        <p class="lead d-none d-sm-inline"> {{ post.content|slice(0,500)|raw }}... </p>
                     </div>
                 {% endfor %}
 
