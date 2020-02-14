@@ -235,9 +235,7 @@ class UserController
                     $data = [
                         'success' => 'Nouveau user ajouté avecdd d succès, veuilliez vous connectez',
                     ];
-                    global $twig;
-                    $vue = $twig->load('register.html.twig');
-                    echo $vue->render($data);
+                    Session::view('register.html.twig', $data);
                 }
             }
 
