@@ -15,7 +15,7 @@ class ValidateRequest
     private static $error = [];
     private static $error_messages = [
         'string' => 'The :attribute field cannot contain numbers',
-        'unique' => 'The :attribute field is already in use',
+        'uniqueEmail' => 'The :attribute field is already in use',
         'required' => 'The :attribute field is required',
         'minLength' => 'The :attribute field must be a minimum of :policy characters',
         'maxLength' => 'The :attribute field must be a maximum of :policy characters',
@@ -60,7 +60,8 @@ class ValidateRequest
     }
 
 
-    protected static function unique($column, $value, $policy)
+
+    protected static function uniqueEmail($column, $value, $policy)
     {
         self::$db->query('SELECT * FROM users WHERE email = :email');
         self::$db->bind(':email', $value);

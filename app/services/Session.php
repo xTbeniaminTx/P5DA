@@ -26,19 +26,25 @@ class Session
      * get session name
      *
      * @param $name
-     * @return mixed
+     *
+     * @return string
      */
-    public static function get($name)
+    public static function get($name): string
     {
+        if (false === self::has($name)) {
+            return '';
+        }
+
         return $_SESSION[$name];
     }
 
     public static function view($name, $data)
     {
         global $twig;
-        $vue = $twig->load($name);
-        echo $vue->render($data);
+        $view = $twig->load($name);
+        echo $view->render($data);
 
+        return true;
     }
 
     /**
@@ -46,15 +52,10 @@ class Session
      *
      * @param $name
      * @return bool
-     * @throws \Exception
      */
-    public static function has($name)
+    public static function has(string $name): bool
     {
-        if ($name != '' && !empty($name)) {
-            return (isset($_SESSION[$name]) ? true : false);
-        }
-
-        throw new \Exception('name is required');
+        return isset($_SESSION[$name]);
     }
 
     /**
@@ -62,13 +63,10 @@ class Session
      *
      * @param $name
      */
-    public static function remove($name)
+    public static function remove(string $name)
     {
-        try {
-            if (self::has($name)) {
-                unset($_SESSION[$name]);
-            }
-        } catch (\Exception $e) {
+        if (self::has($name)) {
+            unset($_SESSION[$name]);
         }
     }
 
