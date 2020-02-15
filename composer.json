@@ -7,11 +7,14 @@
     },
     "require": {
         "twig/twig": "^2.0",
-        "tinymce/tinymce": "^4",
+        "tinymce/tinymce": "^5.0.6",
         "symfony/var-dumper": "^4.3",
         "hellonico/twig-dump-extension": "^1.0",
         "swiftmailer/swiftmailer": "^6.0",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "mailgun/mailgun-php": "^3.0",
+        "php-http/guzzle6-adapter": "^2.0",
+        "php-http/message": "^1.8"
     },
     "config": {
         "optimize-autoloader": true

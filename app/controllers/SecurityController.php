@@ -58,6 +58,7 @@ class SecurityController
                         exit;
 
                     } else {
+                        session_regenerate_id(true);
                         Session::add('SESSION_USER_ID', $user->id);
                         Session::add('SESSION_USER_EMAIL', $user->email);
                         Session::add('role', $user->role);
@@ -75,10 +76,23 @@ class SecurityController
 
     public function logout()
     {
-        unset($_SESSION['SESSION_USER_ID']);
-        unset($_SESSION['SESSION_USER_EMAIL']);
+
+        // Unset all of the session variables.
+        $_SESSION = array();
+
+        // If it's desired to kill the session, also delete the session cookie.
+        // Note: This will destroy the session, and not just the session data!
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+
+        // Finally, destroy the session.
         session_destroy();
-        header('Location: index.php?action=home');
+        Redirect::to('home');
     }
 
 }
