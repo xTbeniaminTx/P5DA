@@ -14,7 +14,10 @@
         "ext-pdo": "*",
         "mailgun/mailgun-php": "^3.0",
         "php-http/guzzle6-adapter": "^2.0",
-        "php-http/message": "^1.8"
+        "php-http/message": "^1.8",
+        "php-http/discovery": "^1.7",
+        "php-http/curl-client": "^2.1",
+        "guzzlehttp/psr7": "^1.6"
     },
     "config": {
         "optimize-autoloader": true

@@ -48,6 +48,8 @@ $twig->addExtension(new UploadFileExtension());
 $twig->getExtension(CoreExtension::class)->setTimezone('Europe/Paris');
 
 
+const MAILGUN_API_KEY = '58c3857dff81fe22fb83c0dfeb969b1f-52b6835e-00ee31b6';
+const MAILGUN_API_DOMAIN = 'https://api.mailgun.net/v3/sandbox59b38d41a61d40eea897194f451ff653.mailgun.org';
 
 
 /*
