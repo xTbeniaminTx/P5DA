@@ -7,6 +7,7 @@ use app\services\Auth;
 use app\services\Redirect;
 use app\services\View;
 
+
 class BaseController
 {
 
@@ -22,6 +23,8 @@ class BaseController
 
     public function home()
     {
+        Mail::send('beniamin.tolan@gmail.com','Test','This is a test');
+
         $posts = $this->postModel->getPosts();
 
         View::renderTemplate('home.html.twig', ['posts' => $posts]);
