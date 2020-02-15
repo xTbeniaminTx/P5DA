@@ -29,6 +29,7 @@ class Router
             'showRegisterForm' => [BaseController::class],
             'registerUser' => [UserController::class],
             'login' => [SecurityController::class],
+            'indexAction' => [AdminController::class],
             'showLoginForm' => [BaseController::class]
         ],
         [
@@ -80,7 +81,7 @@ class Router
             'admin' => 2,
         ];
 
-        $role = $roleByLevel[$_SESSION['role'] ?? $_SESSION['role']='visitor']; // 0, 1, 2
+        $role = $roleByLevel[$_SESSION['role'] ?? $_SESSION['role'] = 'visitor']; // 0, 1, 2
 
         $allowedRoutes = [];
         foreach (self::ROUTES as $key => $routes) {

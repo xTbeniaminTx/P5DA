@@ -25,12 +25,12 @@ class CSRFToken
      *
      * @param $requestToken
      * @param bool $regenerate
+     *
      * @return bool
-     * @throws \Exception
      */
-    public static function verifyCSRFToken($requestToken, $regenerate = true)
+    public static function verifyCSRFToken(string $requestToken, $regenerate = true)
     {
-        if (Session::has('token') && Session::get('token') === $requestToken) {
+        if ($requestToken === Session::get('token')) {
             if ($regenerate) {
                 Session::remove('token');
             }
@@ -39,7 +39,6 @@ class CSRFToken
         }
 
         return false;
-
     }
 
 }

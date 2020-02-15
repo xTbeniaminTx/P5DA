@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {{ message_contact }}
+
+    <section id="showcase" class="d-flex justify-content-center align-items-center" style="height: 40vh;">
+        <div id="overlay" style="height: 40vh;"></div>
+
+        <div id="header" class="container text-white text-center">
+            <h1 class="display-3">Index</h1>
+            <p class="lead d-none d-md-block py-5">Vous ne tes pas authorize de acceder la page demande</p>
+        </div>
+    </section>
+    <h1>Bonjour, {{ current_user.first_name }}</h1>
+   {{ dump(session) }}
+   {{ dump() }}
+{% endblock %}

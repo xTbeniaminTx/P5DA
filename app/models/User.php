@@ -53,6 +53,23 @@ class User
 
     }
 
+    public function findById($id)
+    {
+        $this->db->query('SELECT * FROM users WHERE id = :id');
+
+        $this->db->bind(':id', $id);
+
+        $row = $this->db->single();
+
+        //check row
+        if ($this->db->rowCount() > 0) {
+            return $row;
+        } else {
+            return false;
+        }
+
+    }
+
 
     public function login($email, $password)
     {

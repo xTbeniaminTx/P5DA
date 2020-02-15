@@ -43,7 +43,7 @@
                 <li class="nav-item">
                     <a href="index.php?action=contact" class="nav-link">Contact</a>
                 </li>
-                {% if session.role == 'member' %}
+                {% if current_user %}
                     <li class="nav-item">
                         <a href="index.php?action=profile" class="nav-link">Profile</a>
                     </li>
