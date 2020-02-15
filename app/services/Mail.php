@@ -3,22 +3,29 @@
 
 namespace app\services;
 
-use Mailgun\Mailgun;
 
 class Mail
 {
-    public static function send($to, $subject, $text)
+    public static function send($to, $to_user_name, $subject, $text, $html)
     {
 
-        $mgClient = Mailgun::create('58c3857dff81fe22fb83c0dfeb969b1f-52b6835e-00ee31b6', 'https://api.mailgun.net/v3/sandbox59b38d41a61d40eea897194f451ff653.mailgun.org');
-        $domain = 'https://app.mailgun.com/app/sending/domains/sandbox59b38d41a61d40eea897194f451ff653.mailgun.org';
-        # Make the call to the client.
-        $result = $mgClient->sendMessage($domain, array(
-            'from'	=> 'Excited User <mailgun@YOUR_DOMAIN_NAME>',
-            'to'	=> $to,
-            'subject' => $subject,
-            'text'	=> $text
-        ));
+        $email = new \SendGrid\Mail\Mail();
+        $email->setFrom("admin@blog.tolan.me", "Blog BT");
+        $email->setSubject($subject);
+        $email->addTo($to, $to_user_name);
+        $email->addContent("text/plain", $text);
+        $email->addContent(
+            "text/html", $html
+        );
+        $sendgrid = new \SendGrid(SENDGRID_API_KEY);
+        try {
+            $response = $sendgrid->send($email);
+            print $response->statusCode() . "\n";
+            print_r($response->headers());
+            print $response->body() . "\n";
+        } catch (Exception $e) {
+            echo 'Caught exception: '. $e->getMessage() ."\n";
+        }
     }
 
 }

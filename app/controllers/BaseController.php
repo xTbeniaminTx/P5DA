@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Post;
 use app\services\Auth;
+use app\services\Mail;
 use app\services\Redirect;
 use app\services\View;
 
@@ -23,7 +24,7 @@ class BaseController
 
     public function home()
     {
-        Mail::send('beniamin.tolan@gmail.com','Test','This is a test');
+//        Mail::send('beniamin.tolan@gmail.com', Auth::getUser()->first_name,'Test','This is a test',"<h1>and easy to do anywhere, even with PHP</h1>");
 
         $posts = $this->postModel->getPosts();
 
