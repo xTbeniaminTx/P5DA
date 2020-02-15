@@ -28,27 +28,22 @@ class SecurityController
         if (Request::has('post')) {
             $request = Request::get('post');
 
-
             if (CSRFToken::verifyCSRFToken($request->token)) {
-                $rules = [
-                    'email' => ['required' => true],
-                    'password' => ['required' => true]
-                ];
 
                 $validate = new ValidateRequest();
-                $validate->abide($_POST, $rules);
-
+                $validate->abide($_POST, [
+                    'email' => ['required' => true],
+                    'password' => ['required' => true]
+                ]);
 
                 if ($validate->hasError()) {
 
                     $errors = $validate->getErrorMessages();
 
-                    $data = [
+                    Session::view('login.html.twig', [
                         'errors' => $errors,
-                        'email_err' => 'Veuillez entre votre email',
-
-                    ];
-                    Session::view('login.html.twig', $data);
+                        'email_err' => 'Veuillez entre votre email'
+                    ]);
                     exit;
                 }
 
@@ -66,7 +61,7 @@ class SecurityController
                         Session::add('SESSION_USER_ID', $user->id);
                         Session::add('SESSION_USER_EMAIL', $user->email);
                         Session::add('role', $user->role);
-                        Redirect::to('home');
+                        Redirect::to('profile');
                     }
                 }
             }
@@ -74,15 +69,14 @@ class SecurityController
 
         }
 
-        $data = [];
-        Session::view('login.html.twig', $data);
+        Session::view('login.html.twig', []);
 
     }
 
     public function logout()
     {
-        unset($_SESSION['admin_id']);
-        unset($_SESSION['admin_email']);
+        unset($_SESSION['SESSION_USER_ID']);
+        unset($_SESSION['SESSION_USER_EMAIL']);
         session_destroy();
         header('Location: index.php?action=home');
     }

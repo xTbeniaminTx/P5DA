@@ -31,7 +31,7 @@ class UserController
             $request = Request::get('post');
 
 
-            if (CSRFToken::verifyCSRFToken($request->token)) {
+            if (CSRFToken::verifyCSRFToken($request->token, false)) {
                 $rules = [
                     'txtLastName' => ['required' => true, 'minLength' => 6],
                     'txtFirstName' => ['required' => true, 'minLength' => 6],
@@ -46,16 +46,12 @@ class UserController
 
                     $errors = $validate->getErrorMessages();
 
-                    $data = [
+                    Session::view('register.html.twig', [
                         'errors' => $errors
-                    ];
-                    global $twig;
-                    $vue = $twig->load('register.html.twig');
-                    echo $vue->render($data);
-                    exit;
+                    ]);
+                    die;
+
                 }
-
-
                 $data = [
                     'last_name' => trim($_POST['txtLastName']),
                     'first_name' => trim($_POST['txtFirstName']),
@@ -64,28 +60,31 @@ class UserController
                     'role' => 'member'
                 ];
 
-
                 if ($this->userModel->addUser($data)) {
                     Request::refresh();
-                    $data = [
-                        'success' => 'Nouveau user ajouté avecdd d succès, veuilliez vous connectez',
-                    ];
-                    Session::view('register.html.twig', $data);
+                    Session::view('login.html.twig', [
+                        'success' => 'Nouveau user ajouté avec succèss, veuilliez vous connectez avec ',
+                    ]);
                 }
+
+
+            } else {
+                throw new \Exception('Token incorect');
             }
 
-            throw new \Exception('Token incorect');
 
         } else {
-
-            Session::view('register.html.twig', $data = []);
-
+            Session::view('register.html.twig', []);
         }
 
-        $data = [];
-        global $twig;
-        $vue = $twig->load('register.html.twig');
-        echo $vue->render($data);
+
+    }
+
+    public function profile()
+    {
+        $user = $this->userModel->findByEmail($_SESSION['SESSION_USER_EMAIL']);
+
+        Session::view('profile.html.twig', ['user' => $user]);
 
     }
 

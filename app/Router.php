@@ -33,7 +33,8 @@ class Router
         ],
         [
 
-            'logout' => [SecurityController::class]
+            'logout' => [SecurityController::class],
+            'profile' => [UserController::class],
 
         ],
         [
@@ -64,7 +65,7 @@ class Router
 
     public function isLoggedIn()
     {
-        if (isset($_SESSION['admin_id'])) {
+        if (isset($_SESSION['SESSION_USER_ID'])) {
             return true;
         } else {
             return false;

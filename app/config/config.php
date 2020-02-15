@@ -24,7 +24,12 @@ define('URLROOT', '');
 
 define('SITENAME', 'Blog P5DA');
 
+
+error_reporting(E_ALL);
+
+
 session_start();
+
 
 $loader = new FilesystemLoader(APPROOT . '/views/pages');
 $twig = new Environment($loader, [
@@ -39,6 +44,9 @@ $twig->addExtension(new RequestExtension());
 $twig->addExtension(new SessionExtension());
 $twig->addExtension(new UploadFileExtension());
 $twig->getExtension(CoreExtension::class)->setTimezone('Europe/Paris');
+
+
+
 
 /*
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
