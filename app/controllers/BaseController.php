@@ -3,7 +3,9 @@
 namespace app\controllers;
 
 use app\models\Post;
-use app\services\Session;
+use app\services\Auth;
+use app\services\Redirect;
+use app\services\View;
 
 class BaseController
 {
@@ -22,13 +24,13 @@ class BaseController
     {
         $posts = $this->postModel->getPosts();
 
-        Session::view('home.html.twig', ['posts' => $posts]);
+        View::renderTemplate('home.html.twig', ['posts' => $posts]);
 
     }
 
     public function showRegisterForm()
     {
-       Session::view('register.html.twig', []);
+        View::renderTemplate('register.html.twig', []);
     }
 
     public function showLoginForm()
@@ -47,5 +49,7 @@ class BaseController
         echo $vue->render($data);
 
     }
+
+
 
 }

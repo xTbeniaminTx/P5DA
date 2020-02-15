@@ -38,14 +38,7 @@ class Session
         return $_SESSION[$name];
     }
 
-    public static function view($name, $data)
-    {
-        global $twig;
-        $view = $twig->load($name);
-        echo $view->render($data);
 
-        return true;
-    }
 
     /**
      * check if session exists

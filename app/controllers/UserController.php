@@ -3,13 +3,15 @@
 namespace app\controllers;
 
 use app\models\User;
+use app\services\Auth;
 use app\services\CSRFToken;
 use app\services\Request;
 use app\services\Session;
 use app\services\ValidateRequest;
+use app\services\View;
 
 
-class UserController
+class UserController extends CoreController
 {
 
     /**
@@ -23,10 +25,14 @@ class UserController
         $this->userModel = new User();
     }
 
+    public function before() {
+        Auth::requireLogin();
+    }
+
     public function registerUser()
     {
         if (false === Request::has('post')) {
-            return Session::view('register.html.twig', []);
+            return View::renderTemplate('register.html.twig', []);
         }
 
         $request = Request::get('post');
@@ -47,7 +53,7 @@ class UserController
         if ($validate->hasError()) {
             $errors = $validate->getErrorMessages();
 
-            return Session::view('register.html.twig', [
+            return View::renderTemplate('register.html.twig', [
                 'errors' => $errors
             ]);
         }
@@ -62,16 +68,18 @@ class UserController
 
         $this->userModel->addUser($data);
 
-        return Session::view('login.html.twig', [
+        return View::renderTemplate('login.html.twig', [
             'success' => 'Nouveau user ajouté avec succèss, veuilliez vous connectez avec ',
         ]);
     }
 
     public function profile()
     {
+        Auth::requireLogin();
+
         $user = $this->userModel->findByEmail($_SESSION['SESSION_USER_EMAIL']);
 
-        Session::view('profile.html.twig', ['user' => $user]);
+        return View::renderTemplate('profile.html.twig', ['user' => $user]);
 
     }
 

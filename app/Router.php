@@ -29,6 +29,7 @@ class Router
             'showRegisterForm' => [BaseController::class],
             'registerUser' => [UserController::class],
             'login' => [SecurityController::class],
+            'indexAction' => [AdminController::class],
             'showLoginForm' => [BaseController::class]
         ],
         [
