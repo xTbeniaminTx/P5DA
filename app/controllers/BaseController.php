@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Post;
+use app\services\Mail;
 use app\services\Session;
 
 class BaseController
@@ -20,6 +21,8 @@ class BaseController
 
     public function home()
     {
+        Mail::send('beniamin.tolan@gmail.com','Test','This is a test');
+
         $posts = $this->postModel->getPosts();
 
         Session::view('home.html.twig', ['posts' => $posts]);
