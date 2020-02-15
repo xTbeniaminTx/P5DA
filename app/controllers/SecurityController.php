@@ -39,7 +39,7 @@ class SecurityController
 
                     $errors = $validate->getErrorMessages();
 
-                    Session::view('login.html.twig', [
+                    View::renderTemplate('login.html.twig', [
                         'errors' => $errors,
                         'email_err' => 'Veuillez entre votre email'
                     ]);

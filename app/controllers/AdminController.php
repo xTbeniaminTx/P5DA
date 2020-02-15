@@ -12,9 +12,7 @@ class AdminController
     public function indexAction()
     {
         Auth::requireLogin();
-        return View::renderTemplate('index.html.twig', [
-            'user' => Auth::getUser()
-        ]);
+        return View::renderTemplate('index.html.twig');
     }
 
 }

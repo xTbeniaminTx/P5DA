@@ -35,24 +35,27 @@ class Auth
         Redirect::to('home');
     }
 
-    public static function isLoggedIn()
-    {
-        return isset($_SESSION['SESSION_USER_ID']);
-    }
 
+    /**
+     * @return mixed
+     */
     public static function rememberRequestedPage()
     {
-        $_SESSION['return_to'] = $_SERVER['REQUEST_URI'];
+        return $_SESSION['return_to'] = $_SERVER['REQUEST_URI'];
     }
 
+    /**
+     * @return mixed|string
+     */
     public static function getReturnToPage()
     {
-        return $_SESSION['return_to'] ?? 'home';
+        return $_SESSION['return_to'] ?? 'profile';
     }
+
 
     public static function requireLogin()
     {
-        if (!Auth::isLoggedIn()) {
+        if (!Auth::getUser()) {
             Auth::rememberRequestedPage();
             Redirect::to('index.php?action=login');
         }

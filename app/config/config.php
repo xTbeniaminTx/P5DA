@@ -37,8 +37,8 @@ $twig = new Environment($loader, [
     'auto_load' => true,
     'debug' => true
 ]);
-$twig->addGlobal('session', $_SESSION);
-$twig->addGlobal('is_logged_in', Auth::isLoggedIn());
+
+$twig->addGlobal('current_user', Auth::getUser());
 $twig->addExtension(new DumpExtension()); //https://github.com/nlemoine/twig-dump-extension
 $twig->addExtension(new CSRFTokenExtension());
 $twig->addExtension(new RedirectExtension());
