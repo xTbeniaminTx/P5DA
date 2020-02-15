@@ -6,16 +6,15 @@ use app\services\Database;
 
 class Comment
 {
+
     private $db;
 
-    //------------------------------------------------------------------------------------------------------------------
 
     public function __construct()
     {
         $this->db = new Database;
     }
 
-    //------------------------------------------------------------------------------------------------------------------
 
     public function getComments()
     {
@@ -34,7 +33,6 @@ class Comment
 
     }
 
-    //------------------------------------------------------------------------------------------------------------------
 
     public function getCommentsById($id)
     {
@@ -54,7 +52,6 @@ class Comment
 
     }
 
-    //------------------------------------------------------------------------------------------------------------------
 
     public function addComment($data)
     {
@@ -77,7 +74,6 @@ comments (comment_chapter_id, comment_author, comment_email, comment_content,com
         }
     }
 
-    //------------------------------------------------------------------------------------------------------------------
 
     public function approuveStatus($id)
     {
@@ -91,7 +87,6 @@ comments (comment_chapter_id, comment_author, comment_email, comment_content,com
         }
     }
 
-    //------------------------------------------------------------------------------------------------------------------
 
     public function unapprouveStatus($id)
     {
@@ -105,7 +100,6 @@ comments (comment_chapter_id, comment_author, comment_email, comment_content,com
         }
     }
 
-    //------------------------------------------------------------------------------------------------------------------
 
     public function deleteComment($id)
     {
@@ -119,6 +113,5 @@ comments (comment_chapter_id, comment_author, comment_email, comment_content,com
             return false;
         }
     }
-    //------------------------------------------------------------------------------------------------------------------
 
 }

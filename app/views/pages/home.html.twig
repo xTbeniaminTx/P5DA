@@ -37,11 +37,11 @@
         <div class="container text-center mt-5">
             <h2 class="text-uppercase">Retrouvez les derniers articles parus sur mon blog.</h2>
             <div class="row">
-                {% for chapter in chapters|slice(0,3) %}
+                {% for post in posts|slice(0,3) %}
                     <div class="col-md-4 p-3">
                         <img src="images/icons/nature.png" alt="" class="img-fluid">
-                        <h3><a href="index.php?action=showChapter&id={{ chapter.id }}">{{ chapter.title|raw }}</a></h3>
-                        <p class="lead d-none d-sm-inline"> {{ chapter.content|slice(0,500)|raw }}... </p>
+                        <h3><a href="index.php?action=showChapter&id={{ post.id }}">{{ post.title|raw }}</a></h3>
+                        <p class="lead d-none d-sm-inline"> {{ post.content|slice(0,500)|raw }}... </p>
                     </div>
                 {% endfor %}
 
@@ -56,7 +56,9 @@
             <h5 class="text-primary">#beniamintolan</h5>
             <div class="row mt-4">
                 <div class="col-6 col-lg-3 mb-4">
-                    <img class="img-fluid" src="/images/gallery/social1.png" alt="social1">
+                    <a href="https://tolan.me/">
+                    <img class="img-fluid" src="images/logos/logo.png" alt="social1">
+                    </a>
                 </div>
                 <div class="col-6 col-lg-3 mb-4">
                     <img class="img-fluid" src="/images/gallery/social2.png" alt="social2">

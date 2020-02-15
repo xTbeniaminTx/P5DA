@@ -1,5 +1,6 @@
 <?php
 
+use app\services\Auth;
 use app\Twig\CSRFTokenExtension;
 use app\Twig\RedirectExtension;
 use app\Twig\RequestExtension;
@@ -24,12 +25,20 @@ define('URLROOT', '');
 
 define('SITENAME', 'Blog P5DA');
 
+
+error_reporting(E_ALL);
+
+
+session_start();
+
+
 $loader = new FilesystemLoader(APPROOT . '/views/pages');
 $twig = new Environment($loader, [
     'auto_load' => true,
     'debug' => true
 ]);
 
+$twig->addGlobal('current_user', Auth::getUser());
 $twig->addExtension(new DumpExtension()); //https://github.com/nlemoine/twig-dump-extension
 $twig->addExtension(new CSRFTokenExtension());
 $twig->addExtension(new RedirectExtension());
@@ -37,6 +46,12 @@ $twig->addExtension(new RequestExtension());
 $twig->addExtension(new SessionExtension());
 $twig->addExtension(new UploadFileExtension());
 $twig->getExtension(CoreExtension::class)->setTimezone('Europe/Paris');
+
+const SENDGRID_API_KEY = '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';
+
+const MAILGUN_API_KEY = '58c3857dff81fe22fb83c0dfeb969b1f-52b6835e-00ee31b6';
+const MAILGUN_API_DOMAIN = 'https://api.mailgun.net/v3/sandbox59b38d41a61d40eea897194f451ff653.mailgun.org';
+
 
 /*
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"

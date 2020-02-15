@@ -4,58 +4,38 @@ namespace app;
 
 use app\controllers\AdminController;
 use app\controllers\BaseController;
+use app\controllers\SecurityController;
 use app\controllers\UserController;
-
-session_start();
 
 
 class Router
 {
 
-    //------------------------------------------------------------------------------------------------------------------
+
     private $request;
     private $error;
 
 
-    //------------------------------------------------------------------------------------------------------------------
     public function __construct($request)
     {
         $this->request = $request;
         $this->action = $this->getAction();
     }
 
-    //------------------------------------------------------------------------------------------------------------------
 
     const ROUTES = [
         [
             '' => [BaseController::class, 'home'],
-            'contact' => [BaseController::class],
-            'chapters' => [BaseController::class],
-            'showChapter' => [BaseController::class],
-            'editComment' => [BaseController::class],
-            'bio' => [BaseController::class],
-            'unapprouve' => [BaseController::class],
-            'adminLogin' => [BaseController::class],
-            'sendMail' => [BaseController::class],
-
-            'showRegisterForm' => [UserController::class],
+            'showRegisterForm' => [BaseController::class],
             'registerUser' => [UserController::class],
-            'registerUser2' => [UserController::class],
-            'show' => [UserController::class],
-            'get' => [UserController::class],
-            'login' => [UserController::class],
-            'showLoginForm' => [UserController::class]
+            'login' => [SecurityController::class],
+            'indexAction' => [AdminController::class],
+            'showLoginForm' => [BaseController::class]
         ],
         [
 
-            'adminComments' => [AdminController::class],
-            'approuve' => [AdminController::class],
-            'adminChapters' => [AdminController::class],
-            'addChapter' => [AdminController::class],
-            'editChapter' => [AdminController::class],
-            'deleteChapter' => [AdminController::class],
-            'deleteComment' => [AdminController::class],
-            'logout' => [AdminController::class],
+            'logout' => [SecurityController::class],
+            'profile' => [UserController::class],
 
         ],
         [
@@ -65,10 +45,8 @@ class Router
     ];
 
 
-    //------------------------------------------------------------------------------------------------------------------
     public function renderController()
     {
-        $_SESSION['role'] = 'admin';
 
         foreach ($this->getAllowedRoutes() as $levelRoutes) {
             foreach ($levelRoutes as $method => $controllers) {
@@ -85,10 +63,10 @@ class Router
         }
     }
 
-    //------------------------------------------------------------------------------------------------------------------
+
     public function isLoggedIn()
     {
-        if (isset($_SESSION['admin_id'])) {
+        if (isset($_SESSION['SESSION_USER_ID'])) {
             return true;
         } else {
             return false;
@@ -103,7 +81,7 @@ class Router
             'admin' => 2,
         ];
 
-        $role = $roleByLevel[$_SESSION['role'] ?? 'visitor']; // 0, 1, 2
+        $role = $roleByLevel[$_SESSION['role'] ?? $_SESSION['role'] = 'visitor']; // 0, 1, 2
 
         $allowedRoutes = [];
         foreach (self::ROUTES as $key => $routes) {
@@ -126,5 +104,5 @@ class Router
         }
         return $act;
     }
-    //------------------------------------------------------------------------------------------------------------------
+
 }
