@@ -39,6 +39,7 @@ $twig = new Environment($loader, [
 ]);
 
 $twig->addGlobal('current_user', Auth::getUser());
+$twig->addGlobal('flash_messages', \app\services\Session::getMessages());
 $twig->addExtension(new DumpExtension()); //https://github.com/nlemoine/twig-dump-extension
 $twig->addExtension(new CSRFTokenExtension());
 $twig->addExtension(new RedirectExtension());

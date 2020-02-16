@@ -56,6 +56,7 @@ class Auth
     public static function requireLogin()
     {
         if (!Auth::getUser()) {
+            Session::addMessage('Please login to acces that page');
             Auth::rememberRequestedPage();
             Redirect::to('index.php?action=login');
         }
@@ -66,6 +67,15 @@ class Auth
         if (isset($_SESSION['SESSION_USER_ID'])) {
             return $user->findById($_SESSION['SESSION_USER_ID']);
         }
+        return false;
+    }
+
+    public static function isUser() {
+        $user = new User();
+        if ($user->findByEmail($_POST['email'])) {
+            return $user->findByEmail($_POST['email']);
+        }
+        return false;
     }
 
 
