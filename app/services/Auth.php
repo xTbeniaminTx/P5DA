@@ -56,6 +56,7 @@ class Auth
     public static function requireLogin()
     {
         if (!Auth::getUser()) {
+            Session::addMessage('Please login to acces that page');
             Auth::rememberRequestedPage();
             Redirect::to('index.php?action=login');
         }

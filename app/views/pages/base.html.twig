@@ -62,6 +62,13 @@
     </nav>
 {% endblock %}
 
+
+{% for message in flash_messages %}
+    <div class="h3 alert alert-success text-center alert-dismissible fade show">
+        {{ message }}
+    </div>
+{% endfor %}
+
 {% block body %}
 
 

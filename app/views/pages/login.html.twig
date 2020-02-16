@@ -35,6 +35,12 @@
     </head>
     <body id="login" class="text-center bg-light">
 
+    {% for message in flash_messages %}
+        <div class="h3 alert alert-success text-center alert-dismissible fade show">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     <form class="form-signin" action="index.php?action=login" method="POST">
         <a href="index.php?action=home">
             <img class="mb-4" src="images/favicon.ico" alt="" width="72" height="72">
