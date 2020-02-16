@@ -27,7 +27,7 @@ class SecurityController
         if (Request::has('post')) {
             $request = Request::get('post');
 
-            if (CSRFToken::verifyCSRFToken($request->token)) {
+            if (CSRFToken::verifyCSRFToken($request->token, false)) {
 
                 $validate = new ValidateRequest();
                 $validate->abide($_POST, [
@@ -39,13 +39,13 @@ class SecurityController
 
                     $errors = $validate->getErrorMessages();
 
-                    View::renderTemplate('login.html.twig', [
+                    return View::renderTemplate('login.html.twig', [
                         'errors' => $errors,
                         'email_err' => 'Veuillez entre votre email'
                     ]);
-                    exit;
-                }
 
+                }
+//method to find if user exist dans ladb avec le email donne
                 $user = $this->userModel->findByEmail($_POST['email']);
 
                 if ($user) {
@@ -53,13 +53,13 @@ class SecurityController
                         $data = [
                             'password_err' => 'MDP incorect',
                         ];
-                        View::renderTemplate('login.html.twig', $data);
-
-                        exit;
+                        Session::addMessage('Login unsuccesful');
+                        return Redirect::to('login');
 
                     } else {
                         Auth::auth($user);
-                        Redirect::to(Auth::getReturnToPage());
+                        Session::addMessage('Succesful login');
+                        return Redirect::to(Auth::getReturnToPage());
                     }
                 }
             }
