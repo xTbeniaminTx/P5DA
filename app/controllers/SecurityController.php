@@ -45,7 +45,12 @@ class SecurityController
                     ]);
 
                 }
-//method to find if user exist dans ladb avec le email donne
+
+                if (!Auth::isUser()) {
+                    Session::addMessage('Email incorect');
+                    return Redirect::to('login');
+                }
+
                 $user = $this->userModel->findByEmail($_POST['email']);
 
                 if ($user) {
@@ -53,7 +58,7 @@ class SecurityController
                         $data = [
                             'password_err' => 'MDP incorect',
                         ];
-                        Session::addMessage('Login unsuccesful');
+                        Session::addMessage('MDP incorect');
                         return Redirect::to('login');
 
                     } else {

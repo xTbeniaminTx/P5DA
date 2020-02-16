@@ -67,6 +67,15 @@ class Auth
         if (isset($_SESSION['SESSION_USER_ID'])) {
             return $user->findById($_SESSION['SESSION_USER_ID']);
         }
+        return false;
+    }
+
+    public static function isUser() {
+        $user = new User();
+        if ($user->findByEmail($_POST['email'])) {
+            return $user->findByEmail($_POST['email']);
+        }
+        return false;
     }
 
 

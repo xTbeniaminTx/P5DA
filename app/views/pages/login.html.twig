@@ -36,7 +36,6 @@
     <body id="login" class="text-center bg-light">
 
 
-
     <form class="form-signin" action="index.php?action=login" method="POST">
         <a href="index.php?action=home">
             <img class="mb-4" src="images/favicon.ico" alt="" width="72" height="72">
@@ -45,20 +44,15 @@
         <input type="hidden" name="token" value="{{ get_token() }}">
         <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
         {% for message in flash_messages %}
-            <div class="h3 alert alert-success text-center alert-dismissible fade show">
-
+            <div class="h3 alert alert-info text-center alert-dismissible fade show">
                 {{ message }}
-
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
         {% endfor %}
         {% include 'messages.html.twig' %}
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" name="email"
                class="form-control {{ (email_err is not empty) ? 'is-invalid' : '' }}" placeholder="Votre email"
-               value="{{ email }}">
+               value="{{ request_old('post', 'email') }}">
         <span class="invalid-feedback">{{ email_err }}</span>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" name="password"
@@ -78,16 +72,15 @@
         <button class="btn btn-lg btn-outline-dark btn-block" type="submit">Sign in</button>
         <span class="my-5">or</span>
 
-        <a class="btn btn-lg btn-outline-info btn-block" href="index.php?action=showRegisterForm" >Inscription</a>
+        <a class="btn btn-lg btn-outline-info btn-block" href="index.php?action=showRegisterForm">Inscription</a>
 
         <a href="https:\\www.tolan.me">
-            <p class="mt-5 mb-3 text-muted">&copy; 2019 BenjiCodeur</p>
+            <p class="mt-5 mb-3 text-muted">&copy; 2020 BenjiCodeur</p>
         </a>
     </form>
 
     </body>
     </html>
 
-    {{ user_message }}
 
 {% endblock %}
