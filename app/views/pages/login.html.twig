@@ -44,8 +44,8 @@
         <input type="hidden" name="token" value="{{ get_token() }}">
         <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
         {% for message in flash_messages %}
-            <div class="h3 alert alert-info text-center alert-dismissible fade show">
-                {{ message }}
+            <div class="h3 alert alert-{{ message.type }} text-center alert-dismissible fade show">
+                {{ message.body }}
             </div>
         {% endfor %}
         {% include 'messages.html.twig' %}
