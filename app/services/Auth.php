@@ -32,7 +32,7 @@ class Auth
 
         // Finally, destroy the session.
         session_destroy();
-        Redirect::to('home');
+
     }
 
 
@@ -56,7 +56,8 @@ class Auth
     public static function requireLogin()
     {
         if (!Auth::getUser()) {
-            Session::addMessage('Please login to acces that page');
+
+            Session::addMessage('Please login to acces that page', 'info');
             Auth::rememberRequestedPage();
             Redirect::to('index.php?action=login');
         }

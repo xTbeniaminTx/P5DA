@@ -47,7 +47,7 @@ class SecurityController
                 }
 
                 if (!Auth::isUser()) {
-                    Session::addMessage('Email incorect');
+                    Session::addMessage('Email incorect', Session::WARNING);
                     return Redirect::to('login');
                 }
 
@@ -79,6 +79,13 @@ class SecurityController
     public function logout()
     {
         Auth::destroy();
+        Redirect::to('showLogoutMessage');
+    }
+
+    public function showLogoutMessage()
+    {
+        Session::addMessage('Logout succesfuly');
+        Redirect::to('home');
     }
 
 }
