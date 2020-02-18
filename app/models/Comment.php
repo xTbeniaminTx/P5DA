@@ -2,18 +2,9 @@
 
 namespace app\models;
 
-use app\services\Database;
 
-class Comment
+class Comment extends Manager
 {
-
-    private $db;
-
-
-    public function __construct()
-    {
-        $this->db = new Database;
-    }
 
 
     public function getComments()

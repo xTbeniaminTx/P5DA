@@ -2,18 +2,9 @@
 
 namespace app\models;
 
-use app\services\Database;
 
-class Post
+class Post extends Manager
 {
-    private $db;
-
-
-    public function __construct()
-    {
-        $this->db = new Database;
-    }
-
 
     public function getPosts()
     {
