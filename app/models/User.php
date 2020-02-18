@@ -3,19 +3,9 @@
 
 namespace app\models;
 
-use app\services\Database;
 
-class User
+class User extends Manager
 {
-
-    private $db;
-
-
-    public function __construct()
-    {
-        $this->db = new Database;
-    }
-
 
     public function addUser($data)
     {

@@ -2,17 +2,9 @@
 
 namespace app\models;
 
-use app\services\Database;
 
-class Login
+class Login extends Manager
 {
-    private $db;
-
-
-    public function __construct()
-    {
-        $this->db = new Database();
-    }
 
 
     public function login($email, $password)

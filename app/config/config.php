@@ -25,8 +25,12 @@ define('URLROOT', '');
 
 define('SITENAME', 'Blog P5DA');
 
+ini_set('session.cookie_lifetime', '864000'); //ten days in seconds
+
 
 error_reporting(E_ALL);
+//set_error_handler(Error::class);
+//set_exception_handler(Exception::class);
 
 
 session_start();
