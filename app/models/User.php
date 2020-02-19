@@ -6,9 +6,11 @@ namespace app\models;
 
 use app\services\Auth;
 use app\services\CSRFToken;
+use app\services\Mail;
 
 class User extends Manager
 {
+    protected $password_reset_token;
 
     public function addUser($data)
     {
@@ -85,7 +87,9 @@ class User extends Manager
         $userX = new User();
 
         if ($user) {
-            $userX->startPasswordReset($email);
+            if($userX->startPasswordReset($email)){
+                $this->sendPasswordResetEmail($email);
+            }
         }
 
     }
@@ -94,6 +98,7 @@ class User extends Manager
     {
         $token = new CSRFToken();
         $hased_token = $token->getTokenHash();
+        $this->password_reset_token = $token->getTokenValue();
         $user = $this->findByEmail($email);
 
         $expiry_timestamp = time() + 60 * 60 * 24 * 30;
@@ -108,6 +113,17 @@ class User extends Manager
         $this->db->bind(':expires_at', date('Y-m-d H:i:s', $expiry_timestamp));
 
         return $this->db->execute();
+    }
+
+    protected function sendPasswordResetEmail($email) {
+        $token = new CSRFToken();
+        $url = 'http://' . $_SERVER['HTTP_HOST'] . '/index.php?action=requestReset/' . $this->password_reset_token;
+
+        $text = "Svp cliker sur le lien to  reinitializer votre mot de passe: $url";
+        $html = "Svp cliker sur le lien <a href=\"$url\">ici</a> to  reinitializer votre mot de passe.";
+
+        Mail::send($email, 'Incognito', 'Votre mot de passe', $text, $html);
+
     }
 
 }
