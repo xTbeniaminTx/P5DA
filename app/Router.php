@@ -30,6 +30,9 @@ class Router
             'registerUser' => [UserController::class],
             'login' => [SecurityController::class],
             'showLogoutMessage' => [SecurityController::class],
+            'forgotPass' => [SecurityController::class],
+            'requestReset' => [SecurityController::class],
+
             'indexAction' => [AdminController::class],
             'showLoginForm' => [BaseController::class]
         ],

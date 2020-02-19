@@ -9,19 +9,18 @@
             <p class="lead d-none d-md-block py-5">Veuillez remplir chacune des sections et cliquer sur « Envoyer » lorsque vous avez terminé.</p>
         </div>
     </section>
-    <section class="" style="height: 35vh;">
-        <div class="container text-white text-center py-5">
-            <form action="index.php?action=sendMail" name="sendMail" method="post">
+    <section class="container-fluid" style="height: 35vh;">
+        <div class="container text-white text-center pt-5">
+            <form action="index.php?action=requestReset" name="requestReset" method="post">
                 <div class="input-group justify-content-center">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" name="txtName" class="form-control" placeholder="Entrer votre adresse mail et cliker sur envoyer pour recevoir votre mdp" required
+                            <input type="text" name="email" class="form-control" placeholder="votremail@example.com" required
                                    value=""/>
                         </div>
-
                     </div>
 
-                    <div class="col-md-5 d-flex justify-content-center align-items-center">
+                    <div class="col-md-3 d-flex justify-content-center align-items-center">
                         <div class="form-group">
                             <input type="submit" name="btnSubmit" class="btn btn-primary" value="Envoyer"/>
                         </div>

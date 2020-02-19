@@ -4,6 +4,20 @@ namespace app\services;
 
 class CSRFToken
 {
+    protected $token;
+
+    public function __construct($token_value = null)
+    {
+        if ($token_value) {
+            $this->token = $token_value;
+        }
+        try {
+            $this->token = bin2hex(random_bytes(16));
+        } catch (\Exception $e) {
+        }
+    }
+
+
     /**
      * create CSRF token
      *
@@ -18,6 +32,16 @@ class CSRFToken
         }
 
         return Session::get('token');
+    }
+
+    public function getTokenValue()
+    {
+        return $this->token;
+    }
+
+    public function getTokenHash()
+    {
+        return hash_hmac('sha256', $this->token, SECRET_KEY);
     }
 
     /**

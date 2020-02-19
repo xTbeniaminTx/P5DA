@@ -4,6 +4,9 @@
 namespace app\models;
 
 
+use app\services\Auth;
+use app\services\CSRFToken;
+
 class User extends Manager
 {
 
@@ -73,6 +76,38 @@ class User extends Manager
         } else {
             return false;
         }
+    }
+
+    public function sendPasswordReset($email)
+    {
+        $user = $this->findByEmail($email);
+
+        $userX = new User();
+
+        if ($user) {
+            $userX->startPasswordReset($email);
+        }
+
+    }
+
+    protected function startPasswordReset($email)
+    {
+        $token = new CSRFToken();
+        $hased_token = $token->getTokenHash();
+        $user = $this->findByEmail($email);
+
+        $expiry_timestamp = time() + 60 * 60 * 24 * 30;
+
+        $this->db->query('UPDATE users
+        SET pass_reset_hash = :token_hash,
+        pass_reset_exp = :expires_at
+        WHERE id =:id');
+
+        $this->db->bind(':token_hash', $hased_token);
+        $this->db->bind(':id', $user->id);
+        $this->db->bind(':expires_at', date('Y-m-d H:i:s', $expiry_timestamp));
+
+        return $this->db->execute();
     }
 
 }
