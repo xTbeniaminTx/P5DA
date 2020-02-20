@@ -7,6 +7,7 @@ namespace app\models;
 use app\services\Auth;
 use app\services\CSRFToken;
 use app\services\Mail;
+use app\services\View;
 
 class User extends Manager
 {
@@ -119,8 +120,8 @@ class User extends Manager
         $token = new CSRFToken();
         $url = 'http://' . $_SERVER['HTTP_HOST'] . '/index.php?action=requestReset/' . $this->password_reset_token;
 
-        $text = "Svp cliker sur le lien to  reinitializer votre mot de passe: $url";
-        $html = "Svp cliker sur le lien <a href=\"$url\">ici</a> to  reinitializer votre mot de passe.";
+        $text = View::getTemplate('Password/reset_email.txt', ['url' => $url]);
+        $html = View::getTemplate('Password/reset_email.html', ['url' => $url]);
 
         Mail::send($email, 'Incognito', 'Votre mot de passe', $text, $html);
 

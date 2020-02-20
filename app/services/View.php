@@ -7,11 +7,15 @@ class View
 
     public static function renderTemplate($name, $data = [])
     {
+        echo static::getTemplate($name, $data);
+    }
+
+    public static function getTemplate($name, $data = [])
+    {
         global $twig;
         $view = $twig->load($name);
-        echo $view->render($data);
+        return $view->render($data);
 
-        return true;
     }
 
 }
