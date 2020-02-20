@@ -54,6 +54,8 @@ $twig->getExtension(CoreExtension::class)->setTimezone('Europe/Paris');
 
 const SENDGRID_API_KEY = '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';
 
+const SECRET_KEY = '0c?>x(A#RNv)i(%"kT<w$UEV>`uK(N';
+
 const MAILGUN_API_KEY = '58c3857dff81fe22fb83c0dfeb969b1f-52b6835e-00ee31b6';
 const MAILGUN_API_DOMAIN = 'https://api.mailgun.net/v3/sandbox59b38d41a61d40eea897194f451ff653.mailgun.org';
 

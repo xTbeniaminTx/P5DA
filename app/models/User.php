@@ -4,8 +4,14 @@
 namespace app\models;
 
 
+use app\services\Auth;
+use app\services\CSRFToken;
+use app\services\Mail;
+use app\services\View;
+
 class User extends Manager
 {
+    protected $password_reset_token;
 
     public function addUser($data)
     {
@@ -73,6 +79,52 @@ class User extends Manager
         } else {
             return false;
         }
+    }
+
+    public function sendPasswordReset($email)
+    {
+        $user = $this->findByEmail($email);
+
+        $userX = new User();
+
+        if ($user) {
+            if($userX->startPasswordReset($email)){
+                $this->sendPasswordResetEmail($email);
+            }
+        }
+
+    }
+
+    protected function startPasswordReset($email)
+    {
+        $token = new CSRFToken();
+        $hased_token = $token->getTokenHash();
+        $this->password_reset_token = $token->getTokenValue();
+        $user = $this->findByEmail($email);
+
+        $expiry_timestamp = time() + 60 * 60 * 24 * 30;
+
+        $this->db->query('UPDATE users
+        SET pass_reset_hash = :token_hash,
+        pass_reset_exp = :expires_at
+        WHERE id =:id');
+
+        $this->db->bind(':token_hash', $hased_token);
+        $this->db->bind(':id', $user->id);
+        $this->db->bind(':expires_at', date('Y-m-d H:i:s', $expiry_timestamp));
+
+        return $this->db->execute();
+    }
+
+    protected function sendPasswordResetEmail($email) {
+        $token = new CSRFToken();
+        $url = 'http://' . $_SERVER['HTTP_HOST'] . '/index.php?action=requestReset/' . $this->password_reset_token;
+
+        $text = View::getTemplate('Password/reset_email.txt', ['url' => $url]);
+        $html = View::getTemplate('Password/reset_email.html', ['url' => $url]);
+
+        Mail::send($email, 'Incognito', 'Votre mot de passe', $text, $html);
+
     }
 
 }

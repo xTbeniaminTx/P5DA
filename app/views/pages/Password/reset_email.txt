@@ -1,0 +1,5 @@
+Password reset
+
+Please click the folowing link:
+
+{{ url }}

@@ -88,4 +88,19 @@ class SecurityController
         Redirect::to('home');
     }
 
+    public function forgotPass()
+    {
+        return View::renderTemplate('lost.html.twig');
+    }
+
+    public function requestReset()
+    {
+        $this->userModel->sendPasswordReset($_POST['email']);
+
+
+
+
+        return View::renderTemplate('resetRequest.html.twig');
+    }
+
 }
