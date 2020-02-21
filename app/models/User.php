@@ -101,7 +101,7 @@ class User extends Manager
 
         $user = $this->findByEmail($email);
 
-        $expiry_timestamp = time() + 60 * 1;
+        $expiry_timestamp = time() + 60 * 60;
 
         $this->db->query('UPDATE users
         SET pass_reset_hash = :token_hash,
@@ -147,13 +147,16 @@ class User extends Manager
         if ($this->db->rowCount() > 0) {
             if (strtotime($row->pass_reset_exp) > time()) {
                 return $row;
-            } else {
-                echo '<h1>Lululic ' . $row->first_name . ' tu est arrive en retard</h1>';
             }
 
         } else {
             return false;
         }
+
+    }
+
+    public function resetPassword()
+    {
 
     }
 

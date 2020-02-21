@@ -33,8 +33,7 @@ class Router
             'forgotPass' => [SecurityController::class],
             'requestReset' => [SecurityController::class],
             'resetPass' => [SecurityController::class],
-            'veriToken' => [SecurityController::class],
-
+            'resetPassword' => [SecurityController::class],
             'indexAction' => [AdminController::class],
             'adminChapters' => [AdminController::class],
             'showLoginForm' => [BaseController::class]

@@ -100,17 +100,37 @@ class SecurityController
         View::renderTemplate('resetRequest.html.twig');
     }
 
-    public function resetPass() {
+    public function resetPass()
+    {
 
         $token = $_GET['token'];
 
-        $user = $this->userModel->findByPasswordReset($token);
+        $user = $this->getUserOrExit($token);
 
-        var_dump($user);die;
+        if ($user) {
+            View::renderTemplate('Password/reset.html.twig', [
+                'token' => $token
+            ]);
+        }
+
     }
 
-    public function  veriToken(){
-        User::findByPasswordReset();
+    public function resetPassword()
+    {
+        $token = $_POST['tokenPass'];
+
+        $user = $this->getUserOrExit($token);
+    }
+
+    protected function getUserOrExit($token)
+    {
+        $user = $this->userModel->findByPasswordReset($token);
+
+        if ($user) {
+            return $user;
+        } else {
+            View::renderTemplate('Password/token_expired.html.twig');
+        }
     }
 
 }
