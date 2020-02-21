@@ -90,17 +90,27 @@ class SecurityController
 
     public function forgotPass()
     {
-        return View::renderTemplate('lost.html.twig');
+        View::renderTemplate('lost.html.twig');
     }
 
     public function requestReset()
     {
         $this->userModel->sendPasswordReset($_POST['email']);
 
+        View::renderTemplate('resetRequest.html.twig');
+    }
 
+    public function resetPass() {
 
+        $token = $_GET['token'];
 
-        return View::renderTemplate('resetRequest.html.twig');
+        $user = $this->userModel->findByPasswordReset($token);
+
+        var_dump($user);die;
+    }
+
+    public function  veriToken(){
+        User::findByPasswordReset();
     }
 
 }

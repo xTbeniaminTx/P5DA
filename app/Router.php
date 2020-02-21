@@ -32,8 +32,11 @@ class Router
             'showLogoutMessage' => [SecurityController::class],
             'forgotPass' => [SecurityController::class],
             'requestReset' => [SecurityController::class],
+            'resetPass' => [SecurityController::class],
+            'veriToken' => [SecurityController::class],
 
             'indexAction' => [AdminController::class],
+            'adminChapters' => [AdminController::class],
             'showLoginForm' => [BaseController::class]
         ],
         [
@@ -53,6 +56,7 @@ class Router
     {
 
         foreach ($this->getAllowedRoutes() as $levelRoutes) {
+
             foreach ($levelRoutes as $method => $controllers) {
                 $methodName = $controllers[1] ?? $method;
 
