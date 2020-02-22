@@ -25,14 +25,16 @@ class UserController extends CoreController
         $this->userModel = new User();
     }
 
-    public function before() {
+    public function before()
+    {
         Auth::requireLogin();
     }
 
     public function registerUser()
     {
         if (false === Request::has('post')) {
-            return View::renderTemplate('register.html.twig', []);
+            View::renderTemplate('register.html.twig', []);
+            return false;
         }
 
         $request = Request::get('post');
@@ -53,9 +55,10 @@ class UserController extends CoreController
         if ($validate->hasError()) {
             $errors = $validate->getErrorMessages();
 
-            return View::renderTemplate('register.html.twig', [
+             View::renderTemplate('register.html.twig', [
                 'errors' => $errors
             ]);
+            return false;
         }
 
         $data = [
@@ -68,18 +71,31 @@ class UserController extends CoreController
 
         $this->userModel->addUser($data);
 
-        return View::renderTemplate('login.html.twig', [
+        View::renderTemplate('login.html.twig', [
             'success' => 'Nouveau user ajouté avec succèss, veuilliez vous connectez avec ',
         ]);
+        return;
     }
 
     public function profile()
     {
         Auth::requireLogin();
 
-        $user = $this->userModel->findByEmail($_SESSION['SESSION_USER_EMAIL']);
+        $user = Auth::getUser();
 
-        return View::renderTemplate('profile.html.twig', ['user' => $user]);
+        View::renderTemplate('profile.html.twig', ['user' => $user]);
+        return;
+
+    }
+
+    public function editProfile()
+    {
+        Auth::requireLogin();
+
+        $user = Auth::getUser();
+
+        View::renderTemplate('edit.profile.html.twig', ['user' => $user]);
+        return;
 
     }
 

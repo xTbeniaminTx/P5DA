@@ -90,17 +90,76 @@ class SecurityController
 
     public function forgotPass()
     {
-        return View::renderTemplate('lost.html.twig');
+        View::renderTemplate('lost.html.twig');
     }
 
     public function requestReset()
     {
         $this->userModel->sendPasswordReset($_POST['email']);
 
+        View::renderTemplate('resetRequest.html.twig');
+    }
 
+    public function resetPass()
+    {
 
+        $token = $_GET['token'];
+        $email = $_GET['email'];
 
-        return View::renderTemplate('resetRequest.html.twig');
+        $user = $this->getUserOrExit($token);
+
+        if ($user) {
+            View::renderTemplate('Password/reset.html.twig', [
+                'token' => $token,
+                'email' => $email
+            ]);
+        }
+
+    }
+
+    public function resetPassword()
+    {
+        $token = $_POST['tokenPass'];
+
+        $email = $_POST['emailReset'];
+
+        $password = $_POST['password'];
+
+        $user = $this->getUserOrExit($token);
+
+        $validate = new ValidateRequest();
+        $validate->abide($_POST, [
+            'password' => ['required' => true, 'minLength' => 5]
+        ]);
+
+        if ($validate->hasError()) {
+
+            $errors = $validate->getErrorMessages();
+
+            View::renderTemplate('Password/reset.html.twig', [
+                'errors' => $errors,
+                'user' => $user,
+                'token' => $token,
+                'email' => $email
+            ]);
+            return;
+        }
+        $this->userModel->resetPassword($password, $user);
+
+        Session::addMessage('Mdp initialize avec sucess', Session::INFO);
+        Redirect::to('login');
+
+    }
+
+    protected function getUserOrExit($token)
+    {
+        $user = $this->userModel->findByPasswordReset($token);
+
+        if ($user) {
+            return $user;
+        } else {
+            View::renderTemplate('Password/token_expired.html.twig');
+        }
     }
 
 }

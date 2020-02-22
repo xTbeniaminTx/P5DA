@@ -9,12 +9,10 @@ class CSRFToken
     public function __construct($token_value = null)
     {
         if ($token_value) {
-            $this->token = $token_value;
+            return $this->token = $token_value;
         }
-        try {
-            $this->token = bin2hex(random_bytes(16));
-        } catch (\Exception $e) {
-        }
+        $this->token = bin2hex(random_bytes(16));
+
     }
 
 
