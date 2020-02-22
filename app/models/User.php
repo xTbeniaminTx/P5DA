@@ -7,6 +7,7 @@ namespace app\models;
 use app\services\Auth;
 use app\services\CSRFToken;
 use app\services\Mail;
+use app\services\ValidateRequest;
 use app\services\View;
 
 class User extends Manager
@@ -105,7 +106,7 @@ class User extends Manager
 
         $this->db->query('UPDATE users
         SET pass_reset_hash = :token_hash,
-        pass_reset_exp = :expires_at
+            pass_reset_exp = :expires_at
         WHERE id =:id');
 
         $this->db->bind(':token_hash', $hased_token);
@@ -155,9 +156,21 @@ class User extends Manager
 
     }
 
-    public function resetPassword()
+    public function resetPassword($password, $user)
     {
+        $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
+        $this->db->query
+        ('UPDATE users
+                SET password = :password,
+                    pass_reset_hash = NULL,
+                    pass_reset_exp = NULL
+                WHERE id =:id');
+
+        $this->db->bind(':password', $password_hash);
+        $this->db->bind(':id', $user->id);
+
+        return $this->db->execute();
     }
 
 }

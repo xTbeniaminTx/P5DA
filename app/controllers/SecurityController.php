@@ -104,12 +104,14 @@ class SecurityController
     {
 
         $token = $_GET['token'];
+        $email = $_GET['email'];
 
         $user = $this->getUserOrExit($token);
 
         if ($user) {
             View::renderTemplate('Password/reset.html.twig', [
-                'token' => $token
+                'token' => $token,
+                'email' => $email
             ]);
         }
 
@@ -119,7 +121,34 @@ class SecurityController
     {
         $token = $_POST['tokenPass'];
 
+        $email = $_POST['emailReset'];
+
+        $password = $_POST['password'];
+
         $user = $this->getUserOrExit($token);
+
+        $validate = new ValidateRequest();
+        $validate->abide($_POST, [
+            'password' => ['required' => true, 'minLength' => 5]
+        ]);
+
+        if ($validate->hasError()) {
+
+            $errors = $validate->getErrorMessages();
+
+            View::renderTemplate('Password/reset.html.twig', [
+                'errors' => $errors,
+                'user' => $user,
+                'token' => $token,
+                'email' => $email
+            ]);
+            return;
+        }
+        $this->userModel->resetPassword($password, $user);
+
+        Session::addMessage('Mdp initialize avec sucess', Session::INFO);
+        Redirect::to('login');
+
     }
 
     protected function getUserOrExit($token)

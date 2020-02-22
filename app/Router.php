@@ -36,12 +36,14 @@ class Router
             'resetPassword' => [SecurityController::class],
             'indexAction' => [AdminController::class],
             'adminChapters' => [AdminController::class],
+            'profile' => [UserController::class],
+            'editProfile' => [UserController::class],
             'showLoginForm' => [BaseController::class]
         ],
         [
 
             'logout' => [SecurityController::class],
-            'profile' => [UserController::class],
+
 
         ],
         [

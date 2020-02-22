@@ -31,4 +31,15 @@
 
         </div>
     {% endif %}
+{{ dump() }}
+    {% if flash_messages is not null %}
+    {% for message in flash_messages %}
+        <div class="h3 alert alert-{{ message.type }} text-center alert-dismissible fade show mt-5">
+            {{ message.body }}
+            <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+    {% endif %}
 </section>
