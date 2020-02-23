@@ -11,22 +11,47 @@ use Twig\Environment;
 use Twig\Extension\CoreExtension;
 use Twig\Loader\FilesystemLoader;
 
-//DB Parameters
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'blogp5da');
+if (preg_match("/blog.local/", $_SERVER["HTTP_HOST"])) {
+    //DB Parameters
+    define('DB_HOST', 'localhost');
+    define('DB_USER', 'root');
+    define('DB_PASS', '');
+    define('DB_NAME', 'blogp5da');
+
+    //App Root
+    define('APPROOT', dirname(dirname(__FILE__)));
+    define('URLROOT', '');
+
+} elseif (preg_match("/127.0.0.1/", $_SERVER["HTTP_HOST"])) {
+    //DB Parameters
+    define('DB_HOST', 'localhost');
+    define('DB_USER', 'root');
+    define('DB_PASS', '');
+    define('DB_NAME', 'blogp5da');
+    //App Root
+    define('APPROOT', dirname(dirname(__FILE__)));
+    define('URLROOT', '');
+
+} else {
+    //DB Parameters
+    define('DB_HOST', 'shareddb1d.hosting.stackcp.net');
+    define('DB_USER', 'benjito');
+    define('DB_PASS', 'Um?|Q~£.XN<k');
+    define('DB_NAME', 'blog-tolan-me-36353044');
+    //App Root
+    define('APPROOT', dirname(dirname(__FILE__)));
+    define('URLROOT', 'https://blog.tolan.me');
+}
 
 
-//App Root
-define('APPROOT', dirname(dirname(__FILE__)));
 
-define('URLROOT', '');
+
+
+
 
 define('SITENAME', 'Blog P5DA');
 
 ini_set('session.cookie_lifetime', '864000'); //ten days in seconds
-
 
 error_reporting(E_ALL);
 //set_error_handler(Error::class);
