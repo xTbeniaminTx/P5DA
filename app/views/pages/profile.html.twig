@@ -1,7 +1,6 @@
 {% extends "base.html.twig" %}
 
 {% block showcase %}
-    {{ message_contact }}
     <section id="showcase" class="d-flex justify-content-center align-items-center" style="height: 35vh;">
         <div id="overlay" style="height: 35vh;"></div>
         <div id="header" class="container text-white text-center">
@@ -13,7 +12,7 @@
 {% endblock %}
 
 {% block body %}
-
+    {% include 'messages.html.twig' %}
     <section class="p-5" style="height: 50vh;">
         <div class="container  py-5">
             <div class="row">

@@ -32,6 +32,30 @@ class User extends Manager
         }
     }
 
+    public function updateUser($data) {
+
+        $this->db->query('UPDATE users 
+                                SET first_name = :first_name,
+                                    last_name =:last_name, 
+                                    password = :password, 
+                                    email = :email, 
+                                    role = :role
+                                WHERE id = :id');
+        $this->db->bind(':first_name', $data['first_name']);
+        $this->db->bind(':last_name', $data['last_name']);
+        $this->db->bind(':password', $data['password']);
+        $this->db->bind(':role', $data['role']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':id', $data['id']);
+
+        //execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     public function findByEmail($email)
     {
