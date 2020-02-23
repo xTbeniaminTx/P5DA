@@ -9,6 +9,7 @@ use app\services\Request;
 use app\services\Session;
 use app\services\ValidateRequest;
 use app\services\View;
+use mysql_xdevapi\Exception;
 
 
 class UserController extends CoreController
@@ -55,7 +56,7 @@ class UserController extends CoreController
         if ($validate->hasError()) {
             $errors = $validate->getErrorMessages();
 
-             View::renderTemplate('register.html.twig', [
+            View::renderTemplate('register.html.twig', [
                 'errors' => $errors
             ]);
             return false;
@@ -74,7 +75,7 @@ class UserController extends CoreController
         View::renderTemplate('login.html.twig', [
             'success' => 'Nouveau user ajouté avec succèss, veuilliez vous connectez avec ',
         ]);
-        return;
+        return true;
     }
 
     public function profile()
@@ -94,8 +95,63 @@ class UserController extends CoreController
 
         $user = Auth::getUser();
 
-        View::renderTemplate('edit.profile.html.twig', ['user' => $user]);
-        return;
+        if (false === Request::has('post')) {
+            View::renderTemplate('edit.profile.html.twig', ['user' => $user]);
+            return false;
+        }
+
+        $request = Request::get('post');
+
+        if (false === CSRFToken::verifyCSRFToken($request->token, false)) {
+            throw new \Exception('Token incorect');
+        }
+
+        $rules = [
+            'txtLastName' => ['required' => true, 'minLength' => 6],
+            'txtFirstName' => ['required' => true, 'minLength' => 6],
+            'txtEmail' => ['required' => true, 'uniqueEmail' => true, 'minLength' => 6],
+        ];
+
+        $validate = new ValidateRequest();
+        $validate->abide($_POST, $rules);
+
+        if ($validate->hasError()) {
+            $errors = $validate->getErrorMessages();
+
+            View::renderTemplate('edit.profile.html.twig', [
+                'errors' => $errors,
+                'user' => $user
+            ]);
+            return false;
+        }
+
+        if($this->updateProfile()) {
+            View::renderTemplate('profile.html.twig', [
+                'success' => 'Informations editer avec success',
+                'user' => Auth::getUser()
+            ]);
+            return true;
+        }
+
+       throw new \Exception('Un error est sourvenu, veuilez essayer plus tard');
+
+
+    }
+
+    public function updateProfile()
+    {
+        $user = Auth::getUser();
+
+        $data = [
+            'last_name' => trim($_POST['txtLastName']),
+            'first_name' => trim($_POST['txtFirstName']),
+            'password' => $_POST['password'] != null ? password_hash($_POST['password'], PASSWORD_BCRYPT) : $user->password,
+            'email' => trim($_POST['txtEmail']),
+            'role' => $user->role,
+            'id' => $user->id
+        ];
+
+        return $this->userModel->updateUser($data);
 
     }
 

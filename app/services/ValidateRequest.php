@@ -60,7 +60,6 @@ class ValidateRequest
     }
 
 
-
     protected static function uniqueEmail($column, $value, $policy)
     {
         self::$db->query('SELECT * FROM users WHERE email = :email');
@@ -68,6 +67,13 @@ class ValidateRequest
 
         $row = self::$db->single();
 
+        $user = Auth::getUser();
+
+        if ($user) {
+            if ($user->email == $value) {
+                return $row;
+            }
+        }
         return !$row;
     }
 
