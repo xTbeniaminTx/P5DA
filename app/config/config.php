@@ -11,7 +11,7 @@ use Twig\Environment;
 use Twig\Extension\CoreExtension;
 use Twig\Loader\FilesystemLoader;
 
-if (preg_match("/blog.local/", $_SERVER["HTTP_HOST"])) {
+if (in_array($_SERVER['HTTP_HOST'], ['blog.local', '127.0.0.1'])) {
     //DB Parameters
     define('DB_HOST', 'localhost');
     define('DB_USER', 'root');
@@ -20,18 +20,6 @@ if (preg_match("/blog.local/", $_SERVER["HTTP_HOST"])) {
 
     //App Root
     define('APPROOT', dirname(dirname(__FILE__)));
-    define('URLROOT', '');
-
-} elseif (preg_match("/127.0.0.1/", $_SERVER["HTTP_HOST"])) {
-    //DB Parameters
-    define('DB_HOST', 'localhost');
-    define('DB_USER', 'root');
-    define('DB_PASS', '');
-    define('DB_NAME', 'blogp5da');
-    //App Root
-    define('APPROOT', dirname(dirname(__FILE__)));
-    define('URLROOT', '');
-
 } else {
     //DB Parameters
     define('DB_HOST', 'shareddb1d.hosting.stackcp.net');
@@ -40,13 +28,7 @@ if (preg_match("/blog.local/", $_SERVER["HTTP_HOST"])) {
     define('DB_NAME', 'blog-tolan-me-36353044');
     //App Root
     define('APPROOT', dirname(dirname(__FILE__)));
-    define('URLROOT', 'https://blog.tolan.me');
 }
-
-
-
-
-
 
 
 define('SITENAME', 'Blog P5DA');
