@@ -24,12 +24,9 @@ class BaseController
 
     public function home()
     {
-//        Mail::send('beniamin.tolan@gmail.com', Auth::getUser()->first_name,'Test','This is a test',"<h1>and easy to do anywhere, even with PHP</h1>");
-
         $posts = $this->postModel->getPosts();
 
         View::renderTemplate('home.html.twig', ['posts' => $posts]);
-
     }
 
     public function showRegisterForm()
