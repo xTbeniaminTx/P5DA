@@ -11,26 +11,34 @@ use Twig\Environment;
 use Twig\Extension\CoreExtension;
 use Twig\Loader\FilesystemLoader;
 
-//DB Parameters
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'blogp5da');
+if (in_array($_SERVER['HTTP_HOST'], ['blog.local', '127.0.0.1'])) {
+    //DB Parameters
+    define('DB_HOST', 'localhost');
+    define('DB_USER', 'root');
+    define('DB_PASS', '');
+    define('DB_NAME', 'blogp5da');
+    error_reporting(E_ALL);
+    //App Root
+    define('APPROOT', dirname(dirname(__FILE__)));
+} else {
+    //DB Parameters
+    define('DB_HOST', 'shareddb1d.hosting.stackcp.net');
+    define('DB_USER', 'benjito');
+    define('DB_PASS', 'Um?|Q~£.XN<k');
+    define('DB_NAME', 'blog-tolan-me-36353044');
+    //App Root
+    define('APPROOT', dirname(dirname(__FILE__)));
 
+    error_reporting(E_USER_ERROR);
+}
 
-//App Root
-define('APPROOT', dirname(dirname(__FILE__)));
-
-define('URLROOT', '');
 
 define('SITENAME', 'Blog P5DA');
 
 ini_set('session.cookie_lifetime', '864000'); //ten days in seconds
 
 
-error_reporting(E_ALL);
-//set_error_handler(Error::class);
-//set_exception_handler(Exception::class);
+
 
 
 session_start();

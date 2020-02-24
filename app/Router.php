@@ -6,22 +6,21 @@ use app\controllers\AdminController;
 use app\controllers\BaseController;
 use app\controllers\SecurityController;
 use app\controllers\UserController;
+use app\services\Auth;
+use app\services\Redirect;
+use app\services\Session;
 
 
 class Router
 {
-
-
     private $request;
     private $error;
-
 
     public function __construct($request)
     {
         $this->request = $request;
         $this->action = $this->getAction();
     }
-
 
     const ROUTES = [
         [
@@ -35,29 +34,27 @@ class Router
             'resetPass' => [SecurityController::class],
             'resetPassword' => [SecurityController::class],
             'indexAction' => [AdminController::class],
-            'adminChapters' => [AdminController::class],
+
             'profile' => [UserController::class],
-            'editProfile' => [UserController::class],
+
             'showLoginForm' => [BaseController::class]
         ],
         [
 
             'logout' => [SecurityController::class],
+            'editProfile' => [UserController::class],
 
 
         ],
         [
             'adminView' => [AdminController::class],
+            'adminPosts' => [AdminController::class],
         ]
-
     ];
-
 
     public function renderController()
     {
-
         foreach ($this->getAllowedRoutes() as $levelRoutes) {
-
             foreach ($levelRoutes as $method => $controllers) {
                 $methodName = $controllers[1] ?? $method;
 
@@ -70,16 +67,18 @@ class Router
                 return $controller->$methodName();
             }
         }
-    }
 
+        if (Auth::isLogged()) {
+            Session::addMessage('Not access that page', 'info');
 
-    public function isLoggedIn()
-    {
-        if (isset($_SESSION['SESSION_USER_ID'])) {
-            return true;
-        } else {
-            return false;
+            return Redirect::to('home');
         }
+
+        Session::addMessage('Please login to acces that page', 'info');
+
+        Auth::rememberRequestedPage();
+
+        return Redirect::to('index.php?action=login');
     }
 
     public function getAllowedRoutes(): array
@@ -107,11 +106,10 @@ class Router
     public function getAction()
     {
         if (isset($_GET['action'])) {
-            $act = $_GET['action'];
-        } else {
-            $act = 'home';
+            return $_GET['action'];
         }
-        return $act;
+
+        return 'home';
     }
 
 }

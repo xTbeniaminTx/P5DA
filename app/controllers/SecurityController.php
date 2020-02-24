@@ -24,6 +24,7 @@ class SecurityController
 
     public function login()
     {
+
         if (false === Request::has('post')) {
             View::renderTemplate('login.html.twig', []);
 
@@ -33,6 +34,7 @@ class SecurityController
         $request = Request::get('post');
 
         if (!CSRFToken::verifyCSRFToken($request->token, false)) {
+
             throw new \Exception('Token incorect');
         }
 
@@ -59,12 +61,6 @@ class SecurityController
         }
 
         $user = $this->userModel->findByEmail($_POST['email']);
-
-//        if (!$user) {
-//            Session::addMessage('User inconu');
-//
-//            return Redirect::to('login');
-//        }
 
         if (!password_verify($request->password, $user->password)) {
             Session::addMessage('MDP incorect');

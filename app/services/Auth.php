@@ -52,11 +52,9 @@ class Auth
         return $_SESSION['return_to'] ?? 'profile';
     }
 
-
     public static function requireLogin()
     {
         if (!Auth::getUser()) {
-
             Session::addMessage('Please login to acces that page', 'info');
             Auth::rememberRequestedPage();
             Redirect::to('index.php?action=login');
@@ -72,14 +70,20 @@ class Auth
         return false;
     }
 
-    public static function isUser() {
+    public static function isUserExist() {
         $user = new User();
         if ($user->findByEmail($_POST['email'])) {
-            return $user->findByEmail($_POST['email']);
+            return true;
         }
 
         return false;
     }
 
+    public static function isLogged() {
+        if (isset($_SESSION['SESSION_USER_ID'])) {
+            return true;
+        }
 
+        return false;
+    }
 }
