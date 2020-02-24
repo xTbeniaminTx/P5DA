@@ -24,68 +24,70 @@ class SecurityController
 
     public function login()
     {
-        if (Request::has('post')) {
-            $request = Request::get('post');
+        if (false === Request::has('post')) {
+            View::renderTemplate('login.html.twig', []);
 
-            if (CSRFToken::verifyCSRFToken($request->token, false)) {
-
-                $validate = new ValidateRequest();
-                $validate->abide($_POST, [
-                    'email' => ['required' => true],
-                    'password' => ['required' => true]
-                ]);
-
-                if ($validate->hasError()) {
-
-                    $errors = $validate->getErrorMessages();
-
-                    return View::renderTemplate('login.html.twig', [
-                        'errors' => $errors,
-                        'email_err' => 'Veuillez entre votre email'
-                    ]);
-
-                }
-
-                if (!Auth::isUser()) {
-                    Session::addMessage('Email incorect', Session::WARNING);
-                    return Redirect::to('login');
-                }
-
-                $user = $this->userModel->findByEmail($_POST['email']);
-
-                if ($user) {
-                    if (!password_verify($request->password, $user->password)) {
-                        $data = [
-                            'password_err' => 'MDP incorect',
-                        ];
-                        Session::addMessage('MDP incorect');
-                        return Redirect::to('login');
-
-                    } else {
-                        Auth::auth($user);
-                        Session::addMessage('Succesful login');
-                        return Redirect::to(Auth::getReturnToPage());
-                    }
-                }
-            }
-            throw new \Exception('Token incorect');
-
+            return false;
         }
 
-        View::renderTemplate('login.html.twig', []);
+        $request = Request::get('post');
 
+        if (!CSRFToken::verifyCSRFToken($request->token, false)) {
+            throw new \Exception('Token incorect');
+        }
+
+        $validate = new ValidateRequest();
+        $validate->abide($_POST, [
+            'email' => ['required' => true],
+            'password' => ['required' => true]
+        ]);
+
+        if ($validate->hasError()) {
+            $errors = $validate->getErrorMessages();
+
+            View::renderTemplate('login.html.twig', [
+                'errors' => $errors
+            ]);
+
+            return false;
+        }
+
+        if (!Auth::isUser()) {
+            Session::addMessage('Email incorect', Session::WARNING);
+
+            return Redirect::to('login');
+        }
+
+        $user = $this->userModel->findByEmail($_POST['email']);
+
+//        if (!$user) {
+//            Session::addMessage('User inconu');
+//
+//            return Redirect::to('login');
+//        }
+
+        if (!password_verify($request->password, $user->password)) {
+            Session::addMessage('MDP incorect');
+
+            return Redirect::to('login');
+        }
+
+        Auth::auth($user);
+        Session::addMessage('Succesful login');
+
+        return Redirect::to(Auth::getReturnToPage());
     }
 
     public function logout()
     {
         Auth::destroy();
-        Redirect::to('showLogoutMessage');
+        return Redirect::to('showLogoutMessage');
     }
 
     public function showLogoutMessage()
     {
         Session::addMessage('Logout succesfuly');
-        Redirect::to('home');
+        return Redirect::to('home');
     }
 
     public function forgotPass()
@@ -102,7 +104,6 @@ class SecurityController
 
     public function resetPass()
     {
-
         $token = $_GET['token'];
         $email = $_GET['email'];
 
@@ -114,15 +115,12 @@ class SecurityController
                 'email' => $email
             ]);
         }
-
     }
 
     public function resetPassword()
     {
         $token = $_POST['tokenPass'];
-
         $email = $_POST['emailReset'];
-
         $password = $_POST['password'];
 
         $user = $this->getUserOrExit($token);
@@ -142,24 +140,27 @@ class SecurityController
                 'token' => $token,
                 'email' => $email
             ]);
-            return;
+
+            return false;
         }
+
         $this->userModel->resetPassword($password, $user);
 
         Session::addMessage('Mdp initialize avec sucess', Session::INFO);
-        Redirect::to('login');
-
+        return Redirect::to('login');
     }
 
     protected function getUserOrExit($token)
     {
         $user = $this->userModel->findByPasswordReset($token);
 
-        if ($user) {
-            return $user;
-        } else {
+        if (!$user) {
             View::renderTemplate('Password/token_expired.html.twig');
+
+            return false;
         }
+
+        return $user;
     }
 
 }

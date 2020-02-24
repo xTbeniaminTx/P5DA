@@ -44,14 +44,12 @@ class UserController extends CoreController
             throw new \Exception('Token incorect');
         }
 
-        $rules = [
+        $validate = new ValidateRequest();
+        $validate->abide($_POST, [
             'txtLastName' => ['required' => true, 'minLength' => 6],
             'txtFirstName' => ['required' => true, 'minLength' => 6],
             'txtEmail' => ['required' => true, 'uniqueEmail' => true, 'minLength' => 6],
-        ];
-
-        $validate = new ValidateRequest();
-        $validate->abide($_POST, $rules);
+        ]);
 
         if ($validate->hasError()) {
             $errors = $validate->getErrorMessages();
@@ -75,6 +73,7 @@ class UserController extends CoreController
         View::renderTemplate('login.html.twig', [
             'success' => 'Nouveau user ajouté avec succèss, veuilliez vous connectez avec ',
         ]);
+
         return true;
     }
 
@@ -125,7 +124,7 @@ class UserController extends CoreController
             return false;
         }
 
-        if($this->updateProfile()) {
+        if ($this->updateProfile()) {
             View::renderTemplate('profile.html.twig', [
                 'success' => 'Informations editer avec success',
                 'user' => Auth::getUser()
@@ -133,7 +132,7 @@ class UserController extends CoreController
             return true;
         }
 
-       throw new \Exception('Un error est sourvenu, veuilez essayer plus tard');
+        throw new \Exception('Un error est sourvenu, veuilez essayer plus tard');
 
 
     }
