@@ -34,7 +34,7 @@ class Router
             'resetPass' => [SecurityController::class],
             'resetPassword' => [SecurityController::class],
             'indexAction' => [AdminController::class],
-            'adminChapters' => [AdminController::class],
+
             'profile' => [UserController::class],
 
             'showLoginForm' => [BaseController::class]
@@ -48,6 +48,7 @@ class Router
         ],
         [
             'adminView' => [AdminController::class],
+            'adminPosts' => [AdminController::class],
         ]
     ];
 
