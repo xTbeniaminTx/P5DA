@@ -54,7 +54,7 @@ class SecurityController
             return false;
         }
 
-        if (!Auth::isUser()) {
+        if (!Auth::isUserExist()) {
             Session::addMessage('Email incorect', Session::WARNING);
 
             return Redirect::to('login');
@@ -77,13 +77,13 @@ class SecurityController
     public function logout()
     {
         Auth::destroy();
-        return Redirect::to('showLogoutMessage');
+        Redirect::to('showLogoutMessage');
     }
 
     public function showLogoutMessage()
     {
         Session::addMessage('Logout succesfuly');
-        return Redirect::to('home');
+        Redirect::to('home');
     }
 
     public function forgotPass()
