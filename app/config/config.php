@@ -34,6 +34,7 @@ if (in_array($_SERVER['HTTP_HOST'], ['blog.local', '127.0.0.1'])) {
 
 
 define('SITENAME', 'Blog P5DA');
+define('BASE_PATH', realpath(__DIR__.'/../../'));
 
 ini_set('session.cookie_lifetime', '864000'); //ten days in seconds
 
