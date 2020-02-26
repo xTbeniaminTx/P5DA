@@ -54,7 +54,7 @@ class SecurityController
             return false;
         }
 
-        if (!Auth::isUser()) {
+        if (!Auth::isUserExist()) {
             Session::addMessage('Email incorect', Session::WARNING);
 
             return Redirect::to('login');
