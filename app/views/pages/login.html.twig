@@ -6,10 +6,15 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>Signin Template · Bootstrap</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+          crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css"/>
 
+    <title>Page de connexion</title>
     <style>
         html,
         body {
@@ -53,7 +58,7 @@
            value="{{ request_old('post', 'email') }}">
     <span class="invalid-feedback">{{ email_err }}</span>
     <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" name="password"
+    <input type="password" id="inputPassword"  name="MotDePasse"
            class="form-control {{ (password_err is not empty) ? 'is-invalid' : '' }}"
            placeholder="Votre mot de passe" value="{{ password }}">
     <span class="invalid-feedback">{{ password_err }}</span>
@@ -62,7 +67,7 @@
         <input type="checkbox" value="remember-me"> Se souvenir de moi
 
         <p>
-            <a href="index.php?action=forgotPass"> Mot de passe oublie
+            <a href="index.php?action=forgotPass"> Mot de passe oublié
             </a>
         </p>
 
@@ -76,8 +81,22 @@
         <p class="mt-5 mb-3 text-muted">&copy; 2020 BenjiCodeur</p>
     </a>
 </form>
-
-
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="js/hideShowPassword.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#inputPassword').hideShowPassword({
+                show: false,
+                innerToggle: 'focus'
+            })
+        });
+    </script>
 {% endblock %}
 
 </body>

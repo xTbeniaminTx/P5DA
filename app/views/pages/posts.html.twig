@@ -19,7 +19,7 @@
                     {% for chapter in chapters %}
                         <div class="card card-body my-5">
 
-                            <h4><a href="index.php?action=showChapter&id={{ chapter.id }}">{{ chapter.title |raw }}</a>
+                            <h4><a href="index.php?action=showPost&id={{ chapter.id }}">{{ chapter.title |raw }}</a>
                             </h4>
                             <div class="bg-light p-2 mb-3">publié le {{ chapter.content_date|date("d/m/Y") }} par <span>Jean Forteroche</span>
                             </div>
@@ -31,7 +31,7 @@
                                 {{ chapter.content |slice(0,500)|raw }}...
                             </p>
 
-                            <a class="btn btn-sm btn-primary" href="index.php?action=showChapter&id={{ chapter.id }}"><i
+                            <a class="btn btn-sm btn-primary" href="index.php?action=showPost&id={{ chapter.id }}"><i
                                         class="fas fa-angle-double-down"></i> Voir plus
                             </a>
                         </div>
@@ -48,7 +48,7 @@
                                 <ul class="list-unstyled">
                                     {% for chapter in chapters %}
                                         <li>
-                                            <a href="index.php?action=showChapter&id={{ chapter.id }}">{{ chapter.title|raw }}</a>
+                                            <a href="index.php?action=showPost&id={{ chapter.id }}">{{ chapter.title|raw }}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -63,7 +63,7 @@
                                 <ul class="list-unstyled">
                                     {% for chapter in chapters %}
                                         <li>
-                                            <a href="index.php?action=showChapter&id={{ chapter.id }}">{{ chapter.title|raw }}</a>
+                                            <a href="index.php?action=showPost&id={{ chapter.id }}">{{ chapter.title|raw }}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -76,41 +76,7 @@
 
         </div>
 
-        <hr>
 
-    </section>
-
-    <section>
-        <div class="container text-center my-5">
-            <h3>LES AUTRES OUVRAGES</h3>
-            <h5 class="text-primary">#JEANFORTEROCHE</h5>
-            <div class="row mt-4">
-                <div class="col-6 col-lg-3 mb-4">
-                    <img class="img-fluid" src="/images/gallery/social1.png" alt="social1">
-                </div>
-                <div class="col-6 col-lg-3 mb-4">
-                    <img class="img-fluid" src="/images/gallery/social2.png" alt="social2">
-                </div>
-                <div class="col-6 col-lg-3 mb-4">
-                    <img class="img-fluid" src="/images/gallery/social3.png" alt="social3">
-                </div>
-                <div class="col-6 col-lg-3 mb-4">
-                    <img class="img-fluid" src="/images/gallery/social4.png" alt="social4">
-                </div>
-                <div class="col-6 col-lg-3 mb-4">
-                    <img class="img-fluid" src="/images/gallery/social5.png" alt="social5">
-                </div>
-                <div class="col-6 col-lg-3 mb-4">
-                    <img class="img-fluid" src="/images/gallery/social6.png" alt="social6">
-                </div>
-                <div class="col-6 col-lg-3 mb-4">
-                    <img class="img-fluid" src="/images/gallery/social7.png" alt="social7">
-                </div>
-                <div class="col-6 col-lg-3 mb-4">
-                    <img class="img-fluid" src="/images/gallery/social8.png" alt="social8">
-                </div>
-            </div>
-        </div>
     </section>
 
 {% endblock %}
