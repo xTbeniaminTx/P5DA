@@ -42,7 +42,7 @@
                     <a href="index.php?action=home" class="nav-link">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php?action=chapters" class="nav-link">Blog</a>
+                    <a href="index.php?action=posts" class="nav-link">Blog</a>
                 </li>
                 <li class="nav-item">
                     <a href="index.php?action=contact" class="nav-link">Contact</a>
@@ -74,8 +74,11 @@
 
 {% block showcase %}
 {% endblock %}
-
+{% block messages %}
+    {% include 'messages.html.twig' %}
+{% endblock %}
 {% block body %}
+
 {% endblock %}
 
 <footer>
@@ -103,6 +106,7 @@
     {% endblock %}
 </footer>
 {% block javascripts %}
+
     <script src="https://code.jquery.com/jquery-3.4.1.js"
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
             crossorigin="anonymous"></script>
@@ -118,7 +122,6 @@
                 innerToggle: 'focus'
             })
         });
-
     </script>
 
 {% endblock %}

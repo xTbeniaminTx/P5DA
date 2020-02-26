@@ -1,7 +1,5 @@
 {% extends "base.html.twig" %}
-
-{% block body %}
-
+{% block showcase %}
     <section id="showcase" style="height: 50vh;" class="d-flex justify-content-center align-items-center">
         <div id="overlay" style="height: 50vh;"></div>
         <div id="header" class="container text-white text-center">
@@ -9,7 +7,8 @@
             <h1 class="display-3">Jean Forteroche</h1>
         </div>
     </section>
-
+{% endblock %}
+{% block body %}
 
     <section class="my-5">
         <div class="container">
@@ -41,7 +40,7 @@
                     <div class="well">
 
                         <h4>Laissez-nous un commentaire:</h4>
-                        <form action="index.php?action=showChapter&id={{ chapter.id }}" method="POST">
+                        <form action="index.php?action=showPost&id={{ chapter.id }}" method="POST">
 
                             <div class="form-group row">
                                 <label for="comment_author" class="col-sm-2">Auteur</label>

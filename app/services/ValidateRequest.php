@@ -14,14 +14,14 @@ class ValidateRequest
 
     private static $error = [];
     private static $error_messages = [
-        'string' => 'The :attribute field cannot contain numbers',
-        'uniqueEmail' => 'The :attribute field is already in use',
-        'required' => 'The :attribute field is required',
-        'minLength' => 'The :attribute field must be a minimum of :policy characters',
-        'maxLength' => 'The :attribute field must be a maximum of :policy characters',
-        'mixed' => 'The :attribute field can contain letters, numbers, dash and space only',
-        'number' => 'The :attribute field cannot contain letters e.g. 20.0, 20',
-        'email' => 'Email address is not valid'
+        'string' => 'Le champ :attribute peut contenir que des lettres',
+        'uniqueEmail' => 'Le champ :attribute est déjà utilisé',
+        'required' => 'Le champ :attribute est obligatoire',
+        'minLength' => 'Le champ :attribute doit avoir minimum :policy caractères',
+        'maxLength' => 'Le champ :attribute doit avoir maximum of :policy caractères',
+        'mixed' => 'Le champ :attribute peut contenir que des lettres, des chiffres, -- et des espaces',
+        'number' => 'Le champ :attribute peut contenir des chiffres',
+        'email' => 'Le champ :attribute n\'est pas valide'
     ];
 
     /**
@@ -166,21 +166,6 @@ class ValidateRequest
     public function getErrorMessages()
     {
         return self::$error;
-    }
-
-    public function findByEmail($email)
-    {
-        $this->db->query('SELECT * FROM login WHERE email = :email');
-        $this->db->bind(':email', $email);
-
-        $row = $this->db->single();
-
-        //check row
-        if ($this->db->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
 }

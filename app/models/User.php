@@ -32,7 +32,8 @@ class User extends Manager
         }
     }
 
-    public function updateUser($data) {
+    public function updateUser($data)
+    {
 
         $this->db->query('UPDATE users 
                                 SET first_name = :first_name,
@@ -98,6 +99,7 @@ class User extends Manager
         $this->db->bind(':email', $email);
 
         $row = $this->db->single();
+
         $password_db = $row->password;
         if (password_verify($password, $password_db)) {
             return $row;
@@ -171,12 +173,12 @@ class User extends Manager
         //check row
         if ($this->db->rowCount() > 0) {
             if (strtotime($row->pass_reset_exp) > time()) {
+
                 return $row;
             }
-
-        } else {
-            return false;
         }
+
+        return false;
 
     }
 

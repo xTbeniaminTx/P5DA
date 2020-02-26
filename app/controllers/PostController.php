@@ -3,31 +3,37 @@
 namespace app\controllers;
 
 
+use app\models\Comment;
+use app\models\Post;
+use app\services\Session;
+use app\services\View;
+
 class PostController
 {
+    private $postModel;
+    private $commentModel;
 
-    public function chapters()
+    public function __construct()
     {
-        $chapters = $this->chapterModel->getChapters();
-        $photoId = rand(10, 50);
-
-        $data = [
-            'title' => "Admin Chapters",
-            'chapters' => $chapters,
-            'photoId' => $photoId
-        ];
-        global $twig;
-        $vue = $twig->load('chapters.html.twig');
-        echo $vue->render($data);
+        $this->postModel = new Post();
+        $this->commentModel = new Comment();
     }
 
-    public function showChapter()
-    {
 
-        $comment_message = flash('comment_message');
-        $message_comment = <<<EOD
-                    $comment_message
-EOD;
+    public function posts()
+    {
+        $chapters = $this->postModel->getPosts();
+        $photoId = rand(10, 50);
+
+       View::renderTemplate('posts.html.twig', [
+           'title' => "Admin Chapters",
+           'chapters' => $chapters,
+           'photoId' => $photoId
+       ]);
+    }
+
+    public function showPost()
+    {
 
         //comment add
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -36,8 +42,9 @@ EOD;
             //Sanitize the post
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             if (isset($_GET['id'])) {
-                $chapter = $this->chapterModel->getChaptersById($_GET['id']);
+                $chapter = $this->postModel->getPostById($_GET['id']);
             }
+
             $comments = $this->commentModel->getComments();
             $commentsById = $this->commentModel->getCommentsById($_GET['id']);
 
@@ -72,8 +79,8 @@ EOD;
             if (empty($data['comment_author_err']) && empty($data['comment_email_err']) && empty($data['comment_content_err'])) {
                 //validated
                 if ($this->commentModel->addComment($data)) {
-                    header('Location: index.php?action=showChapter&id=' . $_GET['id']);
-                    flash('comment_message', 'Nouveau commentaire ajouté avec succès');
+                    header('Location: index.php?action=showPost&id=' . $_GET['id']);
+                    Session::addMessage('Nouveau commentaire ajouté avec succès', Session::WARNING);
                 } else {
                     die('Impossible de traiter cette demande à l\'heure actuelle.');
                 }
@@ -81,12 +88,12 @@ EOD;
             } else {
                 //load view with errors
                 global $twig;
-                $vue = $twig->load('chapter.html.twig');
+                $vue = $twig->load('post.html.twig');
                 echo $vue->render($data);
             }
         } else {
-            $chapters = $this->chapterModel->getChapters();
-            $chapter = $this->chapterModel->getChaptersById($_GET['id']);
+            $chapters = $this->postModel->getPosts();
+            $chapter = $this->postModel->getPostById($_GET['id']);
             $comments = $this->commentModel->getComments();
             $commentsById = $this->commentModel->getCommentsById($_GET['id']);
             $photoId = rand(10, 50);
@@ -94,7 +101,6 @@ EOD;
 
             $data = [
                 'adminLogged' => $adminLogged,
-                'comment_message' => $message_comment,
                 'chapter' => $chapter,
                 'chapters' => $chapters,
                 'comments' => $comments,
