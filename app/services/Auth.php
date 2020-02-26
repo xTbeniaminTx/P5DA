@@ -55,9 +55,9 @@ class Auth
     public static function requireLogin()
     {
         if (!Auth::getUser()) {
-            Session::addMessage('Please login to acces that page', 'info');
+            Session::addMessage('Veuillez vous autentifier pour accéder a cette page', 'info');
             Auth::rememberRequestedPage();
-            Redirect::to('index.php?action=login');
+            return Redirect::to('index.php?action=login');
         }
     }
 
@@ -72,8 +72,10 @@ class Auth
 
     public static function isUserExist() {
         $user = new User();
-        if ($user->findByEmail($_POST['email'])) {
-            return true;
+        if (isset($_POST['email'])) {
+            if ($user->findByEmail($_POST['email'])) {
+                return true;
+            }
         }
 
         return false;

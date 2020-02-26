@@ -46,9 +46,10 @@ class UserController extends CoreController
 
         $validate = new ValidateRequest();
         $validate->abide($_POST, [
-            'txtLastName' => ['required' => true, 'minLength' => 6],
-            'txtFirstName' => ['required' => true, 'minLength' => 6],
-            'txtEmail' => ['required' => true, 'uniqueEmail' => true, 'minLength' => 6],
+            'Nom' => ['required' => true, 'minLength' => 3, 'maxLength' => 20],
+            'Prénom' => ['required' => true, 'minLength' => 3],
+            'email' => ['required' => true, 'uniqueEmail' => true, 'minLength' => 6],
+            'MotDePasse' => ['required' => true]
         ]);
 
         if ($validate->hasError()) {
@@ -61,17 +62,17 @@ class UserController extends CoreController
         }
 
         $data = [
-            'last_name' => trim($_POST['txtLastName']),
-            'first_name' => trim($_POST['txtFirstName']),
-            'password' => password_hash($_POST['password'], PASSWORD_BCRYPT),
-            'email' => trim($_POST['txtEmail']),
+            'last_name' => trim($_POST['Nom']),
+            'first_name' => trim($_POST['Prénom']),
+            'password' => password_hash($_POST['MotDePasse'], PASSWORD_BCRYPT),
+            'email' => trim($_POST['email']),
             'role' => 'member'
         ];
 
         $this->userModel->addUser($data);
 
         View::renderTemplate('login.html.twig', [
-            'success' => 'Nouveau user ajouté avec succèss, veuilliez vous connectez avec ',
+            'success' => 'Inscription faite avec succèss, veuilliez vous connectez',
         ]);
 
         return true;
@@ -126,7 +127,7 @@ class UserController extends CoreController
 
         if ($this->updateProfile()) {
             View::renderTemplate('profile.html.twig', [
-                'success' => 'Informations editer avec success',
+                'success' => 'Informations éditées avec succès',
                 'user' => Auth::getUser()
             ]);
             return true;

@@ -40,8 +40,8 @@ class SecurityController
 
         $validate = new ValidateRequest();
         $validate->abide($_POST, [
-            'email' => ['required' => true],
-            'password' => ['required' => true]
+            'Email' => ['required' => true],
+            'MotDePasse' => ['required' => true]
         ]);
 
         if ($validate->hasError()) {
@@ -60,9 +60,9 @@ class SecurityController
             return Redirect::to('login');
         }
 
-        $user = $this->userModel->findByEmail($_POST['email']);
+        $user = $this->userModel->findByEmail($_POST['Email']);
 
-        if (!password_verify($request->password, $user->password)) {
+        if (!password_verify($request->MotDePasse, $user->password)) {
             Session::addMessage('MDP incorect');
 
             return Redirect::to('login');
@@ -93,9 +93,21 @@ class SecurityController
 
     public function requestReset()
     {
-        $this->userModel->sendPasswordReset($_POST['email']);
 
-        View::renderTemplate('resetRequest.html.twig');
+        if (Request::has('post')) {
+            if (Auth::isUserExist()) {
+
+                $this->userModel->sendPasswordReset($_POST['email']);
+
+                View::renderTemplate('resetRequest.html.twig');
+
+            }
+            Session::addMessage('Utilisateur inexistent');
+
+            View::renderTemplate('lost.html.twig');
+
+        }
+
     }
 
     public function resetPass()
@@ -105,12 +117,15 @@ class SecurityController
 
         $user = $this->getUserOrExit($token);
 
-        if ($user) {
-            View::renderTemplate('Password/reset.html.twig', [
-                'token' => $token,
-                'email' => $email
-            ]);
+        if (!$user) {
+            return false;
         }
+        View::renderTemplate('Password/reset.html.twig', [
+            'token' => $token,
+            'email' => $email
+        ]);
+
+        return true;
     }
 
     public function resetPassword()

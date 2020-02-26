@@ -42,12 +42,17 @@
                     <a href="index.php?action=home" class="nav-link">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php?action=chapters" class="nav-link">Blog</a>
+                    <a href="index.php?action=posts" class="nav-link">Blog</a>
                 </li>
                 <li class="nav-item">
                     <a href="index.php?action=contact" class="nav-link">Contact</a>
                 </li>
                 {% if current_user %}
+                    {% if current_user.role == "admin" %}
+                        <li class="nav-item">
+                            <a href="index.php?action=admin" class="nav-link">Administration</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a href="index.php?action=profile" class="nav-link">Profile</a>
                     </li>
@@ -70,9 +75,12 @@
 {% block showcase %}
 {% endblock %}
 
-{% include 'messages.html.twig' %}
+{% block messages %}
+    {% include 'messages.html.twig' %}
+{% endblock %}
 
 {% block body %}
+
 {% endblock %}
 
 <footer>
@@ -100,6 +108,7 @@
     {% endblock %}
 </footer>
 {% block javascripts %}
+
     <script src="https://code.jquery.com/jquery-3.4.1.js"
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
             crossorigin="anonymous"></script>
@@ -115,7 +124,6 @@
                 innerToggle: 'focus'
             })
         });
-
     </script>
 
 {% endblock %}

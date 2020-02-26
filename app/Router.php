@@ -4,6 +4,7 @@ namespace app;
 
 use app\controllers\AdminController;
 use app\controllers\BaseController;
+use app\controllers\PostController;
 use app\controllers\SecurityController;
 use app\controllers\UserController;
 use app\services\Auth;
@@ -34,9 +35,9 @@ class Router
             'resetPass' => [SecurityController::class],
             'resetPassword' => [SecurityController::class],
             'indexAction' => [AdminController::class],
-
             'profile' => [UserController::class],
-
+            'posts' => [PostController::class],
+            'showPost' => [PostController::class],
             'showLoginForm' => [BaseController::class]
         ],
         [
@@ -74,11 +75,7 @@ class Router
             return Redirect::to('home');
         }
 
-        Session::addMessage('Please login to acces that page', 'info');
-
-        Auth::rememberRequestedPage();
-
-        return Redirect::to('index.php?action=login');
+        return Auth::requireLogin();
     }
 
     public function getAllowedRoutes(): array
