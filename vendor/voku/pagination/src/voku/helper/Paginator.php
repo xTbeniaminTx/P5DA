@@ -48,7 +48,8 @@ class Paginator
   /**
    * @var string
    */
-  private $_paginatorStartCssClass = 'pagination--start';
+  private $_paginatorStartCssClass = 'pagination--start page-item';
+
 
   /**
    * @var string
@@ -99,7 +100,7 @@ class Paginator
   {
     // init
     $html = '';
-    $textAndOrLink = '<a href="' . $path . $this->_instance . '=' . $counter . '">' . $counter . '</a>';
+    $textAndOrLink = '<a class="page-link" href="' . $path . $this->_instance . '=' . $counter . '">' . $counter . '</a>';
 
     if ($this->_withLinkInCurrentLi === false) {
       $currentTextAndOrLink = $counter;
@@ -108,7 +109,7 @@ class Paginator
     }
 
     if ($counter == $this->_pageIdentifierFromGet) {
-      $html .= '<li class="current">' . $currentTextAndOrLink . '</li>';
+      $html .= '<li class="current page-item active"><a class="page-link" href="#">' . $currentTextAndOrLink . '<span class="sr-only">(current)</span></a></li>';
     } else {
       $html .= '<li>' . $textAndOrLink . '</li>';
     }
@@ -148,8 +149,8 @@ class Paginator
   {
     $html = '';
 
-    $html .= '<li><a href="' . $path . $this->_instance . '=1">1</a></li>';
-    $html .= '<li><a href="' . $path . $this->_instance . '=2">2</a></li>';
+    $html .= '<li><a class="page-link" href="' . $path . $this->_instance . '=1">1</a></li>';
+    $html .= '<li><a class="page-link" href="' . $path . $this->_instance . '=2">2</a></li>';
 
     return $html;
   }
@@ -264,7 +265,7 @@ class Paginator
       $pagination .= '<ul class="pagination ' . $this->_paginatorUlCssClass . '" data-pagination-current="' . $this->_pageIdentifierFromGet . '" data-pagination-prev="' . $prevDataAttribute . '" data-pagination-next="' . $nextDataAttribute . '" data-pagination-length="' . $lastpage . '">';
 
       if ($this->_pageIdentifierFromGet > 1) {
-        $pagination .= '<li class="' . $this->_paginatorStartCssClass . '"><a href="' . $path . $this->_instance . '=' . $prev . '">' . $this->_paginatorStartChar . '</a></li>';
+        $pagination .= '<li class="' . $this->_paginatorStartCssClass . '"><a class="page-link"href="' . $path . $this->_instance . '=' . $prev . '">' . $this->_paginatorStartChar . '</a></li>';
       } else {
         $pagination .= '<li class="' . $this->_paginatorStartCssClass . '">' . $this->_paginatorStartChar . '</li>';
       }
@@ -284,8 +285,8 @@ class Paginator
         }
 
         $pagination .= '<li>&hellip;</li>';
-        $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $tmpSave . '">' . $tmpSave . '</a></li>';
-        $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $lastpage . '">' . $lastpage . '</a></li>';
+        $pagination .= '<li><a class="page-link" href="' . $path . $this->_instance . '=' . $tmpSave . '">' . $tmpSave . '</a></li>';
+        $pagination .= '<li><a class="page-link" href="' . $path . $this->_instance . '=' . $lastpage . '">' . $lastpage . '</a></li>';
 
       } elseif ($lastpage - ($this->_adjacent * 2) > $this->_pageIdentifierFromGet && $this->_pageIdentifierFromGet > ($this->_adjacent * 2)) {
 
@@ -301,8 +302,8 @@ class Paginator
         }
 
         $pagination .= '<li>&hellip;</li>';
-        $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $tmpSave . '">' . $tmpSave . '</a></li>';
-        $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $lastpage . '">' . $lastpage . '</a></li>';
+        $pagination .= '<li><a class="page-link" href="' . $path . $this->_instance . '=' . $tmpSave . '">' . $tmpSave . '</a></li>';
+        $pagination .= '<li><a class="page-link" href="' . $path . $this->_instance . '=' . $lastpage . '">' . $lastpage . '</a></li>';
 
       } else {
 
@@ -317,7 +318,7 @@ class Paginator
       }
 
       if ($this->_pageIdentifierFromGet < $counter - 1) {
-        $pagination .= '<li class="' . $this->_paginatorEndCssClass . '"><a href="' . $path . $this->_instance . '=' . $next . '">' . $this->_paginatorEndChar . '</a></li>';
+        $pagination .= '<li class="' . $this->_paginatorEndCssClass . '"><a class="page-link" href="' . $path . $this->_instance . '=' . $next . '">' . $this->_paginatorEndChar . '</a></li>';
       } else {
         $pagination .= '<li class="' . $this->_paginatorEndCssClass . '">' . $this->_paginatorEndChar . '</li>';
       }

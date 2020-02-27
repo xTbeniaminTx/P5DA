@@ -23,12 +23,19 @@ class PostController
     public function posts()
     {
         $chapters = $this->postModel->getPosts();
+        $total = count($chapters);
+        $object = $this->postModel;
+
+        list($posts, $links) = $object->paginatePosts(3, $total, $object);
+
         $photoId = rand(10, 50);
 
        View::renderTemplate('posts.html.twig', [
            'title' => "Admin Chapters",
            'chapters' => $chapters,
-           'photoId' => $photoId
+           'photoId' => $photoId,
+           'posts' => $posts,
+           'links' => $links
        ]);
     }
 
