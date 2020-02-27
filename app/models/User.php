@@ -39,7 +39,8 @@ class User extends Manager
                                 SET first_name = :first_name,
                                     last_name =:last_name, 
                                     password = :password, 
-                                    email = :email, 
+                                    email = :email,
+                                    user_photo_path = :user_photo_path, 
                                     role = :role
                                 WHERE id = :id');
         $this->db->bind(':first_name', $data['first_name']);
@@ -47,6 +48,7 @@ class User extends Manager
         $this->db->bind(':password', $data['password']);
         $this->db->bind(':role', $data['role']);
         $this->db->bind(':email', $data['email']);
+        $this->db->bind(':user_photo_path', $data['user_photo_path']);
         $this->db->bind(':id', $data['id']);
 
         //execute
