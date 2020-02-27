@@ -18,7 +18,8 @@
         "php-http/discovery": "^1.7",
         "php-http/curl-client": "^2.1",
         "guzzlehttp/psr7": "^1.6",
-        "voku/pagination": "^3.0"
+        "voku/pagination": "^3.0",
+        "nesbot/carbon": "^2.30"
     },
     "config": {
         "optimize-autoloader": true
