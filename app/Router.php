@@ -50,8 +50,10 @@ class Router
 
         ],
         [
-            'adminView' => [AdminController::class],
             'adminPosts' => [AdminController::class],
+        ],
+        [
+            'adminView' => [AdminController::class],
         ]
     ];
 
@@ -86,6 +88,7 @@ class Router
             'visitor' => 0,
             'member' => 1,
             'admin' => 2,
+            'superuser' => 3
         ];
 
         $role = $roleByLevel[$_SESSION['role'] ?? $_SESSION['role'] = 'visitor']; // 0, 1, 2

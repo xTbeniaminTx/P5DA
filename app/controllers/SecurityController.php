@@ -58,16 +58,16 @@ class SecurityController
             return Redirect::to('login');
         }
 
-        $user = $this->userModel->findByEmail($_POST['Email']);
+        $user = $this->userModel->findByEmail($request->email);
 
         if (!password_verify($request->MotDePasse, $user->password)) {
-            Session::addMessage('MDP incorect');
+            Session::addMessage('Mot De Passe Incorrect', Session::WARNING);
 
             return Redirect::to('login');
         }
 
         Auth::auth($user);
-        Session::addMessage('Succesful login');
+        Session::addMessage('Succesful login', Session::SUCCESS);
 
         return Redirect::to(Auth::getReturnToPage());
     }
@@ -111,9 +111,10 @@ class SecurityController
 
         $user = $this->getUserOrExit($token);
 
-        if (!$user) {
+        if (false === $user) {
             return false;
         }
+
         View::renderTemplate('Password/reset.html.twig', [
             'token' => $token,
             'email' => $email
