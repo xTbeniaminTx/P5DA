@@ -10,10 +10,10 @@ class ComposerStaticInit2d2b5857d7aefaed920ac5ada47a7c8b
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '9c67151ae59aff4788964ce8eb2a0f43' => __DIR__ . '/..' . '/clue/stream-filter/src/functions_include.php',
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '8cff32064859f4559445b89279f3199c' => __DIR__ . '/..' . '/php-http/message/src/filters.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
@@ -24,6 +24,10 @@ class ComposerStaticInit2d2b5857d7aefaed920ac5ada47a7c8b
     );
 
     public static $prefixLengthsPsr4 = array (
+        'v' => 
+        array (
+            'voku\\helper\\' => 12,
+        ),
         'a' => 
         array (
             'app\\' => 4,
@@ -65,6 +69,7 @@ class ComposerStaticInit2d2b5857d7aefaed920ac5ada47a7c8b
             'Http\\Message\\MultipartStream\\' => 29,
             'Http\\Message\\' => 13,
             'Http\\Discovery\\' => 15,
+            'Http\\Client\\Curl\\' => 17,
             'Http\\Client\\Common\\' => 19,
             'Http\\Client\\' => 12,
             'Http\\Adapter\\Guzzle6\\' => 21,
@@ -91,6 +96,10 @@ class ComposerStaticInit2d2b5857d7aefaed920ac5ada47a7c8b
     );
 
     public static $prefixDirsPsr4 = array (
+        'voku\\helper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/voku/pagination/src/voku/helper',
+        ),
         'app\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -177,6 +186,10 @@ class ComposerStaticInit2d2b5857d7aefaed920ac5ada47a7c8b
         'Http\\Discovery\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-http/discovery/src',
+        ),
+        'Http\\Client\\Curl\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-http/curl-client/src',
         ),
         'Http\\Client\\Common\\' => 
         array (
@@ -428,6 +441,11 @@ class ComposerStaticInit2d2b5857d7aefaed920ac5ada47a7c8b
         'Http\\Client\\Common\\Plugin\\SeekableBodyPlugin' => __DIR__ . '/..' . '/php-http/client-common/src/Plugin/SeekableBodyPlugin.php',
         'Http\\Client\\Common\\Plugin\\VersionBridgePlugin' => __DIR__ . '/..' . '/php-http/client-common/src/Plugin/VersionBridgePlugin.php',
         'Http\\Client\\Common\\VersionBridgeClient' => __DIR__ . '/..' . '/php-http/client-common/src/VersionBridgeClient.php',
+        'Http\\Client\\Curl\\Client' => __DIR__ . '/..' . '/php-http/curl-client/src/Client.php',
+        'Http\\Client\\Curl\\CurlPromise' => __DIR__ . '/..' . '/php-http/curl-client/src/CurlPromise.php',
+        'Http\\Client\\Curl\\MultiRunner' => __DIR__ . '/..' . '/php-http/curl-client/src/MultiRunner.php',
+        'Http\\Client\\Curl\\PromiseCore' => __DIR__ . '/..' . '/php-http/curl-client/src/PromiseCore.php',
+        'Http\\Client\\Curl\\ResponseBuilder' => __DIR__ . '/..' . '/php-http/curl-client/src/ResponseBuilder.php',
         'Http\\Client\\Exception' => __DIR__ . '/..' . '/php-http/httplug/src/Exception.php',
         'Http\\Client\\Exception\\HttpException' => __DIR__ . '/..' . '/php-http/httplug/src/Exception/HttpException.php',
         'Http\\Client\\Exception\\NetworkException' => __DIR__ . '/..' . '/php-http/httplug/src/Exception/NetworkException.php',
@@ -1149,18 +1167,21 @@ class ComposerStaticInit2d2b5857d7aefaed920ac5ada47a7c8b
         'app\\controllers\\SecurityController' => __DIR__ . '/../..' . '/app/controllers/SecurityController.php',
         'app\\controllers\\UserController' => __DIR__ . '/../..' . '/app/controllers/UserController.php',
         'app\\models\\Comment' => __DIR__ . '/../..' . '/app/models/Comment.php',
-        'app\\models\\Login' => __DIR__ . '/../..' . '/app/models/Login.php',
+        'app\\models\\Manager' => __DIR__ . '/../..' . '/app/models/Manager.php',
         'app\\models\\Post' => __DIR__ . '/../..' . '/app/models/Post.php',
         'app\\models\\User' => __DIR__ . '/../..' . '/app/models/User.php',
         'app\\services\\Auth' => __DIR__ . '/../..' . '/app/services/Auth.php',
         'app\\services\\CSRFToken' => __DIR__ . '/../..' . '/app/services/CSRFToken.php',
         'app\\services\\Database' => __DIR__ . '/../..' . '/app/services/Database.php',
+        'app\\services\\Mail' => __DIR__ . '/../..' . '/app/services/Mail.php',
         'app\\services\\Redirect' => __DIR__ . '/../..' . '/app/services/Redirect.php',
         'app\\services\\Request' => __DIR__ . '/../..' . '/app/services/Request.php',
         'app\\services\\Session' => __DIR__ . '/../..' . '/app/services/Session.php',
         'app\\services\\UploadFile' => __DIR__ . '/../..' . '/app/services/UploadFile.php',
         'app\\services\\ValidateRequest' => __DIR__ . '/../..' . '/app/services/ValidateRequest.php',
         'app\\services\\View' => __DIR__ . '/../..' . '/app/services/View.php',
+        'voku\\helper\\Paginator' => __DIR__ . '/..' . '/voku/pagination/src/voku/helper/Paginator.php',
+        'voku\\helper\\PaginatorHelper' => __DIR__ . '/..' . '/voku/pagination/src/voku/helper/PaginatorHelper.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

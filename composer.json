@@ -17,7 +17,8 @@
         "sendgrid/sendgrid": "~7",
         "php-http/discovery": "^1.7",
         "php-http/curl-client": "^2.1",
-        "guzzlehttp/psr7": "^1.6"
+        "guzzlehttp/psr7": "^1.6",
+        "voku/pagination": "^3.0"
     },
     "config": {
         "optimize-autoloader": true

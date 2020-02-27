@@ -539,6 +539,73 @@
         ]
     },
     {
+        "name": "php-http/curl-client",
+        "version": "2.1.0",
+        "version_normalized": "2.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-http/curl-client.git",
+            "reference": "9e79355af46d72e10da50be20b66f74b26143441"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-http/curl-client/zipball/9e79355af46d72e10da50be20b66f74b26143441",
+            "reference": "9e79355af46d72e10da50be20b66f74b26143441",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "php": "^7.1",
+            "php-http/discovery": "^1.6",
+            "php-http/httplug": "^2.0",
+            "php-http/message": "^1.2",
+            "psr/http-client": "^1.0",
+            "psr/http-factory": "^1.0",
+            "symfony/options-resolver": "^3.4 || ^4.0 || ^5.0"
+        },
+        "provide": {
+            "php-http/async-client-implementation": "1.0",
+            "php-http/client-implementation": "1.0",
+            "psr/http-client-implementation": "1.0"
+        },
+        "require-dev": {
+            "guzzlehttp/psr7": "^1.0",
+            "php-http/client-integration-tests": "^2.0",
+            "phpunit/phpunit": "^7.5",
+            "zendframework/zend-diactoros": "^2.0"
+        },
+        "time": "2019-12-27T11:02:07+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Http\\Client\\Curl\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Михаил Красильников",
+                "email": "m.krasilnikov@yandex.ru"
+            }
+        ],
+        "description": "PSR-18 and HTTPlug Async client with cURL",
+        "homepage": "http://php-http.org",
+        "keywords": [
+            "curl",
+            "http",
+            "psr-18"
+        ]
+    },
+    {
         "name": "php-http/discovery",
         "version": "1.7.4",
         "version_normalized": "1.7.4.0",
@@ -1893,6 +1960,65 @@
         "homepage": "https://twig.symfony.com",
         "keywords": [
             "templating"
+        ]
+    },
+    {
+        "name": "voku/pagination",
+        "version": "3.0.1",
+        "version_normalized": "3.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/voku/pagination.git",
+            "reference": "bb44b5d0814b10b5efcde5542993c3ce5065fe5d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/voku/pagination/zipball/bb44b5d0814b10b5efcde5542993c3ce5065fe5d",
+            "reference": "bb44b5d0814b10b5efcde5542993c3ce5065fe5d",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.0.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~6.0|~7.0"
+        },
+        "time": "2018-10-07T01:22:14+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "voku\\helper\\": "src/voku/helper/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Lars Moelleken",
+                "email": "lars@moelleken.org",
+                "homepage": "http://www.moelleken.org/",
+                "role": "Fork-Maintainer"
+            },
+            {
+                "name": "David Carr",
+                "email": "dave@daveismyname.com",
+                "homepage": "http://www.daveismyname.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "Pagination, without a database dependency",
+        "keywords": [
+            "pager",
+            "pagination",
+            "paginator"
         ]
     },
     {

@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "a2e082975bc94d0defc35ab2dd3d99e8",
-=======
-    "content-hash": "b8fc68dff02fdbc5ad1534ea2795f783",
->>>>>>> 8665f1b01f87ea3ecb378314f956312dcbfc0962
+    "content-hash": "bd9a81caeed4405c43ae5e727035cfdc",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -1906,6 +1902,63 @@
                 "templating"
             ],
             "time": "2020-02-11T15:31:23+00:00"
+        },
+        {
+            "name": "voku/pagination",
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/voku/pagination.git",
+                "reference": "bb44b5d0814b10b5efcde5542993c3ce5065fe5d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/voku/pagination/zipball/bb44b5d0814b10b5efcde5542993c3ce5065fe5d",
+                "reference": "bb44b5d0814b10b5efcde5542993c3ce5065fe5d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.0|~7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "voku\\helper\\": "src/voku/helper/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lars Moelleken",
+                    "email": "lars@moelleken.org",
+                    "homepage": "http://www.moelleken.org/",
+                    "role": "Fork-Maintainer"
+                },
+                {
+                    "name": "David Carr",
+                    "email": "dave@daveismyname.com",
+                    "homepage": "http://www.daveismyname.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Pagination, without a database dependency",
+            "keywords": [
+                "pager",
+                "pagination",
+                "paginator"
+            ],
+            "time": "2018-10-07T01:22:14+00:00"
         },
         {
             "name": "webmozart/assert",
