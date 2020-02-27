@@ -232,13 +232,13 @@ EOD;
 
     }
 
-    public function adminView()
+    public function superView()
     {
 
         global $twig;
         $vue = $twig->load('admin.base.html.twig');
         echo $vue->render([
-            'title' => "Admin Dashboard",
+            'title' => "Super Admin Dashboard",
             'admin_id' => $_SESSION['admin_id']
         ]);
 
