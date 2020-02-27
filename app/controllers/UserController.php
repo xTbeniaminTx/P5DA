@@ -26,10 +26,6 @@ class UserController extends CoreController
         $this->userModel = new User();
     }
 
-    public function before()
-    {
-        Auth::requireLogin();
-    }
 
     public function registerUser()
     {

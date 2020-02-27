@@ -24,7 +24,6 @@ class SecurityController
 
     public function login()
     {
-
         if (false === Request::has('post')) {
             View::renderTemplate('login.html.twig', []);
 
@@ -34,13 +33,12 @@ class SecurityController
         $request = Request::get('post');
 
         if (!CSRFToken::verifyCSRFToken($request->token, false)) {
-
             throw new \Exception('Token incorect');
         }
 
         $validate = new ValidateRequest();
         $validate->abide($_POST, [
-            'Email' => ['required' => true],
+            'email' => ['required' => true],
             'MotDePasse' => ['required' => true]
         ]);
 
@@ -54,7 +52,7 @@ class SecurityController
             return false;
         }
 
-        if (!Auth::isUserExist()) {
+        if (!Auth::isUserExist($request->email)) {
             Session::addMessage('Email incorect', Session::WARNING);
 
             return Redirect::to('login');
@@ -86,28 +84,24 @@ class SecurityController
         Redirect::to('home');
     }
 
-    public function forgotPass()
-    {
-        View::renderTemplate('lost.html.twig');
-    }
+
 
     public function requestReset()
     {
-
-        if (Request::has('post')) {
-            if (Auth::isUserExist()) {
-
-                $this->userModel->sendPasswordReset($_POST['email']);
-
-                View::renderTemplate('resetRequest.html.twig');
-
-            }
-            Session::addMessage('Utilisateur inexistent');
-
+        if (false === Request::has('post') || false === isset($_POST['email'])) {
             View::renderTemplate('lost.html.twig');
-
+            return;
         }
 
+        if (false === Auth::isUserExist($_POST['email'])) {
+            Session::addMessage('Utilisateur inexistant');
+            Redirect::to('requestReset');
+
+            return;
+        }
+
+        $this->userModel->sendPasswordReset($_POST['email']);
+        View::renderTemplate('resetRequest.html.twig');
     }
 
     public function resetPass()
@@ -157,7 +151,7 @@ class SecurityController
 
         $this->userModel->resetPassword($password, $user);
 
-        Session::addMessage('Mdp initialize avec sucess', Session::INFO);
+        Session::addMessage('Mot de passe initialize avec succès', Session::INFO);
         return Redirect::to('login');
     }
 

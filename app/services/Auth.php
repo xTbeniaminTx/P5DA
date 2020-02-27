@@ -61,7 +61,8 @@ class Auth
         }
     }
 
-    public static function getUser() {
+    public static function getUser()
+    {
         $user = new User();
         if (isset($_SESSION['SESSION_USER_ID'])) {
             return $user->findById($_SESSION['SESSION_USER_ID']);
@@ -70,22 +71,13 @@ class Auth
         return false;
     }
 
-    public static function isUserExist() {
-        $user = new User();
-        if (isset($_POST['email'])) {
-            if ($user->findByEmail($_POST['email'])) {
-                return true;
-            }
-        }
-
-        return false;
+    public static function isUserExist(string $email)
+    {
+        return (new User())->findByEmail($email);
     }
 
-    public static function isLogged() {
-        if (isset($_SESSION['SESSION_USER_ID'])) {
-            return true;
-        }
-
-        return false;
+    public static function isLogged()
+    {
+        return isset($_SESSION['SESSION_USER_ID']);
     }
 }

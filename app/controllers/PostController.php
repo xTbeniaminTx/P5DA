@@ -80,7 +80,7 @@ class PostController
                 //validated
                 if ($this->commentModel->addComment($data)) {
                     header('Location: index.php?action=showPost&id=' . $_GET['id']);
-                    Session::addMessage('Nouveau commentaire ajouté avec succès', Session::WARNING);
+                    Session::addMessage('Nouveau commentaire ajouté avec succès', Session::INFO);
                 } else {
                     die('Impossible de traiter cette demande à l\'heure actuelle.');
                 }

@@ -27,6 +27,8 @@ class Router
         [
             '' => [BaseController::class, 'home'],
             'showRegisterForm' => [BaseController::class],
+            'contact' => [BaseController::class],
+            'sendMail' => [BaseController::class],
             'registerUser' => [UserController::class],
             'login' => [SecurityController::class],
             'showLogoutMessage' => [SecurityController::class],

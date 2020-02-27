@@ -112,13 +112,13 @@ class User extends Manager
     {
         $user = $this->findByEmail($email);
 
-
-        if ($user) {
-            if ($this->startPasswordReset($email)) {
-                $this->sendPasswordResetEmail($email);
-            }
+        if (false === $user) {
+            return;
         }
 
+        if ($this->startPasswordReset($email)) {
+            $this->sendPasswordResetEmail($email);
+        }
     }
 
     protected function startPasswordReset($email)
