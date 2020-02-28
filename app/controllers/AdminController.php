@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-
 use app\models\Comment;
 use app\models\Post;
 use app\models\User;
@@ -38,10 +37,36 @@ class AdminController
     {
         $posts = $this->postModel->getPosts();
 
-        View::renderTemplate('admin.posts.html.twig', [
-            'title' => "Admin Posts",
+        View::renderTemplate('Admin/admin.posts.html.twig', [
+            'title' => "Administration",
             'posts' => $posts,
         ]);
+    }
+
+    public function superAdminView()
+    {
+        $users = $this->userModel->getUsers('member');
+
+        View::renderTemplate('Admin/super.admin.html.twig', [
+            'title' => "Super Administration",
+            'users' => $users,
+        ]);
+    }
+
+    public function grantRoleAdmin()
+    {
+
+        $request = Request::get('get');
+        $id = $request->id;
+        if (!$this->userModel->updateUserToAdmin($id)) {
+            Session::addMessage('Modification error', Session::WARNING);
+
+            return Redirect::to('superAdminView');
+        }
+        Session::addMessage('Le Role Utilisateur a ete modifier avec succes');
+
+        return Redirect::to('superAdminView');
+
     }
 
     public function addPost()
@@ -203,7 +228,7 @@ EOD;
         if ($this->commentModel->deleteComment($idComment)) {
             Session::addMessage('Le commentaire a été supprimé');
             if (isset($_GET['id'])) {
-                Redirect::to('showChapter&id='. $_GET['id']);
+                Redirect::to('showChapter&id=' . $_GET['id']);
             } else {
                 Redirect::to('adminComments');
             }
@@ -229,7 +254,7 @@ EOD;
     public function superView()
     {
 
-       View::renderTemplate('admin.base.html.twig');
+        View::renderTemplate('admin.base.html.twig');
 
     }
 

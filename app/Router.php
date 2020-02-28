@@ -53,7 +53,8 @@ class Router
             'adminPosts' => [AdminController::class],
         ],
         [
-            'superView' => [AdminController::class],
+            'grantRoleAdmin' => [AdminController::class],
+            'superAdminView' => [AdminController::class],
         ]
     ];
 

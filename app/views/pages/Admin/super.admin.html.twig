@@ -1,0 +1,66 @@
+﻿{% extends "Admin/admin.base.html.twig" %}
+
+{% block pagesActive %}
+
+    <a href="index.php?action=superAdminView" class="list-group-item list-group-item-action active"><i
+                class="fas fa-book"></i> Users</a>
+    <a href="index.php?action=adminComments" class="list-group-item list-group-item-action"><i
+                class="fas fa-comments"></i> Commentaires</a>
+
+{% endblock %}
+
+{% block principal %}
+    {{ chapter_message }}
+    <div class="row">
+        <div class="col-md-6">
+
+            <h2>Users</h2>
+
+        </div>
+
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Users</li>
+        </ol>
+    </nav>
+
+    <table class="table table-responsive-md table-hover">
+        <thead>
+        <tr>
+
+            <th scope="col" colspan="2">User</th>
+            <th scope="col" colspan="2">Role</th>
+            <th scope="col" class="text-warning"></th>
+
+        </tr>
+        </thead>
+
+        {% for user in users %}
+            <tbody>
+            <tr>
+                <td colspan="2">
+                    {{ user.last_name }} {{ user.first_name }}
+                </td>
+                <td colspan="2">
+                    <span id="{{ user.id }}">{{ user.role }}</span>
+                </td>
+                <td>
+                    <div class="btn-group btn-group-sm float-right" role="group" aria-label="...">
+                        <a href="index.php?action=grantRoleAdmin&id={{ user.id }}" class="btn btn-warning">
+                            <i class="fa fa-edit"></i>Grant Role Admin</a>
+                        <a href="index.php?action=deleteChapter&id={{ user.id }}" class="btn btn-danger"
+                           onclick="return confirm('Confirmer la suppression ?');">
+                            <i class="fa fa-trash"></i>Effacer</a>
+                    </div>
+                </td>
+
+            </tr>
+            </tbody>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}

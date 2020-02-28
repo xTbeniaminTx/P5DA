@@ -13,6 +13,15 @@ use app\services\View;
 class User extends Manager
 {
 
+    public function getUsers($role)
+    {
+        $this->db->query("SELECT * FROM users WHERE role =:role ORDER BY last_name");
+        $this->db->bind(':role', $role);
+        $results = $this->db->resultSet();
+
+        return $results;
+
+    }
 
     public function addUser($data)
     {
@@ -93,6 +102,8 @@ class User extends Manager
         }
 
     }
+
+
 
 
     public function login($email, $password)
@@ -199,6 +210,22 @@ class User extends Manager
         $this->db->bind(':id', $user->id);
 
         return $this->db->execute();
+    }
+
+    public function updateUserToAdmin($id)
+    {
+        $this->db->query('UPDATE users 
+                                SET role = :role
+                                WHERE id = :id');
+        $this->db->bind(':role', 'admin');
+        $this->db->bind(':id', $id);
+
+        //execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
