@@ -1,0 +1,9 @@
+Message depuis votre Blog
+Nom:
+{{ userName }}
+Email:
+{{ email }}
+Mobile:
+{{ mobile }}
+Message:
+{{ message }}

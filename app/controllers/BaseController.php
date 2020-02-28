@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\models\Post;
+use app\services\Mail;
+use app\services\Request;
 use app\services\View;
 
 
@@ -37,5 +39,28 @@ class BaseController
         View::renderTemplate('User/contact.html.twig');
     }
 
+    public function sendMail()
+    {
+        $request = Request::get('post');
+        $email = $request->txtEmail;
+        $userName = $request->txtName;
+        $mobile = $request->txtPhone;
+        $message = $request->txtMsg;
+
+        $text = View::getTemplate('User/contact_email.txt', [
+            'userName' => $userName,
+            'email' => $email,
+            'mobile' => $mobile,
+            'message' => $message
+        ]);
+        $html = View::getTemplate('User/contact_email.html', [
+            'userName' => $userName,
+            'email' => $email,
+            'mobile' => $mobile,
+            'message' => $message
+        ]);
+
+        Mail::send($email, $userName, 'Message Blog TB Contact', $text, $html);
+    }
 
 }
