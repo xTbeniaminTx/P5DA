@@ -38,9 +38,9 @@ class AdminController
     {
         $posts = $this->postModel->getPosts();
 
-        View::renderTemplate('admin.chapters.html.twig', [
-            'title' => "Admin Chapters",
-            'chapters' => $posts,
+        View::renderTemplate('admin.posts.html.twig', [
+            'title' => "Admin Posts",
+            'posts' => $posts,
         ]);
     }
 
