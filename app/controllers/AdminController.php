@@ -3,23 +3,27 @@
 namespace app\controllers;
 
 
+use app\models\Comment;
 use app\models\Post;
+use app\models\User;
 use app\services\Auth;
 use app\services\CSRFToken;
+use app\services\Redirect;
 use app\services\Request;
+use app\services\Session;
 use app\services\View;
 
 class AdminController
 {
     private $postModel;
+    private $commentModel;
+    private $userModel;
 
     public function __construct()
     {
         $this->postModel = new Post();
-
-//        $this->loginModel = $this->model('Login');
-//        $this->chapterModel = $this->model('Chapter');
-//        $this->commentModel = $this->model('Comment');
+        $this->commentModel = new Comment();
+        $this->userModel = new User();
     }
 
 
@@ -32,29 +36,23 @@ class AdminController
 
     public function adminPosts()
     {
-
         $posts = $this->postModel->getPosts();
-
-
 
         View::renderTemplate('admin.chapters.html.twig', [
             'title' => "Admin Chapters",
             'chapters' => $posts,
         ]);
-
-
     }
 
     public function addPost()
     {
-
         if (false === Request::has('post')) {
             View::renderTemplate('register.html.twig', []);
+
             return false;
         }
 
         $request = Request::get('post');
-
         if (false === CSRFToken::verifyCSRFToken($request->token, false)) {
             throw new \Exception('Token incorect');
         }
@@ -95,7 +93,6 @@ class AdminController
 //                $vue = $twig->load('admin.edit.chapters.html.twig');
 //                echo $vue->render($data);
 //            }
-
 
     }
 
@@ -204,12 +201,12 @@ EOD;
         $idComment = $_GET['comment_id'];
 
         if ($this->commentModel->deleteComment($idComment)) {
+            Session::addMessage('Le commentaire a été supprimé');
             if (isset($_GET['id'])) {
-                header('Location: index.php?action=showChapter&id=' . $_GET['id']);
+                Redirect::to('showChapter&id='. $_GET['id']);
             } else {
-                header('Location: index.php?action=adminComments');
+                Redirect::to('adminComments');
             }
-            flash('comment_message', 'Le commentaire a été supprimé');
         } else {
             die('Impossible de traiter cette demande à l\'heure actuelle.');
         }
@@ -218,32 +215,22 @@ EOD;
 
     public function approuve()
     {
-
-
         $id = $_GET['id'];
 
         if ($this->commentModel->approuveStatus($id)) {
-            header('Location: index.php?action=adminComments');
-            flash('comment_message', 'Le commentaire a été approuvé');
+            Session::addMessage('Le commentaire a été approuvé');
+            Redirect::to('adminComments');
+
         } else {
             die('Impossible de traiter cette demande à l\'heure actuelle.');
         }
-
-
     }
 
     public function superView()
     {
 
-        global $twig;
-        $vue = $twig->load('admin.base.html.twig');
-        echo $vue->render([
-            'title' => "Super Admin Dashboard",
-            'admin_id' => $_SESSION['admin_id']
-        ]);
+       View::renderTemplate('admin.base.html.twig');
 
     }
-
-
 
 }

@@ -46,7 +46,7 @@ class UserController extends CoreController
         $validate->abide($_POST, [
             'Nom' => ['required' => true, 'minLength' => 3, 'maxLength' => 20],
             'Prénom' => ['required' => true, 'minLength' => 3],
-            'email' => ['required' => true, 'uniqueEmail' => true, 'minLength' => 6],
+            'email' => ['required' => true, 'uniqueEmail' => true, 'email' => 6],
             'MotDePasse' => ['required' => true]
         ]);
 
