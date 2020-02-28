@@ -32,7 +32,7 @@ class UserController extends CoreController
     public function registerUser()
     {
         if (false === Request::has('post')) {
-            View::renderTemplate('register.html.twig', []);
+            View::renderTemplate('User/register.html.twig', []);
             return false;
         }
 
@@ -53,7 +53,7 @@ class UserController extends CoreController
         if ($validate->hasError()) {
             $errors = $validate->getErrorMessages();
 
-            View::renderTemplate('register.html.twig', [
+            View::renderTemplate('User/register.html.twig', [
                 'errors' => $errors
             ]);
             return false;
@@ -70,7 +70,7 @@ class UserController extends CoreController
 
         $this->userModel->addUser($data);
 
-        View::renderTemplate('login.html.twig', [
+        View::renderTemplate('User/login.html.twig', [
             'success' => 'Inscription faite avec succèss, veuilliez vous connectez',
         ]);
 
@@ -83,7 +83,7 @@ class UserController extends CoreController
 
         $user = Auth::getUser();
 
-        View::renderTemplate('profile.html.twig', ['user' => $user]);
+        View::renderTemplate('User/profile.html.twig', ['user' => $user]);
         return;
 
     }
@@ -95,7 +95,7 @@ class UserController extends CoreController
         $user = Auth::getUser();
 
         if (false === Request::has('post')) {
-            View::renderTemplate('edit.profile.html.twig', ['user' => $user]);
+            View::renderTemplate('User/edit.profile.html.twig', ['user' => $user]);
             return false;
         }
 
@@ -117,7 +117,7 @@ class UserController extends CoreController
         if ($validate->hasError()) {
             $errors = $validate->getErrorMessages();
 
-            View::renderTemplate('edit.profile.html.twig', [
+            View::renderTemplate('User/edit.profile.html.twig', [
                 'errors' => $errors,
                 'user' => $user
             ]);
@@ -126,7 +126,7 @@ class UserController extends CoreController
 
         if ($this->updateProfile()) {
             Request::refresh();
-            View::renderTemplate('profile.html.twig', [
+            View::renderTemplate('User/profile.html.twig', [
                 'success' => 'Informations éditées avec succès',
                 'user' => Auth::getUser()
             ]);

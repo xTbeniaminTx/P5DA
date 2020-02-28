@@ -25,7 +25,7 @@ class SecurityController
     public function login()
     {
         if (false === Request::has('post')) {
-            View::renderTemplate('login.html.twig', []);
+            View::renderTemplate('User/login.html.twig', []);
 
             return false;
         }
@@ -45,7 +45,7 @@ class SecurityController
         if ($validate->hasError()) {
             $errors = $validate->getErrorMessages();
 
-            View::renderTemplate('login.html.twig', [
+            View::renderTemplate('User/login.html.twig', [
                 'errors' => $errors
             ]);
 
@@ -89,7 +89,7 @@ class SecurityController
     public function requestReset()
     {
         if (false === Request::has('post') || false === isset($_POST['email'])) {
-            View::renderTemplate('lost.html.twig');
+            View::renderTemplate('Password/lost.html.twig');
             return;
         }
 

@@ -1,4 +1,4 @@
-<section class="pt-4">
+<section>
     {% if errors is defined and errors|length > 0 %}
         <div class="h3 alert alert-warning text-center alert-dismissible fade show">
 
@@ -33,13 +33,15 @@
     {% endif %}
 
     {% if flash_messages is not null %}
-    {% for message in flash_messages %}
-        <div class="h3 alert alert-{{ message.type }} text-center alert-dismissible fade show mt-5">
-            {{ message.body }}
-            <button class="close" type="button" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    {% endfor %}
+        {% for message in flash_messages %}
+
+                <div class="h3 alert alert-{{ message.type }} text-center alert-dismissible fade show pt-5 mt-5">
+                    {{ message.body }}
+                    <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+        {% endfor %}
     {% endif %}
 </section>

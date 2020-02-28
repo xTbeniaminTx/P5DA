@@ -29,7 +29,7 @@ class AdminController
     public function indexAction()
     {
         Auth::requireLogin();
-        View::renderTemplate('index.html.twig');
+        View::renderTemplate('index.404.html.twig');
     }
 
 
@@ -72,7 +72,7 @@ class AdminController
     public function addPost()
     {
         if (false === Request::has('post')) {
-            View::renderTemplate('register.html.twig', []);
+            View::renderTemplate('User/register.html.twig', []);
 
             return false;
         }

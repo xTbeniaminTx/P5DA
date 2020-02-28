@@ -23,10 +23,6 @@
 </head>
 
 <body>
-{{ comment_message }}
-
-
-
 
 {% block navigation %}
     <nav class="navbar navbar-expand-md navbar-dark">
@@ -71,12 +67,11 @@
     </nav>
 {% endblock %}
 
-
 {% block showcase %}
 {% endblock %}
 
 {% block messages %}
-    {% include 'messages.html.twig' %}
+    {% include 'User/messages.html.twig' %}
 {% endblock %}
 
 {% block body %}

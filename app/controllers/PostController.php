@@ -119,7 +119,7 @@ class PostController
 
             ];
             global $twig;
-            $vue = $twig->load('chapter.html.twig');
+            $vue = $twig->load('post.html.twig');
             echo $vue->render($data);
         }
     }
