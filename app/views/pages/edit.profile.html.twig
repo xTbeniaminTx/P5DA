@@ -24,32 +24,55 @@
                             <input type="text" name="txtLastName" class="form-control" placeholder="Nom *"
                                    value="{{ user.last_name }}"/>
                         </div>
-                        <div class="form-group">
-                            <input type="text" name="txtFirstName" class="form-control" placeholder="Prénom *"
-                                   value="{{ user.first_name }}"/>
-                        </div>
+
                         <div class="form-group">
                             <input type="email" name="txtEmail" class="form-control" placeholder="Email *"
                                    value="{{ user.email }}"/>
                         </div>
-
-                    </div>
-
-                    <div class="col-md-6">
                         <div class="form-group">
                             <input type="password" id="inputPassword" name="password" class="form-control"
                                    aria-describedby="helpBlock"
                                    placeholder="Mot de passe *"> <span id="helpBlock">Veuilez laisser vide si vous voulez garder votre ancien mot de passe!</span>
                         </div>
-                        <div class="form-group">
-
-                                Fichier:
-                                <input type="file" name="image">
-
-                        </div>
 
                     </div>
-                    <div class="col-md-6 d-flex pt-3 justify-content-center align-items-center">
+
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <input type="text" name="txtFirstName" class="form-control" placeholder="Prénom *"
+                                   value="{{ user.first_name }}"/>
+                        </div>
+                        {% if user.user_photo_path is not null %}
+                            <div class="d-flex bd-highlight mb-3">
+
+                                <div class="form-group p-2 bd-highlight">
+                                    <div class="card" style="width: 6rem;">
+                                        <img class="card-img-top" src="/images/{{ user.user_photo_path }}"
+                                             alt="Card image cap">
+                                    </div>
+                                </div>
+
+                                <div class="form-group p-2 bd-highlight">
+                                    Modifier Image:
+                                    <div>
+
+                                        <input type="file" name="userImage">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        {% else %}
+                            <div class="form-group">
+                                Upload Image:
+                                <input type="file" name="userImage">
+                            </div>
+                        {% endif %}
+
+
+                    </div>
+                    <div class="col-md-6 d-flex pt-5 justify-content-center align-items-center">
                         <div class="form-group">
                             <input type="submit" name="btnSubmit" class="btn btn-primary"
                                    value="Sauvegarder les modifications"/>

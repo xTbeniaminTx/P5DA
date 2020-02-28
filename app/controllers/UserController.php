@@ -5,8 +5,10 @@ namespace app\controllers;
 use app\models\User;
 use app\services\Auth;
 use app\services\CSRFToken;
+use app\services\Redirect;
 use app\services\Request;
 use app\services\Session;
+use app\services\UploadFile;
 use app\services\ValidateRequest;
 use app\services\View;
 use mysql_xdevapi\Exception;
@@ -56,6 +58,7 @@ class UserController extends CoreController
             ]);
             return false;
         }
+
 
         $data = [
             'last_name' => trim($_POST['Nom']),
@@ -122,6 +125,7 @@ class UserController extends CoreController
         }
 
         if ($this->updateProfile()) {
+            Request::refresh();
             View::renderTemplate('profile.html.twig', [
                 'success' => 'Informations éditées avec succès',
                 'user' => Auth::getUser()
@@ -138,12 +142,28 @@ class UserController extends CoreController
     {
         $user = Auth::getUser();
 
+        $file = Request::get('file');
+        $filename = $file->userImage->name;
+
+        if (!empty($filename) and !UploadFile::isImage($filename)) {
+            Session::addMessage('Le format de votre fichier est non conforme. Veuillez resseyer!');
+            return Redirect::to('editProfile');
+        }
+
+        if (!empty($filename)) {
+            $ds = DIRECTORY_SEPARATOR;
+            $temp_file = $file->userImage->tmp_name;
+            $user_photo_path = UploadFile::move($temp_file, "uploads{$ds}users", $filename)->path();
+        }
+
+
         $data = [
             'last_name' => trim($_POST['txtLastName']),
             'first_name' => trim($_POST['txtFirstName']),
             'password' => $_POST['password'] != null ? password_hash($_POST['password'], PASSWORD_BCRYPT) : $user->password,
             'email' => trim($_POST['txtEmail']),
             'role' => $user->role,
+            'user_photo_path' => !empty($filename) ? $user_photo_path : $user->user_photo_path,
             'id' => $user->id
         ];
 
