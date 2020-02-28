@@ -192,6 +192,20 @@ class AdminController
 
     }
 
+    public function deleteUser()
+    {
+        $request = Request::get('get');
+        $id = $request->id;
+        if (!$this->userModel->deleteUser($id)) {
+            Session::addMessage('Impossible de traiter cette demande à l\'heure actuelle.', Session::WARNING);
+
+            return Redirect::to('superAdminView');
+        }
+        Session::addMessage('Le Utilisateur a été supprimé avec succes');
+
+        return Redirect::to('superAdminView');
+    }
+
     public function adminComments()
     {
         $chapters = $this->chapterModel->getChapters();

@@ -37,16 +37,14 @@ class Router
             'resetPass' => [SecurityController::class],
             'resetPassword' => [SecurityController::class],
             'indexAction' => [AdminController::class],
-            'profile' => [UserController::class],
             'posts' => [PostController::class],
             'showPost' => [PostController::class],
             'showLoginForm' => [BaseController::class]
         ],
         [
-
+            'profile' => [UserController::class],
             'logout' => [SecurityController::class],
             'editProfile' => [UserController::class],
-
 
         ],
         [
@@ -55,6 +53,7 @@ class Router
         [
             'grantRoleAdmin' => [AdminController::class],
             'superAdminView' => [AdminController::class],
+            'deleteUser' => [AdminController::class],
         ]
     ];
 
