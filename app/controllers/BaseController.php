@@ -4,7 +4,9 @@ namespace app\controllers;
 
 use app\models\Post;
 use app\services\Mail;
+use app\services\Redirect;
 use app\services\Request;
+use app\services\Session;
 use app\services\View;
 
 
@@ -60,7 +62,8 @@ class BaseController
             'message' => $message
         ]);
 
-        Mail::send($email, $userName, 'Message Blog TB Contact', $text, $html);
+        Mail::send('beniamin.tolan@gmail.com', 'Admin BT Blog', $email,'Message Blog TB Contact', $text, $html);
+
     }
 
 }

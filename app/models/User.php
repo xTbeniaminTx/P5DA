@@ -167,7 +167,7 @@ class User extends Manager
         $text = View::getTemplate('Password/reset_email.txt', ['url' => $url]);
         $html = View::getTemplate('Password/reset_email.html', ['url' => $url]);
 
-        Mail::send($email, $user->first_name, 'Votre mot de passe', $text, $html);
+        Mail::send($email, $user->first_name, $email, 'Votre mot de passe', $text, $html);
 
     }
 
