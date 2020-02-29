@@ -192,7 +192,7 @@ abstract class Swift_Transport_AbstractSmtpTransport implements Swift_Transport
         }
 
         if (!$reversePath = $this->getReversePath($message)) {
-            $this->throwException(new Swift_TransportException('Cannot send message without a sender address'));
+            $this->throwException(new Swift_TransportException('Impossible d\'envoyer un message sans l\'adresse de l\'expéditeur'));
         }
 
         $to = (array) $message->getTo();

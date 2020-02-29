@@ -80,7 +80,7 @@ class SecurityController
 
     public function showLogoutMessage()
     {
-        Session::addMessage('Logout succesfuly');
+        Session::addMessage('Déconnexion réussie');
         Redirect::to('home');
     }
 
