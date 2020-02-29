@@ -6,7 +6,6 @@ use app\models\Comment;
 use app\models\Post;
 use app\models\User;
 use app\services\Auth;
-use app\services\CSRFToken;
 use app\services\Redirect;
 use app\services\Request;
 use app\services\Session;

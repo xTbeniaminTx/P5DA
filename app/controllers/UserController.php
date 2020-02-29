@@ -11,7 +11,6 @@ use app\services\Session;
 use app\services\UploadFile;
 use app\services\ValidateRequest;
 use app\services\View;
-use mysql_xdevapi\Exception;
 
 
 class UserController

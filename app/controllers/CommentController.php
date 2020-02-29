@@ -7,7 +7,6 @@ use app\models\Comment;
 use app\models\Post;
 use app\services\Redirect;
 use app\services\Session;
-use app\services\View;
 
 class CommentController
 {
