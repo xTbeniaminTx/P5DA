@@ -25,6 +25,9 @@ class Database
     private $error;
 
 
+    /**
+     * Database constructor.
+     */
     public function __construct()
     {
         //Set DSN
@@ -40,7 +43,7 @@ class Database
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
-            echo $this->error;
+            return View::renderTemplate('index.404.html.twig', $this->error);
         }
 
     }
