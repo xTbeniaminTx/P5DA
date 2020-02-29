@@ -50,7 +50,7 @@ class PostController
     public function showPost()
     {
 
-        $requestPost = Request::get('post');
+
         $requestGet = Request::get('get');
 
         //comment add
@@ -85,20 +85,23 @@ class PostController
     public function addComment()
     {
 
+        $requestGet = Request::get('get');
+
         //Sanitize the comment
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        if (isset($_GET['id'])) {
-            $chapter = $this->postModel->getPostById($_GET['id']);
+        if (isset($requestGet->id)) {
+            $chapter = $this->postModel->getPostById($requestGet->id);
         }
 
         $comments = $this->commentModel->getComments();
-        $commentsById = $this->commentModel->getCommentsById($_GET['id']);
+        $commentsById = $this->commentModel->getCommentsById($requestGet->id);
 
+        $requestPost = Request::get('post');
 
         $data = [
-            'comment_author' => trim($_POST['comment_author']),
-            'comment_email' => trim($_POST['comment_email']),
-            'comment_content' => trim($_POST['comment_content']),
+            'comment_author' => trim($requestPost->comment_author),
+            'comment_email' => trim($requestPost->comment_email),
+            'comment_content' => trim($requestPost->comment_content),
             'comment_date' => date('Y-m-d H:i:s'),
             'comment_status' => 'newComment',
             'comment_author_err' => null,
@@ -127,7 +130,7 @@ class PostController
             if ($this->commentModel->addComment($data)) {
                 Session::addMessage('Nouveau commentaire ajouté avec succès', Session::INFO);
 
-                return Redirect::to('showPost&id=' . $_GET['id']);
+                return Redirect::to('showPost&id=' . $requestGet->id);
             }
 
         }

@@ -130,8 +130,8 @@ class AdminController
 
         //Sanitize the post
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        if (isset($_GET['id'])) {
-            $chapter = $this->postModel->getPostById($_GET['id']);
+        if (isset($request->id)) {
+            $chapter = $this->postModel->getPostById($request->id);
         }
         $data = [
             'title' => trim($request->title),
