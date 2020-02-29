@@ -42,19 +42,23 @@ class UserController
         }
 
         $validate = new ValidateRequest();
-        $validate->abide($_POST, [
+        $validate->abide(
+            $_POST, [
             'Nom' => ['required' => true, 'minLength' => 3, 'maxLength' => 20],
             'Prénom' => ['required' => true, 'minLength' => 3],
             'email' => ['required' => true, 'uniqueEmail' => true, 'email' => 6],
             'MotDePasse' => ['required' => true]
-        ]);
+            ]
+        );
 
         if ($validate->hasError()) {
             $errors = $validate->getErrorMessages();
 
-            View::renderTemplate('User/register.html.twig', [
+            View::renderTemplate(
+                'User/register.html.twig', [
                 'errors' => $errors
-            ]);
+                ]
+            );
             return false;
         }
 
@@ -69,9 +73,11 @@ class UserController
 
         $this->userModel->addUser($data);
 
-        View::renderTemplate('User/login.html.twig', [
+        View::renderTemplate(
+            'User/login.html.twig', [
             'success' => 'Inscription faite avec succèss, veuilliez vous connectez',
-        ]);
+            ]
+        );
 
         return true;
     }
@@ -82,7 +88,7 @@ class UserController
 
         $user = Auth::getUser();
 
-       return View::renderTemplate('User/profile.html.twig', ['user' => $user]);
+        return View::renderTemplate('User/profile.html.twig', ['user' => $user]);
 
     }
 
@@ -115,19 +121,23 @@ class UserController
         if ($validate->hasError()) {
             $errors = $validate->getErrorMessages();
 
-            View::renderTemplate('User/edit.profile.html.twig', [
+            View::renderTemplate(
+                'User/edit.profile.html.twig', [
                 'errors' => $errors,
                 'user' => $user
-            ]);
+                ]
+            );
             return false;
         }
 
         if ($this->updateProfile()) {
             Request::refresh();
-            View::renderTemplate('User/profile.html.twig', [
+            View::renderTemplate(
+                'User/profile.html.twig', [
                 'success' => 'Informations éditées avec succès',
                 'user' => Auth::getUser()
-            ]);
+                ]
+            );
             return true;
         }
 

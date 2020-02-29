@@ -46,10 +46,12 @@ session_start();
 
 
 $loader = new FilesystemLoader(APPROOT . '/views/pages');
-$twig = new Environment($loader, [
+$twig = new Environment(
+    $loader, [
     'auto_load' => true,
     'debug' => true
-]);
+    ]
+);
 
 $twig->addGlobal('current_user', Auth::getUser());
 $twig->addGlobal('flash_messages', \app\services\Session::getMessages());

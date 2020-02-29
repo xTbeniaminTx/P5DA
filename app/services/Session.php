@@ -11,8 +11,8 @@ class Session
     /**
      * create session
      *
-     * @param $name
-     * @param $value
+     * @param  $name
+     * @param  $value
      * @return mixed
      * @throws \Exception
      */
@@ -45,7 +45,7 @@ class Session
     /**
      * check if session exists
      *
-     * @param $name
+     * @param  $name
      * @return bool
      */
     public static function has(string $name): bool
@@ -119,6 +119,5 @@ class Session
 
             return $messages;
         }
-
     }
 }

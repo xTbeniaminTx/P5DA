@@ -34,13 +34,15 @@ class PostController
 
         $photoId = rand(10, 50);
 
-        View::renderTemplate('posts.html.twig', [
+        View::renderTemplate(
+            'posts.html.twig', [
             'title' => "Admin Chapters",
             'chapters' => $chapters,
             'photoId' => $photoId,
             'posts' => $posts,
             'links' => $links
-        ]);
+            ]
+        );
     }
 
     public function showPost()

@@ -9,14 +9,16 @@ class Comment extends Manager
 
     public function getComments()
     {
-        $this->db->query("SELECT *,
+        $this->db->query(
+            "SELECT *,
                                 comments.comment_id as commentId,
                                 posts.id as postId
                               FROM comments
                               INNER JOIN posts
                               ON comments.comment_chapter_id = posts.id
                               ORDER BY commentId DESC
-                              ");
+                              "
+        );
 
         $results = $this->db->resultSet();
 
@@ -27,7 +29,8 @@ class Comment extends Manager
 
     public function getCommentsById($id)
     {
-        $this->db->query("SELECT *,
+        $this->db->query(
+            "SELECT *,
                                 comments.comment_id as commentId,
                                 posts.id as postId
                               FROM comments
@@ -35,7 +38,8 @@ class Comment extends Manager
                               ON comments.comment_chapter_id = posts.id
                               WHERE comments.comment_chapter_id = :id
                               ORDER BY commentId DESC
-                              ");
+                              "
+        );
         $this->db->bind(':id', $id);
         $results = $this->db->resultSet();
 
@@ -46,10 +50,12 @@ class Comment extends Manager
 
     public function addComment($data)
     {
-        $this->db->query('INSERT INTO 
+        $this->db->query(
+            'INSERT INTO 
                                 comments (comment_chapter_id, comment_author, comment_email, comment_content,comment_status, comment_date)
                               VALUES
-                                    (:comment_chapter_id, :comment_author, :comment_email, :comment_content, :comment_status, :comment_date)');
+                                    (:comment_chapter_id, :comment_author, :comment_email, :comment_content, :comment_status, :comment_date)'
+        );
         $this->db->bind(':comment_chapter_id', $data['comment_chapter_id']);
         $this->db->bind(':comment_author', $data['comment_author']);
         $this->db->bind(':comment_email', $data['comment_email']);

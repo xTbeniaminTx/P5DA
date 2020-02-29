@@ -42,7 +42,7 @@ class UploadFile
     /**
      * set file extension
      *
-     * @param $file
+     * @param  $file
      * @return mixed
      */
     protected function fileExtension($file)
@@ -53,7 +53,7 @@ class UploadFile
     /**
      * validate file size
      *
-     * @param $file
+     * @param  $file
      * @return bool
      */
     public static function fileSize($file)
@@ -65,7 +65,7 @@ class UploadFile
     /**
      * validate file upload
      *
-     * @param $file
+     * @param  $file
      * @return bool
      */
     public static function isImage($file)
@@ -95,10 +95,10 @@ class UploadFile
     /**
      * move the file to intended location
      *
-     * @param $temp_path
-     * @param $folder
-     * @param $file
-     * @param $new_filename
+     * @param  $temp_path
+     * @param  $folder
+     * @param  $file
+     * @param  $new_filename
      * @return static|null
      */
     public static function move($temp_path, $folder, $file, $new_filename = '')

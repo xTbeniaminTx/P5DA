@@ -55,20 +55,24 @@ class BaseController
         $mobile = $request->txtPhone;
         $message = $request->txtMsg;
 
-        $text = View::getTemplate('User/contact_email.txt', [
+        $text = View::getTemplate(
+            'User/contact_email.txt', [
             'userName' => $userName,
             'email' => $email,
             'mobile' => $mobile,
             'message' => $message
-        ]);
-        $html = View::getTemplate('User/contact_email.html', [
+            ]
+        );
+        $html = View::getTemplate(
+            'User/contact_email.html', [
             'userName' => $userName,
             'email' => $email,
             'mobile' => $mobile,
             'message' => $message
-        ]);
+            ]
+        );
 
-        Mail::send('beniamin.tolan@gmail.com', 'Admin BT Blog', $email,'Message Blog TB Contact', $text, $html);
+        Mail::send('beniamin.tolan@gmail.com', 'Admin BT Blog', $email, 'Message Blog TB Contact', $text, $html);
 
     }
 

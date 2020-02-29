@@ -9,7 +9,6 @@ namespace app\services;
  *
  * @author David Carr - dave@daveismyname.com - http://www.daveismyname.com
  * @author Lars Moelleken - lars@moelleken.org - http://www.moelleken.org
- *
  */
 class Paginator
 {

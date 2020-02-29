@@ -28,20 +28,24 @@ class AdminController
     {
         $posts = $this->postModel->getPosts();
 
-        View::renderTemplate('Admin/admin.posts.html.twig', [
+        View::renderTemplate(
+            'Admin/admin.posts.html.twig', [
             'title' => "Administration",
             'posts' => $posts,
-        ]);
+            ]
+        );
     }
 
     public function superAdminView()
     {
         $users = $this->userModel->getUsers('member');
 
-        View::renderTemplate('Admin/super.admin.html.twig', [
+        View::renderTemplate(
+            'Admin/super.admin.html.twig', [
             'title' => "Super Administration",
             'users' => $users,
-        ]);
+            ]
+        );
     }
 
     public function grantRoleAdmin()

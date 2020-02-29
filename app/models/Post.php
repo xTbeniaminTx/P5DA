@@ -31,12 +31,14 @@ class Post extends Manager
 
 
         foreach ($data as $item) {
-            array_push($posts, [
+            array_push(
+                $posts, [
                 'id' => $item->id,
                 'title' => $item->title,
                 'content' => $item->content,
                 'content_date' => $item->content_date
-            ]);
+                ]
+            );
         }
 
         return [$posts, $pages->page_links($path = '?action=posts&')];
@@ -59,8 +61,10 @@ class Post extends Manager
 
     public function addPost($data)
     {
-        $this->db->query('INSERT INTO posts (author_id, title, content, content_date)
-                              VALUES(:author_id, :title, :content, :content_date)');
+        $this->db->query(
+            'INSERT INTO posts (author_id, title, content, content_date)
+                              VALUES(:author_id, :title, :content, :content_date)'
+        );
         $this->db->bind(':author_id', $data['id']);
         $this->db->bind(':title', $data['title']);
         $this->db->bind(':content', $data['content']);

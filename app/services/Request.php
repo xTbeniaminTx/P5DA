@@ -7,14 +7,16 @@ class Request
     /**
      * return all requests that we are interested in
      *
-     * @param bool $is_array
+     * @param  bool $is_array
      * @return mixed
      */
     public static function all($is_array = false)
     {
         $result = [];
-        if (count($_GET) > 0) $result['get'] = $_GET;
-        if (count($_POST) > 0) $result['post'] = $_POST;
+        if (count($_GET) > 0) { $result['get'] = $_GET;
+        }
+        if (count($_POST) > 0) { $result['post'] = $_POST;
+        }
         $result['file'] = $_FILES;
 
 
@@ -24,7 +26,7 @@ class Request
     /**
      * get specific request type
      *
-     * @param $key
+     * @param  $key
      * @return mixed
      */
     public static function get($key)
@@ -38,7 +40,7 @@ class Request
     /**
      * check request availability
      *
-     * @param $key
+     * @param  $key
      * @return bool
      */
     public static function has($key)
@@ -49,8 +51,8 @@ class Request
     /**
      * check request data
      *
-     * @param $key
-     * @param $value
+     * @param  $key
+     * @param  $value
      * @return string
      */
     public static function old($key, $value)

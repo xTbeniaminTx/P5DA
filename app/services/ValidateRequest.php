@@ -26,7 +26,7 @@ class ValidateRequest
 
     /**
      * @param array $dataAndValues , column and value to validate
-     * @param array $policies , the rules that validation must satisfy
+     * @param array $policies      , the rules that validation must satisfy
      */
     public function abide(array $dataAndValues, array $policies)
     {
@@ -41,6 +41,7 @@ class ValidateRequest
 
     /**
      * Perform validation for the data provider and set error messages
+     *
      * @param array $data
      */
     private static function doValidation(array $data)
@@ -53,7 +54,8 @@ class ValidateRequest
                     str_replace(
                         [':attribute', ':policy', '_'],
                         [$column, $policy, ' '],
-                        self::$error_messages[$rule]), $column
+                        self::$error_messages[$rule]
+                    ), $column
                 );
             }
         }
@@ -138,6 +140,7 @@ class ValidateRequest
 
     /**
      * Set specific error
+     *
      * @param $error
      * @param null $key
      */
@@ -152,6 +155,7 @@ class ValidateRequest
 
     /**
      * return true if there is validation error
+     *
      * @return bool
      */
     public function hasError()
@@ -161,6 +165,7 @@ class ValidateRequest
 
     /**
      * Return all validation errors
+     *
      * @return array
      */
     public function getErrorMessages()

@@ -25,8 +25,10 @@ class User extends Manager
 
     public function addUser($data)
     {
-        $this->db->query('INSERT INTO users (first_name, last_name, password, email, role)
-                              VALUES(:first_name, :last_name, :password, :email, :role)');
+        $this->db->query(
+            'INSERT INTO users (first_name, last_name, password, email, role)
+                              VALUES(:first_name, :last_name, :password, :email, :role)'
+        );
         $this->db->bind(':first_name', $data['first_name']);
         $this->db->bind(':last_name', $data['last_name']);
         $this->db->bind(':password', $data['password']);
@@ -44,14 +46,16 @@ class User extends Manager
     public function updateUser($data)
     {
 
-        $this->db->query('UPDATE users 
+        $this->db->query(
+            'UPDATE users 
                                 SET first_name = :first_name,
                                     last_name =:last_name, 
                                     password = :password, 
                                     email = :email,
                                     user_photo_path = :user_photo_path, 
                                     role = :role
-                                WHERE id = :id');
+                                WHERE id = :id'
+        );
         $this->db->bind(':first_name', $data['first_name']);
         $this->db->bind(':last_name', $data['last_name']);
         $this->db->bind(':password', $data['password']);
@@ -143,10 +147,12 @@ class User extends Manager
 
         $expiry_timestamp = time() + 60 * 60;
 
-        $this->db->query('UPDATE users
+        $this->db->query(
+            'UPDATE users
         SET pass_reset_hash = :token_hash,
             pass_reset_exp = :expires_at
-        WHERE id =:id');
+        WHERE id =:id'
+        );
 
         $this->db->bind(':token_hash', $hased_token);
         $this->db->bind(':id', $user->id);
@@ -199,12 +205,13 @@ class User extends Manager
     {
         $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-        $this->db->query
-        ('UPDATE users
+        $this->db->query(
+            'UPDATE users
                 SET password = :password,
                     pass_reset_hash = NULL,
                     pass_reset_exp = NULL
-                WHERE id =:id');
+                WHERE id =:id'
+        );
 
         $this->db->bind(':password', $password_hash);
         $this->db->bind(':id', $user->id);
@@ -214,9 +221,11 @@ class User extends Manager
 
     public function updateUserToAdmin($id)
     {
-        $this->db->query('UPDATE users 
+        $this->db->query(
+            'UPDATE users 
                                 SET role = :role
-                                WHERE id = :id');
+                                WHERE id = :id'
+        );
         $this->db->bind(':role', 'admin');
         $this->db->bind(':id', $id);
 

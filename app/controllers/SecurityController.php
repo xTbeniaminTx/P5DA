@@ -37,17 +37,21 @@ class SecurityController
         }
 
         $validate = new ValidateRequest();
-        $validate->abide($_POST, [
+        $validate->abide(
+            $_POST, [
             'email' => ['required' => true],
             'MotDePasse' => ['required' => true]
-        ]);
+            ]
+        );
 
         if ($validate->hasError()) {
             $errors = $validate->getErrorMessages();
 
-            return View::renderTemplate('User/login.html.twig', [
+            return View::renderTemplate(
+                'User/login.html.twig', [
                 'errors' => $errors
-            ]);
+                ]
+            );
 
         }
 
@@ -114,10 +118,12 @@ class SecurityController
             return false;
         }
 
-        View::renderTemplate('Password/reset.html.twig', [
+        View::renderTemplate(
+            'Password/reset.html.twig', [
             'token' => $token,
             'email' => $email
-        ]);
+            ]
+        );
 
         return true;
     }
@@ -131,20 +137,24 @@ class SecurityController
         $user = $this->getUserOrExit($token);
 
         $validate = new ValidateRequest();
-        $validate->abide($_POST, [
+        $validate->abide(
+            $_POST, [
             'password' => ['required' => true, 'minLength' => 5]
-        ]);
+            ]
+        );
 
         if ($validate->hasError()) {
 
             $errors = $validate->getErrorMessages();
 
-            View::renderTemplate('Password/reset.html.twig', [
+            View::renderTemplate(
+                'Password/reset.html.twig', [
                 'errors' => $errors,
                 'user' => $user,
                 'token' => $token,
                 'email' => $email
-            ]);
+                ]
+            );
 
             return false;
         }
