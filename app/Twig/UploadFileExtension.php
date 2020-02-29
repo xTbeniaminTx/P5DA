@@ -22,7 +22,7 @@ class UploadFileExtension extends AbstractExtension
     }
 
     /**
-     * @param  $file
+     * @param $file
      *
      * @return bool
      */

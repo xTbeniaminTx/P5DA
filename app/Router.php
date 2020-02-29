@@ -10,14 +10,19 @@ use app\controllers\SecurityController;
 use app\controllers\UserController;
 use app\services\Auth;
 use app\services\Redirect;
+use app\services\Request;
 use app\services\Session;
 
 
 class Router
 {
     private $request;
-    private $error;
 
+    /**
+     * Router constructor.
+     *
+     * @param $request
+     */
     public function __construct($request)
     {
         $this->request = $request;
@@ -66,6 +71,9 @@ class Router
         ]
     ];
 
+    /**
+     * render Controller
+     */
     public function renderController()
     {
         foreach ($this->getAllowedRoutes() as $levelRoutes) {
@@ -91,6 +99,9 @@ class Router
         return Auth::requireLogin();
     }
 
+    /**
+     * @return array
+     */
     public function getAllowedRoutes(): array
     {
         $roleByLevel = [
@@ -100,7 +111,13 @@ class Router
             'superuser' => 3
         ];
 
-        $role = $roleByLevel[$_SESSION['role'] ?? $_SESSION['role'] = 'visitor']; // 0, 1, 2
+        $user = Auth::getUser();
+
+        if ($user) {
+            $roleUser = $user->role;
+        }
+
+        $role = $roleByLevel[$roleUser ?? $roleUser = 'visitor']; // 0, 1, 2
 
         $allowedRoutes = [];
         foreach (self::ROUTES as $key => $routes) {
@@ -116,6 +133,7 @@ class Router
 
     public function getAction()
     {
+
         if (isset($_GET['action'])) {
             return $_GET['action'];
         }
