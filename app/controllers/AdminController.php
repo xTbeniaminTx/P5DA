@@ -30,8 +30,8 @@ class AdminController
 
         View::renderTemplate(
             'Admin/admin.posts.html.twig', [
-            'title' => "Administration",
-            'posts' => $posts,
+                'title' => "Administration",
+                'posts' => $posts,
             ]
         );
     }
@@ -42,8 +42,8 @@ class AdminController
 
         View::renderTemplate(
             'Admin/super.admin.html.twig', [
-            'title' => "Super Administration",
-            'users' => $users,
+                'title' => "Super Administration",
+                'users' => $users,
             ]
         );
     }
@@ -216,13 +216,14 @@ class AdminController
 
     public function deleteComment()
     {
+        $requestGet = Request::get('get');
 
-        $idComment = $_GET['comment_id'];
+        $idComment = $requestGet->comment_id;
 
         if ($this->commentModel->deleteComment($idComment)) {
             Session::addMessage('Le commentaire a été supprimé');
-            if (isset($_GET['id'])) {
-                return Redirect::to('showChapter&id=' . $_GET['id']);
+            if (isset($requestGet->id)) {
+                return Redirect::to('showChapter&id=' . $requestGet->id);
             }
 
             return Redirect::to('adminComments');
@@ -236,7 +237,9 @@ class AdminController
 
     public function approuve()
     {
-        $id = $_GET['id'];
+        $requestGet = Request::get('get');
+
+        $id = $requestGet->id;
 
         if (!$this->commentModel->approuveStatus($id)) {
             Session::addMessage('Impossible de traiter cette demande à l\'heure actuelle.');
