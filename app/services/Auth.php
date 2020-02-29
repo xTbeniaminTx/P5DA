@@ -55,7 +55,7 @@ class Auth
     public static function requireLogin()
     {
         if (!Auth::getUser()) {
-            Session::addMessage('Veuillez vous autentifier pour accéder a cette page', 'info');
+            Session::addMessage('Veuillez vous authentifier pour accéder à cette page', 'info');
             Auth::rememberRequestedPage();
             return Redirect::to('index.php?action=login');
         }

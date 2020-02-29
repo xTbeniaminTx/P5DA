@@ -79,7 +79,7 @@ class Router
         }
 
         if (Auth::isLogged()) {
-            Session::addMessage('Not access that page', 'info');
+            Session::addMessage('Cette page vous est inaccessible', 'info');
 
             return Redirect::to('home');
         }
