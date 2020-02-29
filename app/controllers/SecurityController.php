@@ -39,8 +39,8 @@ class SecurityController
         $validate = new ValidateRequest();
         $validate->abide(
             $_POST, [
-            'email' => ['required' => true],
-            'MotDePasse' => ['required' => true]
+                'email' => ['required' => true],
+                'MotDePasse' => ['required' => true]
             ]
         );
 
@@ -49,7 +49,7 @@ class SecurityController
 
             return View::renderTemplate(
                 'User/login.html.twig', [
-                'errors' => $errors
+                    'errors' => $errors
                 ]
             );
 
@@ -88,22 +88,24 @@ class SecurityController
     }
 
 
-
     public function requestReset()
     {
-        if (false === Request::has('post') || false === isset($_POST['email'])) {
+
+        $request = Request::get('post');
+
+        if (false === Request::has('post') || false === isset($request->email)) {
             View::renderTemplate('Password/lost.html.twig');
             return;
         }
 
-        if (false === Auth::isUserExist($_POST['email'])) {
+        if (false === Auth::isUserExist($request->email)) {
             Session::addMessage('Utilisateur inexistant');
             Redirect::to('requestReset');
 
             return;
         }
 
-        $this->userModel->sendPasswordReset($_POST['email']);
+        $this->userModel->sendPasswordReset($request->email);
         View::renderTemplate('resetRequest.html.twig');
     }
 
@@ -120,8 +122,8 @@ class SecurityController
 
         View::renderTemplate(
             'Password/reset.html.twig', [
-            'token' => $token,
-            'email' => $email
+                'token' => $token,
+                'email' => $email
             ]
         );
 
@@ -130,16 +132,18 @@ class SecurityController
 
     public function resetPassword()
     {
-        $token = $_POST['tokenPass'];
-        $email = $_POST['emailReset'];
-        $password = $_POST['password'];
+        $request = Request::get('post');
+
+        $token = $request->tokenPass;
+        $email = $request->emailReset;
+        $password = $request->password;
 
         $user = $this->getUserOrExit($token);
 
         $validate = new ValidateRequest();
         $validate->abide(
             $_POST, [
-            'password' => ['required' => true, 'minLength' => 5]
+                'password' => ['required' => true, 'minLength' => 5]
             ]
         );
 
@@ -149,10 +153,10 @@ class SecurityController
 
             View::renderTemplate(
                 'Password/reset.html.twig', [
-                'errors' => $errors,
-                'user' => $user,
-                'token' => $token,
-                'email' => $email
+                    'errors' => $errors,
+                    'user' => $user,
+                    'token' => $token,
+                    'email' => $email
                 ]
             );
 
