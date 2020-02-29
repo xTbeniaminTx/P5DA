@@ -18,7 +18,7 @@ class Post extends Manager
 
     }
 
-    public function paginatePosts($num_of_records, $total_record, $object)
+    public function paginatePosts($num_of_records, $total_record, $object = null)
     {
         $posts = [];
 
@@ -33,10 +33,10 @@ class Post extends Manager
         foreach ($data as $item) {
             array_push(
                 $posts, [
-                'id' => $item->id,
-                'title' => $item->title,
-                'content' => $item->content,
-                'content_date' => $item->content_date
+                    'id' => $item->id,
+                    'title' => $item->title,
+                    'content' => $item->content,
+                    'content_date' => $item->content_date
                 ]
             );
         }
@@ -44,7 +44,6 @@ class Post extends Manager
         return [$posts, $pages->page_links($path = '?action=posts&')];
 
     }
-
 
 
     public function getPostById($id)
