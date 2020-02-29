@@ -5,7 +5,9 @@ namespace app\controllers;
 
 use app\models\Comment;
 use app\models\Post;
+use app\services\Auth;
 use app\services\Redirect;
+use app\services\Request;
 use app\services\Session;
 use app\services\View;
 
@@ -48,17 +50,21 @@ class PostController
     public function showPost()
     {
 
+        $requestPost = Request::get('post');
+        $requestGet = Request::get('get');
+
         //comment add
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (Request::has('post')) {
             return $this->addComment();
         }
 
         $chapters = $this->postModel->getPosts();
-        $chapter = $this->postModel->getPostById($_GET['id']);
+        $chapter = $this->postModel->getPostById($requestGet->id);
         $comments = $this->commentModel->getComments();
-        $commentsById = $this->commentModel->getCommentsById($_GET['id']);
+        $commentsById = $this->commentModel->getCommentsById($requestGet->id);
         $photoId = rand(10, 50);
-        $adminLogged = isset($_SESSION['admin_id']) ? true : false;
+        $user = Auth::getUser()->role;
+        $adminLogged = $user === 'superuser' ? true : false;
 
         $data = [
             'adminLogged' => $adminLogged,

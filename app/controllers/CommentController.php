@@ -6,6 +6,7 @@ namespace app\controllers;
 use app\models\Comment;
 use app\models\Post;
 use app\services\Redirect;
+use app\services\Request;
 use app\services\Session;
 
 class CommentController
@@ -22,8 +23,11 @@ class CommentController
 
     public function unapprouve()
     {
-        $id = $_GET['comment_id'];
-        $idChapter = $_GET['id'];
+
+        $requestGet = Request::get('get');
+
+        $id = $requestGet->comment_id;
+        $idChapter = $requestGet->id;
 
 
         if ($this->commentModel->unapprouveStatus($id)) {
