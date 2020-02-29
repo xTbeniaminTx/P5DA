@@ -20,7 +20,7 @@ class Mail
         );
         $sendgrid = new \SendGrid(SENDGRID_API_KEY);
         try {
-            $response = $sendgrid->send($email);
+            $sendgrid->send($email);
             Session::addMessage('Mail envoyer avec succes');
             return Redirect::to('contact');
         } catch (Exception $e) {

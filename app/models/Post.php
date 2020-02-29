@@ -18,7 +18,7 @@ class Post extends Manager
 
     }
 
-    public function paginatePosts($num_of_records, $total_record, $object = null)
+    public function paginatePosts($num_of_records, $total_record, $object)
     {
         $posts = [];
 

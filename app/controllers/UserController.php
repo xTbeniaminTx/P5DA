@@ -44,10 +44,10 @@ class UserController
         $validate = new ValidateRequest();
         $validate->abide(
             $_POST, [
-            'Nom' => ['required' => true, 'minLength' => 3, 'maxLength' => 20],
-            'Prénom' => ['required' => true, 'minLength' => 3],
-            'email' => ['required' => true, 'uniqueEmail' => true, 'email' => 6],
-            'MotDePasse' => ['required' => true]
+                'Nom' => ['required' => true, 'minLength' => 3, 'maxLength' => 20],
+                'Prénom' => ['required' => true, 'minLength' => 3],
+                'email' => ['required' => true, 'uniqueEmail' => true, 'email' => 6],
+                'MotDePasse' => ['required' => true]
             ]
         );
 
@@ -56,18 +56,19 @@ class UserController
 
             View::renderTemplate(
                 'User/register.html.twig', [
-                'errors' => $errors
+                    'errors' => $errors
                 ]
             );
             return false;
         }
 
+        $request = Request::get('post');
 
         $data = [
-            'last_name' => trim($_POST['Nom']),
-            'first_name' => trim($_POST['Prénom']),
-            'password' => password_hash($_POST['MotDePasse'], PASSWORD_BCRYPT),
-            'email' => trim($_POST['email']),
+            'last_name' => trim($request->Nom),
+            'first_name' => trim($request->Prénom),
+            'password' => password_hash($request->MotDePasse, PASSWORD_BCRYPT),
+            'email' => trim($request->email),
             'role' => 'member'
         ];
 
@@ -75,7 +76,7 @@ class UserController
 
         View::renderTemplate(
             'User/login.html.twig', [
-            'success' => 'Inscription faite avec succèss, veuilliez vous connectez',
+                'success' => 'Inscription faite avec succèss, veuilliez vous connectez',
             ]
         );
 
@@ -123,8 +124,8 @@ class UserController
 
             View::renderTemplate(
                 'User/edit.profile.html.twig', [
-                'errors' => $errors,
-                'user' => $user
+                    'errors' => $errors,
+                    'user' => $user
                 ]
             );
             return false;
@@ -134,8 +135,8 @@ class UserController
             Request::refresh();
             View::renderTemplate(
                 'User/profile.html.twig', [
-                'success' => 'Informations éditées avec succès',
-                'user' => Auth::getUser()
+                    'success' => 'Informations éditées avec succès',
+                    'user' => Auth::getUser()
                 ]
             );
             return true;
@@ -164,12 +165,13 @@ class UserController
             $user_photo_path = UploadFile::move($temp_file, "uploads{$ds}users", $filename)->path();
         }
 
+        $request = Request::get('post');
 
         $data = [
-            'last_name' => trim($_POST['txtLastName']),
-            'first_name' => trim($_POST['txtFirstName']),
-            'password' => $_POST['password'] != null ? password_hash($_POST['password'], PASSWORD_BCRYPT) : $user->password,
-            'email' => trim($_POST['txtEmail']),
+            'last_name' => trim($request->txtLastName),
+            'first_name' => trim($request->txtFirstName),
+            'password' => $request->password != null ? password_hash($request->password, PASSWORD_BCRYPT) : $user->password,
+            'email' => trim($request->txtEmail),
             'role' => $user->role,
             'user_photo_path' => !empty($filename) ? $user_photo_path : $user->user_photo_path,
             'id' => $user->id
