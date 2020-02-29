@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Post;
+use app\services\Auth;
 use app\services\Mail;
 use app\services\Redirect;
 use app\services\Request;
@@ -21,6 +22,13 @@ class BaseController
 
         $this->postModel = new Post();
 
+    }
+
+
+    public function indexAction()
+    {
+        Auth::requireLogin();
+        View::renderTemplate('index.404.html.twig');
     }
 
     public function home()

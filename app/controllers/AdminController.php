@@ -25,14 +25,6 @@ class AdminController
         $this->userModel = new User();
     }
 
-
-    public function indexAction()
-    {
-        Auth::requireLogin();
-        View::renderTemplate('index.404.html.twig');
-    }
-
-
     public function adminPosts()
     {
         $posts = $this->postModel->getPosts();

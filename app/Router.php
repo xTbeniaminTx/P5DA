@@ -4,6 +4,7 @@ namespace app;
 
 use app\controllers\AdminController;
 use app\controllers\BaseController;
+use app\controllers\CommentController;
 use app\controllers\PostController;
 use app\controllers\SecurityController;
 use app\controllers\UserController;
@@ -45,6 +46,7 @@ class Router
             'profile' => [UserController::class],
             'logout' => [SecurityController::class],
             'editProfile' => [UserController::class],
+            'addComment' => [PostController::class],
 
         ],
         [
