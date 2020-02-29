@@ -25,9 +25,9 @@ class SecurityController
     public function login()
     {
         if (false === Request::has('post')) {
-            View::renderTemplate('User/login.html.twig', []);
 
-            return false;
+            return View::renderTemplate('User/login.html.twig', []);
+
         }
 
         $request = Request::get('post');
@@ -45,11 +45,10 @@ class SecurityController
         if ($validate->hasError()) {
             $errors = $validate->getErrorMessages();
 
-            View::renderTemplate('User/login.html.twig', [
+            return View::renderTemplate('User/login.html.twig', [
                 'errors' => $errors
             ]);
 
-            return false;
         }
 
         if (!Auth::isUserExist($request->email)) {

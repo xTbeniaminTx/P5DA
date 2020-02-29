@@ -1,4 +1,4 @@
-{% extends "admin.base.html.twig" %}
+{% extends "Admin/admin.base.html.twig" %}
 {% block pagesActive %}
     <a href="index.php?action=adminChapters" class="list-group-item list-group-item-action"><i class="fas fa-book"></i>
         Chapitres</a>
@@ -41,7 +41,7 @@
              <tr>
 
                  <td>
-                     <a href="index.php?action=showChapter&id={{ comment.comment_chapter_id }}">{{ comment.comment_author }}</a>
+                     <a href="index.php?action=showPost&id={{ comment.comment_chapter_id }}">{{ comment.comment_author }}</a>
                  </td>
                  <td>{{ comment.comment_content |raw }}</td>
                  <td>{{ comment.comment_email | raw }}</td>

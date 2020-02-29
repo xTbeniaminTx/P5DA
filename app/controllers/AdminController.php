@@ -200,23 +200,15 @@ class AdminController
         $comments = $this->commentModel->getComments();
         $chapterModel = $this->postModel;
 
-        $comment_message = flash('comment_message');
-        $message_comment = <<<EOD
-                    $comment_message
-EOD;
-
         $data = [
             'chapterId' => $id,
             'comments' => $comments,
             'chapters' => $chapters,
-            'comment_message' => $message_comment,
             'chapterModel' => $chapterModel
 
         ];
-        global $twig;
-        $vue = $twig->load('admin.comments.html.twig');
-        echo $vue->render($data);
 
+        return View::renderTemplate('Admin/admin.comments.html.twig', $data);
     }
 
     public function deleteComment()
@@ -227,13 +219,15 @@ EOD;
         if ($this->commentModel->deleteComment($idComment)) {
             Session::addMessage('Le commentaire a été supprimé');
             if (isset($_GET['id'])) {
-                Redirect::to('showChapter&id=' . $_GET['id']);
-            } else {
-                Redirect::to('adminComments');
+                return Redirect::to('showChapter&id=' . $_GET['id']);
             }
-        } else {
-            die('Impossible de traiter cette demande à l\'heure actuelle.');
+
+            return Redirect::to('adminComments');
+
         }
+
+        Session::addMessage('Impossible de traiter cette demande à l\'heure actuelle.');
+        return Redirect::to('adminComments');
 
     }
 
@@ -241,13 +235,15 @@ EOD;
     {
         $id = $_GET['id'];
 
-        if ($this->commentModel->approuveStatus($id)) {
-            Session::addMessage('Le commentaire a été approuvé');
-            Redirect::to('adminComments');
+        if (!$this->commentModel->approuveStatus($id)) {
+            Session::addMessage('Impossible de traiter cette demande à l\'heure actuelle.');
+            return Redirect::to('adminComments');
 
-        } else {
-            die('Impossible de traiter cette demande à l\'heure actuelle.');
         }
+
+        Session::addMessage('Le commentaire a été approuvé');
+
+        return Redirect::to('adminComments');
     }
 
     public function superView()

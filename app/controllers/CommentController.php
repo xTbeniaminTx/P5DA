@@ -5,6 +5,7 @@ namespace app\controllers;
 
 use app\models\Comment;
 use app\models\Post;
+use app\services\Redirect;
 use app\services\Session;
 use app\services\View;
 
@@ -27,20 +28,16 @@ class CommentController
 
 
         if ($this->commentModel->unapprouveStatus($id)) {
-            if ($this->isLoggedIn()) {
-                header('Location: index.php?action=adminComments');
-                flash('comment_message', 'Le commentaire a été désapprouvé');
-            } else {
-                header('Location: index.php?action=showChapter&id=' . $idChapter);
-                flash('comment_message', 'Le commentaire a été désapprouvé');
-            }
+            Session::addMessage('Le commentaire a été désapprouvé', Session::WARNING);
 
-        } else {
-            die('Impossible de traiter cette demande à l\'heure actuelle.');
+            return Redirect::to('showPost&id=' . $idChapter);
+
         }
 
+        Session::addMessage('Impossible de traiter cette demande à l\'heure actuelle.', Session::WARNING);
+
+        return Redirect::to('showPost&id=' . $idChapter);
+
     }
-
-
 
 }

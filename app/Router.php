@@ -40,6 +40,7 @@ class Router
             'indexAction' => [AdminController::class],
             'posts' => [PostController::class],
             'showPost' => [PostController::class],
+            'unapprouve' => [CommentController::class],
             'showLoginForm' => [BaseController::class]
         ],
         [
@@ -59,6 +60,9 @@ class Router
             'grantRoleAdmin' => [AdminController::class],
             'superAdminView' => [AdminController::class],
             'deleteUser' => [AdminController::class],
+            'adminComments' => [AdminController::class],
+            'deleteComment' => [AdminController::class],
+            'approuve' => [AdminController::class],
         ]
     ];
 

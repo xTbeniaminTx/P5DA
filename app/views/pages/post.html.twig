@@ -91,8 +91,9 @@
                             </div>
                             <ul class="flex-column jf">
                                 {% if comment.comment_status == 'newComment' %}
+                                    {{ dump() }}
                                     <li class="my-1">
-                                        <a href="index.php?action=unapprouve&comment_id={{ comment.comment_id }}&id={{ comment.chapterId }}"
+                                        <a href="index.php?action=unapprouve&comment_id={{ comment.comment_id }}&id={{ comment.comment_chapter_id }}"
                                            class="signal-alert"
                                            onclick="return confirm('Confirmer la signalisation ?');">
                                             Signaler abus

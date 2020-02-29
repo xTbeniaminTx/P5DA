@@ -14,7 +14,7 @@ use app\services\View;
 use mysql_xdevapi\Exception;
 
 
-class UserController extends CoreController
+class UserController
 {
 
     /**
@@ -83,8 +83,7 @@ class UserController extends CoreController
 
         $user = Auth::getUser();
 
-        View::renderTemplate('User/profile.html.twig', ['user' => $user]);
-        return;
+       return View::renderTemplate('User/profile.html.twig', ['user' => $user]);
 
     }
 
