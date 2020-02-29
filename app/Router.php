@@ -51,6 +51,9 @@ class Router
         ],
         [
             'adminPosts' => [AdminController::class],
+            'addPost' => [AdminController::class],
+            'editPost' => [AdminController::class],
+            'deletePost' => [AdminController::class],
         ],
         [
             'grantRoleAdmin' => [AdminController::class],

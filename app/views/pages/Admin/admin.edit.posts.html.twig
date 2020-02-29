@@ -1,11 +1,14 @@
-﻿{% extends "admin.base.html.twig" %}
+﻿{% extends "Admin/admin.base.html.twig" %}
 
 {% block pagesActive %}
 
     <a href="index.php?action=adminChapters" class="list-group-item list-group-item-action active"><i
                 class="fas fa-book"></i> Chapitres</a>
-    <a href="index.php?action=adminComments" class="list-group-item list-group-item-action"><i
-                class="fas fa-comments"></i> Commentaires</a>
+
+    {% if current_user.role == "superuser" %}
+        <a href="index.php?action=adminComments" class="list-group-item list-group-item-action"><i
+                    class="fas fa-comments"></i> Commentaires</a>
+    {% endif %}
 
 {% endblock %}
 
@@ -17,7 +20,7 @@
             <h2>Ajouter Chapitre</h2>
         {% endif %}
         <p>Ajouter un chapitre avec cet formulaire</p>
-        <form action="{{ chapter ? 'index.php?action=editChapter&id='~chapter.id : 'index.php?action=addChapter' }}"
+        <form action="{{ chapter ? 'index.php?action=editPost&id='~chapter.id : 'index.php?action=addPost' }}"
               method="POST">
             <div class="form-group">
                 <div class="py-2">

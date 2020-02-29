@@ -59,9 +59,9 @@ class Post extends Manager
 
     public function addPost($data)
     {
-        $this->db->query('INSERT INTO posts (id, title, content, content_date)
-                              VALUES(:id, :title, :content, :content_date)');
-        $this->db->bind(':id', $data['id']);
+        $this->db->query('INSERT INTO posts (author_id, title, content, content_date)
+                              VALUES(:author_id, :title, :content, :content_date)');
+        $this->db->bind(':author_id', $data['id']);
         $this->db->bind(':title', $data['title']);
         $this->db->bind(':content', $data['content']);
         $this->db->bind(':content_date', $data['content_date']);

@@ -64,123 +64,116 @@ class AdminController
     public function addPost()
     {
         if (false === Request::has('post')) {
-            View::renderTemplate('User/register.html.twig', []);
+
+            View::renderTemplate('Admin/admin.edit.posts.html.twig', []);
 
             return false;
         }
 
         $request = Request::get('post');
-        if (false === CSRFToken::verifyCSRFToken($request->token, false)) {
-            throw new \Exception('Token incorect');
+
+
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $data = [
+            'id' => Auth::getUser()->id,
+            'title' => trim($request->title),
+            'content' => trim($request->content),
+            'content_date' => date('Y-m-d H:i:s'),
+            'title_err' => '',
+            'content_err' => '',
+        ];
+
+        //Validate data
+        if (empty($data['title'])) {
+            $data['title_err'] = 'Veuillez entre un titre';
+        }
+        if (empty($data['content'])) {
+            $data['content_err'] = 'Veuillez entre un contenu pour votre chapitre';
         }
 
+        //make sure errors are empty
+        if (empty($data['title_err']) && empty($data['content_err'])) {
+            //validated
+            if ($this->postModel->addPost($data)) {
+                Session::addMessage('Nouveau chapitre ajouté avec succès');
 
-//            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-//
-//            $data = [
-//                'title' => trim($_POST['title']),
-//                'content' => trim($_POST['content']),
-//                'admin_id' => $_SESSION['admin_id'],
-//                'content_date' => date('Y-m-d H:i:s'),
-//                'title_err' => '',
-//                'content_err' => '',
-//            ];
-//
-//            //Validate data
-//            if (empty($data['title'])) {
-//                $data['title_err'] = 'Veuillez entre un titre';
-//            }
-//            if (empty($data['content'])) {
-//                $data['content_err'] = 'Veuillez entre un contenu pour votre chapitre';
-//            }
-//
-//            //make sure errors are empty
-//            if (empty($data['title_err']) && empty($data['content_err'])) {
-//                //validated
-//                if ($this->chapterModel->addChapter($data)) {
-//                    header('Location: index.php?action=adminChapters');
-//                    flash('chapter_message', 'Nouveau chapitre ajouté avec succès');
-//                } else {
-//                    die('Impossible de traiter cette demande à l\'heure actuelle.');
-//                }
-//
-//            } else {
-//                //load view with errors
-//                global $twig;
-//                $vue = $twig->load('admin.edit.chapters.html.twig');
-//                echo $vue->render($data);
-//            }
+                return Redirect::to('adminPosts');
+            }
+
+        }
+
+        return View::renderTemplate('Admin/admin.edit.posts.html.twig', $data);
 
     }
 
-    public function editChapter()
+    public function editPost()
     {
+        if (false === Request::has('post')) {
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //Sanitize the post
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            if (isset($_GET['id'])) {
-                $chapter = $this->chapterModel->getChaptersById($_GET['id']);
-            }
-            $data = [
-                'title' => trim($_POST['title']),
-                'content' => trim($_POST['content']),
-                'admin_id' => $_SESSION['admin_id'],
-                'id' => $chapter->id,
-                'title_err' => '',
-                'content_err' => '',
-            ];
-
-            //Validate data
-            if (empty($data['title'])) {
-                $data['title_err'] = 'Veuillez entre un titre';
-            }
-            if (empty($data['content'])) {
-                $data['content_err'] = 'Veuillez entre un contenu pour votre chapitre';
-            }
-
-            //make sure errors are empty
-            if (empty($data['title_err']) && empty($data['content_err'])) {
-                //validated
-                if ($this->chapterModel->updateChapter($data)) {
-                    header('Location: index.php?action=adminChapters');
-                    flash('chapter_message', 'Le chapitre a été modifié avec succès');
-                } else {
-                    die('Impossible de traiter cette demande à l\'heure actuelle.');
-                }
-
-            } else {
-                //load view with errors
-                global $twig;
-                $vue = $twig->load('admin.edit.chapters.html.twig');
-                echo $vue->render($data);
-            }
-        } else {
-            $chapter = $this->chapterModel->getChaptersById($_GET['id']);
+            $chapter = $this->postModel->getPostById($_GET['id']);
             $data = [
                 'title' => $chapter->title,
                 'content' => $chapter->content,
                 'id' => $chapter->id,
                 'chapter' => $chapter
             ];
-            global $twig;
-            $vue = $twig->load('admin.edit.chapters.html.twig');
-            echo $vue->render($data);
+
+            return View::renderTemplate('Admin/admin.edit.posts.html.twig', $data);
+
         }
+
+        $request = Request::get('post');
+
+        //Sanitize the post
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        if (isset($_GET['id'])) {
+            $chapter = $this->postModel->getPostById($_GET['id']);
+        }
+        $data = [
+            'title' => trim($request->title),
+            'content' => trim($request->content),
+            'id' => $chapter->id,
+            'title_err' => '',
+            'content_err' => '',
+        ];
+
+        //Validate data
+        if (empty($data['title'])) {
+            $data['title_err'] = 'Veuillez entre un titre';
+        }
+        if (empty($data['content'])) {
+            $data['content_err'] = 'Veuillez entre un contenu pour votre chapitre';
+        }
+
+        //make sure errors are empty
+        if (empty($data['title_err']) && empty($data['content_err'])) {
+            //validated
+            if ($this->postModel->updatePost($data)) {
+                Session::addMessage('Le chapitre a été modifié avec succès');
+
+                return Redirect::to('adminPosts');
+            }
+
+        }
+
+        return View::renderTemplate('Admin/admin.edit.posts.html.twig', $data);
 
     }
 
-    public function deleteChapter()
+    public function deletePost()
     {
 
-        $id = $_GET['id'];
+        $request = Request::get('get');
+        $id = $request->id;
 
-        if ($this->chapterModel->deleteChapter($id)) {
-            header('Location: index.php?action=adminChapters');
-            flash('chapter_message', 'Le chapitre a été supprimé');
-        } else {
-            die('Impossible de traiter cette demande à l\'heure actuelle.');
+        if (!$this->postModel->deletePost($id)) {
+            Session::addMessage('Impossible de traiter cette demande à l\'heure actuelle.', Session::WARNING);
+            return Redirect::to('adminPosts');
         }
+
+        Session::addMessage('L\'article a été supprimé', Session::SUCCESS);
+        return Redirect::to('adminPosts');
 
     }
 
@@ -200,12 +193,12 @@ class AdminController
 
     public function adminComments()
     {
-        $chapters = $this->chapterModel->getChapters();
+        $chapters = $this->postModel->getPosts();
         foreach ($chapters as $chapter) {
             $id = $chapter->id;
         }
         $comments = $this->commentModel->getComments();
-        $chapterModel = $this->chapterModel;
+        $chapterModel = $this->postModel;
 
         $comment_message = flash('comment_message');
         $message_comment = <<<EOD
