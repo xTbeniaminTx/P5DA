@@ -112,9 +112,11 @@ class AdminController
 
     public function editPost()
     {
+        $requestGet = Request::get('get');
+
         if (false === Request::has('post')) {
 
-            $chapter = $this->postModel->getPostById($_GET['id']);
+            $chapter = $this->postModel->getPostById($requestGet->id);
             $data = [
                 'title' => $chapter->title,
                 'content' => $chapter->content,

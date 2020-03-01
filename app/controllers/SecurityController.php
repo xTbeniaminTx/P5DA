@@ -111,8 +111,10 @@ class SecurityController
 
     public function resetPass()
     {
-        $token = $_GET['token'];
-        $email = $_GET['email'];
+        $requestGet = Request::get('get');
+
+        $token = $requestGet->token;
+        $email = $requestGet->email;
 
         $user = $this->getUserOrExit($token);
 
