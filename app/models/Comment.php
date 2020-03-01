@@ -92,9 +92,10 @@ class Comment extends Manager
         //execute
         if ($this->db->execute()) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
+
     }
 
 

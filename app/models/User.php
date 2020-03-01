@@ -38,9 +38,9 @@ class User extends Manager
         //execute
         if ($this->db->execute()) {
             return true;
-        } else {
-            return false;
         }
+        return false;
+
     }
 
     public function updateUser($data)
@@ -67,9 +67,9 @@ class User extends Manager
         //execute
         if ($this->db->execute()) {
             return true;
-        } else {
-            return false;
         }
+        return false;
+
     }
 
 
@@ -84,9 +84,9 @@ class User extends Manager
         //check row
         if ($this->db->rowCount() > 0) {
             return $row;
-        } else {
-            return false;
         }
+        return false;
+
 
     }
 
@@ -101,13 +101,12 @@ class User extends Manager
         //check row
         if ($this->db->rowCount() > 0) {
             return $row;
-        } else {
-            return false;
         }
 
+        return false;
+
+
     }
-
-
 
 
     public function login($email, $password)
@@ -120,9 +119,10 @@ class User extends Manager
         $password_db = $row->password;
         if (password_verify($password, $password_db)) {
             return $row;
-        } else {
-            return false;
         }
+
+        return false;
+
     }
 
     public function sendPasswordReset($email)
@@ -232,9 +232,10 @@ class User extends Manager
         //execute
         if ($this->db->execute()) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
+
     }
 
     public function deleteUser($id)
@@ -245,9 +246,9 @@ class User extends Manager
         //execute
         if ($this->db->execute()) {
             return true;
-        } else {
-            return false;
         }
+        return false;
+
     }
 
 }
