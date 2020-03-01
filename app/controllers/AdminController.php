@@ -254,11 +254,5 @@ class AdminController
         return Redirect::to('adminComments');
     }
 
-    public function superView()
-    {
-
-        View::renderTemplate('admin.base.html.twig');
-
-    }
 
 }
