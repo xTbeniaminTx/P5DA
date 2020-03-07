@@ -64,8 +64,9 @@ class Auth
 
     public static function getUser()
     {
-        $user = new User();
+
         if (isset($_SESSION['SESSION_USER_ID'])) {
+            $user = new User();
             return $user->findById($_SESSION['SESSION_USER_ID']);
         }
 

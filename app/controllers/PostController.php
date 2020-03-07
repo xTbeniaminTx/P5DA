@@ -38,11 +38,11 @@ class PostController
 
         View::renderTemplate(
             'posts.html.twig', [
-            'title' => "Admin Chapters",
-            'chapters' => $chapters,
-            'photoId' => $photoId,
-            'posts' => $posts,
-            'links' => $links
+                'title' => "Admin Chapters",
+                'chapters' => $chapters,
+                'photoId' => $photoId,
+                'posts' => $posts,
+                'links' => $links
             ]
         );
     }
@@ -63,8 +63,13 @@ class PostController
         $comments = $this->commentModel->getComments();
         $commentsById = $this->commentModel->getCommentsById($requestGet->id);
         $photoId = rand(10, 50);
-        $user = Auth::getUser()->role;
-        $adminLogged = $user === 'superuser' ? true : false;
+
+        if (Auth::isLogged()) {
+            $user = Auth::getUser()->role;
+            $adminLogged = $user === 'superuser' ? true : false;
+        } else {
+            $adminLogged = 'visitor';
+        }
 
         $data = [
             'adminLogged' => $adminLogged,
