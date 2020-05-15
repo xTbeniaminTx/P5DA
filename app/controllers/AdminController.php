@@ -114,9 +114,11 @@ class AdminController
     {
         $requestGet = Request::get('get');
 
+        $id = $requestGet->id;
+
         if (false === Request::has('post')) {
 
-            $chapter = $this->postModel->getPostById($requestGet->id);
+            $chapter = $this->postModel->getPostById($id);
             $data = [
                 'title' => $chapter->title,
                 'content' => $chapter->content,
@@ -128,38 +130,41 @@ class AdminController
 
         }
 
-        $request = Request::get('post');
+        if (Request::has('post')) {
 
-        //Sanitize the post
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        if (isset($request->id)) {
-            $chapter = $this->postModel->getPostById($request->id);
-        }
-        $data = [
-            'title' => trim($request->title),
-            'content' => trim($request->content),
-            'id' => $chapter->id,
-            'title_err' => '',
-            'content_err' => '',
-        ];
+            $request = Request::get('post');
 
-        //Validate data
-        if (empty($data['title'])) {
-            $data['title_err'] = 'Veuillez entre un titre';
-        }
-        if (empty($data['content'])) {
-            $data['content_err'] = 'Veuillez entre un contenu pour votre chapitre';
-        }
+            //Sanitize the post
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-        //make sure errors are empty
-        if (empty($data['title_err']) && empty($data['content_err'])) {
-            //validated
-            if ($this->postModel->updatePost($data)) {
-                Session::addMessage('Le chapitre a été modifié avec succès');
+            $data = [
+                'title' => trim($request->title),
+                'content' => trim($request->content),
+                'id' => $id,
+                'title_err' => '',
+                'content_err' => '',
+            ];
 
-                return Redirect::to('adminPosts');
+
+            //Validate data
+            if (empty($data['title'])) {
+                $data['title_err'] = 'Veuillez entre un titre';
+            }
+            if (empty($data['content'])) {
+                $data['content_err'] = 'Veuillez entre un contenu pour votre chapitre';
             }
 
+            //make sure errors are empty
+            if (empty($data['title_err']) && empty($data['content_err'])) {
+
+                //validated
+                if ($this->postModel->updatePost($data) === true) {
+                    Session::addMessage('Le chapitre a été modifié avec succès');
+
+                    return Redirect::to('adminPosts');
+                }
+
+            }
         }
 
         return View::renderTemplate('Admin/admin.edit.posts.html.twig', $data);

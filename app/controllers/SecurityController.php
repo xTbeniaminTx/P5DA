@@ -90,8 +90,10 @@ class SecurityController
 
     public function requestReset()
     {
-
-        $request = Request::get('post');
+        $request = null;
+        if (Request::has('post')) {
+            $request = Request::get('post');
+        }
 
         if (false === Request::has('post') || false === isset($request->email)) {
             View::renderTemplate('Password/lost.html.twig');
@@ -106,6 +108,7 @@ class SecurityController
         }
 
         $this->userModel->sendPasswordReset($request->email);
+
         View::renderTemplate('resetRequest.html.twig');
     }
 

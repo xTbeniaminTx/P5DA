@@ -22,13 +22,14 @@
         <p>Ajouter un chapitre avec ce formulaire</p>
         <form action="{{ chapter ? 'index.php?action=editPost&id='~chapter.id : 'index.php?action=addPost' }}"
               method="POST">
+            {% if chapter %}
             <div class="form-group">
                 <div class="py-2">
                     <label for="title">Titre:</label>
                     <input type="text" name="title"
                            class="form-control form-control-lg {{ (title_err is not empty) ? 'is-invalid' : '' }}"
                            placeholder="Votre titre ici"
-                           value="{{ chapter ? chapter.title : title }}">
+                           value="{{ chapter.title }}">
 
                     <span class="invalid-feedback">{{ title_err }}</span>
                 </div>
@@ -36,10 +37,29 @@
                     <label for="content">Contenu:</label>
                     <textarea name="content" id="content"
                               class="form-control {{ (content_err is not empty) ? 'is-invalid' : '' }}"
-                              placeholder="Votre contenu ici">{{ chapter ? chapter.content : content }}</textarea>
+                              >{{ chapter.content }}</textarea>
                     <span class="invalid-feedback">{{ content_err }}</span>
                 </div>
             </div>
+            {% else %}
+                <div class="form-group">
+                    <div class="py-2">
+                        <label for="title">Titre:</label>
+                        <input type="text" name="title"
+                               class="form-control form-control-lg {{ (title_err is not empty) ? 'is-invalid' : '' }}"
+                               placeholder="Votre titre ici">
+
+                        <span class="invalid-feedback">{{ title_err }}</span>
+                    </div>
+                    <div class="py-2">
+                        <label for="content">Contenu:</label>
+                        <textarea name="content" id="content"
+                                  class="form-control {{ (content_err is not empty) ? 'is-invalid' : '' }}"
+                                  placeholder="Votre contenu ici"></textarea>
+                        <span class="invalid-feedback">{{ content_err }}</span>
+                    </div>
+                </div>
+            {% endif %}
             <input type="submit" class="btn btn-success" value="{{ chapter ? 'Modifier' : 'Ajouter' }}">
 
         </form>
