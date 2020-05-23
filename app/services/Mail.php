@@ -21,7 +21,7 @@ class Mail
         $sendgrid = new \SendGrid(SENDGRID_API_KEY);
         try {
             $sendgrid->send($email);
-            Session::addMessage('Mail envoyer avec succes');
+            Session::addMessage('Mail envoyé avec succès!');
             return Redirect::to('contact');
         } catch (Exception $e) {
             echo 'Caught exception: ' . $e->getMessage() . "\n";

@@ -19,7 +19,9 @@
         "php-http/curl-client": "^2.1",
         "guzzlehttp/psr7": "^1.6",
         "voku/pagination": "^3.0",
-        "nesbot/carbon": "^2.30"
+        "nesbot/carbon": "^2.30",
+        "symfony/swiftmailer-bundle": "^3.4",
+        "phpmailer/phpmailer": "^6.1"
     },
     "config": {
         "optimize-autoloader": true
