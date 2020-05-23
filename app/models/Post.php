@@ -57,7 +57,6 @@ class Post extends Manager
 
     }
 
-
     public function addPost($data)
     {
         $this->db->query(

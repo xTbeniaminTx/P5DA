@@ -4,7 +4,7 @@
         <div id="overlay" style="height: 50vh;"></div>
         <div id="header" class="container text-white text-center">
             <h3 class="display-5 mb-0">Publications</h3>
-            <h1 class="display-3">Jean Forteroche</h1>
+            <h1 class="display-3">{{ authorPost.first_name }} {{ authorPost.last_name }}</h1>
         </div>
     </section>
 {% endblock %}
@@ -20,7 +20,7 @@
                     <h1>{{ chapter.title |raw }}</h1>
 
                     <p class="lead">
-                        écrit par <a href="index.php?action=bio">Jean Forteroche</a>
+                        écrit par {{ authorPost.first_name }} {{ authorPost.last_name }}
                     </p>
 
                     <hr>
@@ -91,7 +91,6 @@
                             </div>
                             <ul class="flex-column jf">
                                 {% if comment.comment_status == 'newComment' %}
-                                    {{ dump() }}
                                     <li class="my-1">
                                         <a href="index.php?action=unapprouve&comment_id={{ comment.comment_id }}&id={{ comment.comment_chapter_id }}"
                                            class="signal-alert"
@@ -119,7 +118,7 @@
                 <div class="col-md-4 py-2">
 
                     <div class="card px-3">
-                        <h4>Chapitres</h4>
+                        <h4>Articles</h4>
                         <div class="row">
                             <div class="col-lg-12">
                                 <ul class="list-unstyled">

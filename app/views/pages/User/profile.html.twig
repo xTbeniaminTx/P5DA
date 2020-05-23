@@ -24,8 +24,11 @@
 
                 <div class="col-md-4 ">
                     <div class="card" style="width: 18rem;">
-{#                        {{ user.photo }}#}
+                        {% if user.user_photo_path  %}
                         <img class="card-img-top" src="/images/{{ user.user_photo_path }}" alt="Card image cap">
+                        {% else %}
+                        <img class="card-img-top" src="/images/user.png" alt="Card image cap">
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-md-4 d-flex align-items-center">

@@ -5,6 +5,7 @@ namespace app\controllers;
 
 use app\models\Comment;
 use app\models\Post;
+use app\models\User;
 use app\services\Auth;
 use app\services\Redirect;
 use app\services\Request;
@@ -14,12 +15,14 @@ use app\services\View;
 class PostController
 {
     private $postModel;
+    private $userModel;
     private $commentModel;
 
     public function __construct()
     {
         $this->postModel = new Post();
         $this->commentModel = new Comment();
+        $this->userModel = new User();
     }
 
 
@@ -31,6 +34,8 @@ class PostController
         $chapters = $this->postModel->getPosts();
         $total = count($chapters);
         $object = $this->postModel;
+
+
 
         list($posts, $links) = $object->paginatePosts(3, $total, $object);
 
@@ -60,9 +65,12 @@ class PostController
 
         $chapters = $this->postModel->getPosts();
         $chapter = $this->postModel->getPostById($requestGet->id);
+
         $comments = $this->commentModel->getComments();
         $commentsById = $this->commentModel->getCommentsById($requestGet->id);
         $photoId = rand(10, 50);
+
+        $authorPost = $this->userModel->findById($chapter->author_id);
 
         if (Auth::isLogged()) {
             $user = Auth::getUser()->role;
@@ -76,6 +84,7 @@ class PostController
             'chapter' => $chapter,
             'chapters' => $chapters,
             'comments' => $comments,
+            'authorPost' => $authorPost,
             'id' => 10 + rand(10, 50),
             'photoId' => $photoId,
             'commentsById' => $commentsById,
