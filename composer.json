@@ -9,18 +9,14 @@
         "tinymce/tinymce": "^5.0.6",
         "symfony/var-dumper": "^4.3",
         "hellonico/twig-dump-extension": "^1.0",
-        "swiftmailer/swiftmailer": "^6.0",
         "ext-pdo": "*",
-        "mailgun/mailgun-php": "^3.0",
         "php-http/guzzle6-adapter": "^2.0",
         "php-http/message": "^1.8",
-        "sendgrid/sendgrid": "~7",
         "php-http/discovery": "^1.7",
         "php-http/curl-client": "^2.1",
         "guzzlehttp/psr7": "^1.6",
         "voku/pagination": "^3.0",
         "nesbot/carbon": "^2.30",
-        "symfony/swiftmailer-bundle": "^3.4",
         "phpmailer/phpmailer": "^6.1"
     },
     "config": {
