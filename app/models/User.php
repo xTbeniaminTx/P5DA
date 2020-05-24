@@ -7,6 +7,7 @@ namespace app\models;
 use app\services\Auth;
 use app\services\CSRFToken;
 use app\services\Mail;
+use app\services\Mail2;
 use app\services\ValidateRequest;
 use app\services\View;
 
@@ -173,7 +174,7 @@ class User extends Manager
         $text = View::getTemplate('Password/reset_email.txt', ['url' => $url]);
         $html = View::getTemplate('Password/reset_email.html', ['url' => $url]);
 
-        Mail::send($email, $user->first_name, $email, 'Votre mot de passe', $text, $html);
+        Mail2::send($email, $user->first_name, $email, 'Votre mot de passe', $text, $html);
 
     }
 

@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Post;
 use app\services\Auth;
 use app\services\Mail;
+use app\services\Mail2;
 use app\services\Request;
 use app\services\View;
 
@@ -72,7 +73,7 @@ class BaseController
             ]
         );
 
-        Mail::send('beniamin.tolan@gmail.com', 'Admin BT Blog', $email, 'Message Blog TB Contact', $text, $html);
+        Mail2::send('beniamin.tolan@gmail.com', 'Admin BT Blog', $email, 'Message Blog TB Contact', $text, $html);
 
     }
 

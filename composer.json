@@ -17,7 +17,8 @@
         "guzzlehttp/psr7": "^1.6",
         "voku/pagination": "^3.0",
         "nesbot/carbon": "^2.30",
-        "phpmailer/phpmailer": "^6.1"
+        "phpmailer/phpmailer": "^6.1",
+        "symfony/swiftmailer-bundle": "^3.4"
     },
     "config": {
         "optimize-autoloader": true

@@ -1,5 +1,5 @@
-Password reset
+Réinitialisation de votre mot de passe
 
-Please click the folowing link:
+Veuillez cliquer le lien et suivre les instructions pour change votre mot de passe:
 
 {{ url }}
